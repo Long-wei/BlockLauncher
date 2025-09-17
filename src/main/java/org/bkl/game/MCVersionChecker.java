@@ -14,6 +14,10 @@ public class MCVersionChecker {
     private static List<String> versionNameList = null;
 
     public MCVersionChecker () {
+
+        MCVersionChecker.versionFolder = new ArrayList<File>();
+        MCVersionChecker.versionNameList = new ArrayList<String>();
+
         String versionFolderPath = System.getenv("APPDATA") + "\\.minecraft\\versions";
         File mcDir = new File(versionFolderPath);
 
@@ -38,6 +42,10 @@ public class MCVersionChecker {
 
     public static List<File> getVersionFolder() {
         return MCVersionChecker.versionFolder;
+    }
+
+    public static List<String> getVersionNameList() {
+        return MCVersionChecker.versionNameList;
     }
 
 

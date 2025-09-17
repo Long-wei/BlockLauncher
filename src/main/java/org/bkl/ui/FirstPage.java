@@ -17,11 +17,17 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import org.bkl.game.GameLauncher;
+import org.bkl.game.MCVersionChecker;
 
 public class FirstPage extends Application {
 
     private double xOffset = 0;
     private double yOffset = 0;
+    private static ObservableList<String> options = null;
+
+    public FirstPage() {
+        FirstPage.options = FXCollections.observableArrayList(MCVersionChecker.getVersionNameList());
+    }
 
     @Override
     public void start(Stage primaryStage) {
@@ -82,14 +88,12 @@ public class FirstPage extends Application {
             primaryStage.setY(event.getScreenY() - yOffset);
         });
 
-        // 底部大容器
         HBox content = new HBox();
         content.setStyle(
                 "-fx-background-color: pink;" +
                 "-fx-background-radius: 0 0 10 10;"
         );
 
-        // 右边容器
         VBox mainContent = new VBox();
         mainContent.setPrefHeight(500);
         mainContent.setPrefWidth(600);
@@ -104,11 +108,6 @@ public class FirstPage extends Application {
         startButtonHBox.setPrefHeight(50);
         startButtonHBox.setAlignment(Pos.CENTER);
 
-        ObservableList<String> options = FXCollections.observableArrayList(
-            "1.21.8",
-                "1.21.7",
-                "1.21.1"
-        );
 
         HBox comboBoxHBox = new HBox();
         comboBoxHBox.setPrefWidth(100);
@@ -157,14 +156,18 @@ public class FirstPage extends Application {
                 "}"
         );
 
-        comboBox.setValue("1.21.8");
+        if (!FirstPage.options.isEmpty()) {
+            comboBox.setValue(options.get(0));
+            GameLauncher.setVersion(options.get(0));
+        } else {
+            comboBox.setValue("");
+        }
         comboBox.setOnAction(e -> {
             String selected = comboBox.getValue();
             GameLauncher.setVersion(selected);
-            System.out.println("选择版本" + selected);
         });
-        comboBoxHBox.getChildren().add(comboBox);
 
+        comboBoxHBox.getChildren().add(comboBox);
         VBox startButtonVBox = new VBox();
         startButtonVBox.setPrefWidth(150);
         startButtonVBox.setPrefHeight(50);
@@ -173,7 +176,6 @@ public class FirstPage extends Application {
                 "-fx-background-color: #2196F3;" +
                 "-fx-background-radius: 25;"
         );
-        // 开始游戏按钮
         Button startButton = new Button("启动游戏");
         startButton.setPrefWidth(150);
         startButton.setPrefHeight(50);
@@ -185,7 +187,6 @@ public class FirstPage extends Application {
                 "-fx-background-radius: 25 25 25 25;" +
                 "-fx-padding: 10 20 10 20;"
         );
-        // 开始游戏点击监听事件
         startButton.setOnAction(e -> {
             GameLauncher.start();
         });

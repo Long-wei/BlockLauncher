@@ -11,11 +11,10 @@ public class Main {
         // 获取本机mc路径
         String minecraftDir = System.getenv("APPDATA") + "\\.minecraft";
 
-        // 初始化启动类
-        GameLauncher gameLauncher = new GameLauncher("", "ID", minecraftDir);
-
         // 初始化版本检查
         MCVersionChecker mcVersionChecker = new MCVersionChecker();
+        // 初始化启动类
+        GameLauncher gameLauncher = new GameLauncher("", "ID", minecraftDir);
 
         FirstPage.launchUi(args);
     }
