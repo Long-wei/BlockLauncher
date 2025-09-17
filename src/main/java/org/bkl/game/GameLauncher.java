@@ -15,9 +15,9 @@ import org.to2mbn.jmccc.option.MinecraftDirectory;
 
 public class GameLauncher {
 
-    private static String version;
-    private static String minecraftDir;
-    private static String auth;
+    private static String version = null;
+    private static String minecraftDir = null;
+    private static String auth = null;
 
     public GameLauncher(String version, String auth, String minecraftDir) {
         GameLauncher.version = version;
@@ -41,5 +41,8 @@ public class GameLauncher {
         }
     }
 
+    public static void setVersion(String version) {
+        GameLauncher.version = version;
+    }
 
 }

@@ -118,14 +118,12 @@ public class FirstPage extends Application {
         ComboBox<String> comboBox = new ComboBox<>(options);
         comboBox.setPrefHeight(20);
         comboBox.setPrefWidth(60);
-// 确保先为comboBox添加custom-combo样式类
         comboBox.getStyleClass().add("custom-combo");
 
-// 修改后的样式设置，包含黑色半透明的选择框
         comboBox.getStylesheets().add(
                 "data:text/css," +
                 ".custom-combo {" +
-                "    -fx-background-color: rgba(0, 0, 0, 0.5);" +  // 主控件黑色半透明
+                "    -fx-background-color: rgba(0, 0, 0, 0.5);" +
                 "    -fx-background-radius: 10;" +
                 "}" +
                 ".custom-combo .arrow-button {" +
@@ -134,7 +132,6 @@ public class FirstPage extends Application {
                 ".custom-combo .arrow {" +
                 "    -fx-background-color: transparent;" +
                 "}" +
-                // 主控件中的文字样式
                 ".custom-combo .list-cell {" +
                 "    -fx-text-fill: white;" +
                 "    -fx-background-color: transparent;" +
@@ -143,31 +140,28 @@ public class FirstPage extends Application {
                 "    -fx-text-fill: white;" +
                 "    -fx-background-color: transparent;" +
                 "}" +
-                // 下拉选择框的黑色半透明样式
                 ".custom-combo .combo-box-popup .list-view {" +
-                "    -fx-background-color: rgba(0, 0, 0, 0.5);" +  // 选择框黑色半透明
+                "    -fx-background-color: rgba(0, 0, 0, 0.5);" +
                 "    -fx-background-radius: 10;" +
                 "    -fx-border-radius: 10;" +
                 "}" +
-                // 下拉选择框中的选项样式
                 ".custom-combo .combo-box-popup .list-cell {" +
-                "    -fx-text-fill: white;" +  // 选择框文字保持白色以适配黑色背景
+                "    -fx-text-fill: white;" +
                 "    -fx-padding: 3 5 3 5;" +
                 "}" +
-                // 选择框中选中项的样式
                 ".custom-combo .combo-box-popup .list-cell:filled:selected {" +
-                "    -fx-background-color: rgba(255, 255, 255, 0.2);" +  // 选中项高亮
+                "    -fx-background-color: rgba(255, 255, 255, 0.2);" +
                 "}" +
-                // 选择框中鼠标悬停项的样式
                 ".custom-combo .combo-box-popup .list-cell:filled:hover {" +
-                "    -fx-background-color: rgba(255, 255, 255, 0.1);" +  // 悬停效果
+                "    -fx-background-color: rgba(255, 255, 255, 0.1);" +
                 "}"
         );
 
         comboBox.setValue("1.21.8");
         comboBox.setOnAction(e -> {
             String selected = comboBox.getValue();
-
+            GameLauncher.setVersion(selected);
+            System.out.println("选择版本" + selected);
         });
         comboBoxHBox.getChildren().add(comboBox);
 

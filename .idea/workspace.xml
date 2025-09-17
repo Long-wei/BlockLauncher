@@ -4,10 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1ef6fceb-646f-4ee4-b80a-46dbd324612a" name="Changes" comment="使用jmccc启动游戏">
+    <list default="true" id="1ef6fceb-646f-4ee4-b80a-46dbd324612a" name="Changes" comment="优化启动类及页面">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/bkl/game/GameLauncher.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/bkl/game/GameLauncher.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/bkl/game/MCVersionChecker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/bkl/game/MCVersionChecker.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/bkl/game/VersionParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/bkl/game/VersionParser.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/bkl/ui/FirstPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/bkl/ui/FirstPage.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -63,13 +65,26 @@
       <recent name="org.bkl.game" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.Main">
+  <component name="RunManager" selected="Application.MCVersionChecker">
     <configuration name="JarMerger" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="org.bkl.java.JarMerger" />
       <module name="BlockLauncher" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="org.bkl.java.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="MCVersionChecker" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="org.bkl.game.MCVersionChecker" />
+      <module name="BlockLauncher" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.bkl.game.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -116,22 +131,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="GameLauncher.gameLauncher" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="BlockLauncher" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="org.bkl.game.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="org.bkl.game" />
-      <option name="MAIN_CLASS_NAME" value="org.bkl.game.GameLauncher" />
-      <option name="METHOD_NAME" value="gameLauncher" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="GameLauncher.testWorkSpace" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="BlockLauncher" />
       <extension name="coverage">
@@ -150,11 +149,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.MCVersionChecker" />
         <item itemvalue="Application.Main" />
         <item itemvalue="Application.JarMerger" />
         <item itemvalue="JUnit.ClassPathBuilder.buildClasspath" />
         <item itemvalue="JUnit.GameLauncher.testWorkSpace" />
-        <item itemvalue="JUnit.GameLauncher.gameLauncher" />
       </list>
     </recent_temporary>
   </component>
@@ -177,7 +176,7 @@
       <workItem from="1757933258872" duration="8526000" />
       <workItem from="1757944598724" duration="3192000" />
       <workItem from="1758029461542" duration="6602000" />
-      <workItem from="1758070522943" duration="5730000" />
+      <workItem from="1758070522943" duration="7324000" />
     </task>
     <task id="LOCAL-00001" summary="初始代码">
       <option name="closed" value="true" />
@@ -195,7 +194,15 @@
       <option name="project" value="LOCAL" />
       <updated>1758036257502</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="优化启动类及页面">
+      <option name="closed" value="true" />
+      <created>1758076627317</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1758076627317</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -204,7 +211,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="初始代码" />
     <MESSAGE value="使用jmccc启动游戏" />
-    <option name="LAST_COMMIT_MESSAGE" value="使用jmccc启动游戏" />
+    <MESSAGE value="优化启动类及页面" />
+    <option name="LAST_COMMIT_MESSAGE" value="优化启动类及页面" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

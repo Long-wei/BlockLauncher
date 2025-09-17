@@ -1,6 +1,8 @@
 package org.bkl.game;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author LongWei
@@ -8,7 +10,10 @@ import java.io.File;
  */
 public class MCVersionChecker {
 
-    public static void mcVersionChecker () {
+    private static List<File> versionFolder = null;
+    private static List<String> versionNameList = null;
+
+    public MCVersionChecker () {
         String versionFolderPath = System.getenv("APPDATA") + "\\.minecraft\\versions";
         File mcDir = new File(versionFolderPath);
 
@@ -25,8 +30,18 @@ public class MCVersionChecker {
 
         System.out.println("Installed Minecraft versions:");
         for (File versionFolder : mcVersionFolder) {
-            System.out.println("- " + versionFolder.getName());
+            MCVersionChecker.versionNameList.add(versionFolder.getName());
         }
+
+        MCVersionChecker.versionFolder = List.of(mcVersionFolder);
+    }
+
+    public static List<File> getVersionFolder() {
+        return MCVersionChecker.versionFolder;
+    }
+
+
+    public static void main(String[] args) {
     }
 
 }

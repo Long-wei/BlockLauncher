@@ -1,4 +1,5 @@
 import org.bkl.game.GameLauncher;
+import org.bkl.game.MCVersionChecker;
 import org.bkl.ui.FirstPage;
 
 /**
@@ -7,14 +8,14 @@ import org.bkl.ui.FirstPage;
  */
 public class Main {
     public static void main(String[] args) {
-        System.out.println("HelloBlockLauncher");
-
-
         // 获取本机mc路径
         String minecraftDir = System.getenv("APPDATA") + "\\.minecraft";
 
         // 初始化启动类
-        GameLauncher gameLauncher = new GameLauncher("1.21.8", "ID", minecraftDir);
+        GameLauncher gameLauncher = new GameLauncher("", "ID", minecraftDir);
+
+        // 初始化版本检查
+        MCVersionChecker mcVersionChecker = new MCVersionChecker();
 
         FirstPage.launchUi(args);
     }
