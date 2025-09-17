@@ -18,7 +18,7 @@ public class MCVersionChecker {
         MCVersionChecker.versionFolder = new ArrayList<File>();
         MCVersionChecker.versionNameList = new ArrayList<String>();
 
-        String versionFolderPath = System.getenv("APPDATA") + "\\.minecraft\\versions";
+        String versionFolderPath = MinecraftPath.minecraftPath + "/versions";
         File mcDir = new File(versionFolderPath);
 
         if (!mcDir.exists() || !mcDir.isDirectory()) {
@@ -48,8 +48,5 @@ public class MCVersionChecker {
         return MCVersionChecker.versionNameList;
     }
 
-
-    public static void main(String[] args) {
-    }
 
 }

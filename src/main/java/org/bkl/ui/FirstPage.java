@@ -116,7 +116,7 @@ public class FirstPage extends Application {
 
         ComboBox<String> comboBox = new ComboBox<>(options);
         comboBox.setPrefHeight(20);
-        comboBox.setPrefWidth(60);
+        comboBox.setPrefWidth(70);
         comboBox.getStyleClass().add("custom-combo");
 
         comboBox.getStylesheets().add(
