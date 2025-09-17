@@ -15,16 +15,31 @@ import org.to2mbn.jmccc.option.MinecraftDirectory;
 
 public class GameLauncher {
 
-    public static void gameLauncher(String version, String minecraftDir) throws Exception {
+    private static String version;
+    private static String minecraftDir;
+    private static String auth;
 
-        Launcher launcher = LauncherBuilder.buildDefault();
-
-        MinecraftDirectory minecraftDirectory = new MinecraftDirectory(minecraftDir);
-
-        LaunchOption option
-                = new LaunchOption("1.21.8", new OfflineAuthenticator("Id"), minecraftDirectory);
-
-        launcher.launch(option);
-
+    public GameLauncher(String version, String auth, String minecraftDir) {
+        GameLauncher.version = version;
+        GameLauncher.minecraftDir = minecraftDir;
+        GameLauncher.auth = auth;
     }
+
+    public static void start() {
+        GameLauncher.gameLauncher();
+    }
+
+    private static void gameLauncher() {
+        try {
+            Launcher launcher = LauncherBuilder.buildDefault();
+            MinecraftDirectory minecraftDirectory = new MinecraftDirectory(minecraftDir);
+            LaunchOption option
+                    = new LaunchOption(version, new OfflineAuthenticator(auth), minecraftDirectory);
+            launcher.launch(option);
+        } catch ( Exception e) {
+
+        }
+    }
+
+
 }

@@ -12,11 +12,10 @@ public class Main {
 
         // 获取本机mc路径
         String minecraftDir = System.getenv("APPDATA") + "\\.minecraft";
-        try {
-            GameLauncher.gameLauncher("1.21.8", minecraftDir);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+
+        // 初始化启动类
+        GameLauncher gameLauncher = new GameLauncher("1.21.8", "ID", minecraftDir);
+
         FirstPage.launchUi(args);
     }
 }
