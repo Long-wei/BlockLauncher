@@ -2,6 +2,8 @@ package org.bkl.game;
 
 
 import javafx.concurrent.Task;
+import javafx.scene.layout.Pane;
+import org.bkl.ui.FirstPage;
 import org.bkl.ui.ProgressDialog;
 import org.to2mbn.jmccc.auth.OfflineAuthenticator;
 import org.to2mbn.jmccc.launch.Launcher;
@@ -20,9 +22,9 @@ public class GameLauncher {
     private static String version = null;
     private static String minecraftDir = null;
     private static String auth = null;
-
-    // 游戏是否已经被启动标志，防止被开始游戏按钮被重复点击
     private static Boolean isStart = false;
+    private static Pane firstPagePane = null;
+    private static ProgressDialog progressDialog = null;
 
     public GameLauncher(String version, String auth, String minecraftDir) {
         GameLauncher.version = version;
@@ -31,9 +33,18 @@ public class GameLauncher {
     }
 
     public static void start() {
+        if (GameLauncher.isStart ) {
+            return;
+        }
+        GameLauncher.isStart = true;
+
+        GameLauncher.firstPagePane = FirstPage.getStackPane();
+        progressDialog = new ProgressDialog();
+        progressDialog.show(firstPagePane);
+
         GameLauncher.gameLauncher(new LauncherCallback() {
             @Override
-            public void onProgress(String message, int progress) {
+            public void onProgress(String message, double progress) {
                 System.out.println(message + progress);
             }
 
@@ -54,11 +65,6 @@ public class GameLauncher {
     }
 
     private static void gameLauncher(LauncherCallback callback) {
-        if (GameLauncher.isStart ) {
-            return;
-        }
-        GameLauncher.isStart = true;
-
         new Thread(() -> {
             try {
                 callback.onProgress("初始化起动器", 10);

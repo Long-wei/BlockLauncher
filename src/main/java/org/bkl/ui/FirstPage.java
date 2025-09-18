@@ -18,6 +18,7 @@ import org.bkl.game.MCVersionChecker;
 
 public class FirstPage extends Application {
 
+    private static StackPane stackPane = null;
     private double xOffset = 0;
     private double yOffset = 0;
     private static ObservableList<String> options = null;
@@ -52,28 +53,27 @@ public class FirstPage extends Application {
         Region titleSpacer = new Region();
         HBox.setHgrow(titleSpacer, javafx.scene.layout.Priority.ALWAYS);
 
-        Button closeButton = new Button("×");
+        Button closeButton = new Button("✕");
         closeButton.setStyle(
                 "-fx-background-color: #2196F3;" +
-                        "-fx-text-fill: white;" +
-                        "-fx-font-size: 16px;" +
-                        "-fx-font-weight: 900;" +
-                        "-fx-background-radius: 0 10 0 0;" +
-                        "-fx-padding: 0 10 0 0;"
+                "-fx-text-fill: white;" +
+                "-fx-font-size: 16px;" +
+                "-fx-font-weight: 900;" +
+                "-fx-background-radius: 0 10 0 0;" +
+                "-fx-padding: 0 10 0 0;"
         );
         closeButton.setOnAction(e -> primaryStage.close());
 
         Button minimizeButton = new Button("-");
         minimizeButton.setStyle(
                 "-fx-background-color: #2196F3;" +
-                        "-fx-text-fill: white;" +
-                        "-fx-font-size: 16px;" +
-                        "-fx-font-weight: 900;" +
-                        "-fx-background-radius: 0;" +
-                        "-fx-padding: 0 10 0 10;"
+                "-fx-text-fill: white;" +
+                "-fx-font-size: 16px;" +
+                "-fx-font-weight: 900;" +
+                "-fx-background-radius: 0 10 0 0;" +
+                "-fx-padding: 0 10 0 0;"
         );
         minimizeButton.setOnAction(e -> primaryStage.setIconified(true));
-
 
         titleBar.getChildren().addAll(title, titleSpacer, minimizeButton, closeButton);
         titleBar.setOnMousePressed((MouseEvent event) -> {
@@ -87,7 +87,6 @@ public class FirstPage extends Application {
 
         HBox content = new HBox();
         content.setStyle(
-                "-fx-background-color: pink;" +
                 "-fx-background-radius: 0 0 10 10;"
         );
 
@@ -138,7 +137,6 @@ public class FirstPage extends Application {
                 "}" +
                 ".custom-combo .combo-box-popup .list-view {" +
                 "    -fx-background-color: rgba(0, 0, 0, 0.5);" +
-                "    -fx-background-radius: 10;" +
                 "    -fx-border-radius: 10;" +
                 "}" +
                 ".custom-combo .combo-box-popup .list-cell {" +
@@ -209,8 +207,8 @@ public class FirstPage extends Application {
 
         content.getChildren().addAll(leftPanel, mainContent);
 
-        StackPane rootContainer = new StackPane();
-        rootContainer.setStyle(
+        stackPane = new StackPane();
+        stackPane.setStyle(
                 "-fx-background-radius: 10 10 10 10;" +
                 "-fx-background-color: transparent"
         );
@@ -222,21 +220,22 @@ public class FirstPage extends Application {
                 "-fx-background-radius: 10 10 10 10;" +
                 "-fx-background-insets: 0;"
         );
-        rootContainer.getChildren().add(root);
+        stackPane.getChildren().add(root);
 
-        Scene scene = new Scene(rootContainer, 800, 500);
+        Scene scene = new Scene(stackPane, 800, 500);
         scene.setFill(Color.TRANSPARENT);
         primaryStage.initStyle(StageStyle.UNDECORATED);
         primaryStage.setScene(scene);
         primaryStage.initStyle(StageStyle.TRANSPARENT);
         primaryStage.show();
-
-        ProgressDialog progressDialog = new ProgressDialog();
-        progressDialog.show(rootContainer);
-
     }
 
     public static void launchUi(String[] args) {
         launch(args);
     }
+
+    public static Pane getStackPane() {
+        return stackPane;
+    }
+
 }

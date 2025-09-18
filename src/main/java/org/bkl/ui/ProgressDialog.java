@@ -1,41 +1,81 @@
 package org.bkl.ui;
 
 
+import javafx.animation.FadeTransition;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import javafx.scene.layout.VBox;
+import javafx.util.Duration;
+
 
 public class ProgressDialog extends HBox {
 
-    private static final Logger log = LoggerFactory.getLogger(ProgressDialog.class);
+    private final static int ANIMATION_DURATION = 300;
+    private Label progressName = null;
+    private ProgressBar progressBar = null;
 
     public ProgressDialog() {
-        setPrefSize(200, 200);
-        setMinSize(200, 200);
-        setMaxSize(200, 200);
+        setPrefSize(400, 40);
+        setMinSize(400, 40);
+        setMaxSize(400, 40);
         setAlignment(Pos.CENTER);
+        setStyle(
+                "-fx-background-color: transparent;" +
+                "-fx-border-width: 2;"
+        );
+        setOpacity(0);
+
+        this.progressName = new Label("加载中...");
+        this.progressBar = new ProgressBar();
         initUi();
     }
 
     private void initUi() {
-        HBox hBox = new HBox();
-        hBox.setPrefHeight(200);
-        hBox.setPrefWidth(200);
-        hBox.setStyle(
-                "-fx-background-color: pink;"
+        VBox vBox = new VBox();
+        vBox.setPrefSize(400, 20);
+        vBox.setStyle(
+                "-fx-background-color: transparent"
         );
+        this.getChildren().addAll(vBox);
 
-        Label label = new Label("游戏正在启动中");
+        this.progressBar.setPrefWidth(400);
+        this.progressBar.setPrefHeight(10);
+        this.progressBar.setProgress(0);
+        vBox.getChildren().add(this.progressName);
+        vBox.getChildren().add(this.progressBar);
 
-        hBox.getChildren().add(label);
-        this.getChildren().addAll(hBox);
+
+    }
+
+    public void updateProgress(Double v) {
+        this.progressBar.setProgress(v);
     }
 
     public void show(Pane parent) {
+        parent.getChildren().remove(this);
+        layoutXProperty().bind(parent.widthProperty().subtract(this.widthProperty()).divide(2));
+        layoutYProperty().bind(parent.heightProperty().subtract(this.heightProperty()).divide(2));
         parent.getChildren().add(this);
+        FadeTransition fadeIn = new FadeTransition(Duration.millis(ANIMATION_DURATION), this);
+        fadeIn.setFromValue(0);
+        fadeIn.setToValue(1);
+        fadeIn.play();
+    }
+
+    public void hide() {
+        FadeTransition fadeOut = new FadeTransition(Duration.millis(ANIMATION_DURATION), this);
+        fadeOut.setFromValue(1);
+        fadeOut.setToValue(0);
+        fadeOut.setOnFinished(event -> {
+            if (this.getParent() instanceof Pane) {
+                ((Pane) this.getParent()).getChildren().remove(this);
+            }
+        });
+
+        fadeOut.play();
     }
 
 }
