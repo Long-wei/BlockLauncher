@@ -9,10 +9,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Region;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -212,6 +209,11 @@ public class FirstPage extends Application {
 
         content.getChildren().addAll(leftPanel, mainContent);
 
+        StackPane rootContainer = new StackPane();
+        rootContainer.setStyle(
+                "-fx-background-radius: 10 10 10 10;" +
+                "-fx-background-color: transparent"
+        );
         BorderPane root = new BorderPane();
         root.setTop(titleBar);
         root.setCenter(content);
@@ -220,13 +222,18 @@ public class FirstPage extends Application {
                 "-fx-background-radius: 10 10 10 10;" +
                 "-fx-background-insets: 0;"
         );
+        rootContainer.getChildren().add(root);
 
-        Scene scene = new Scene(root, 800, 500);
+        Scene scene = new Scene(rootContainer, 800, 500);
         scene.setFill(Color.TRANSPARENT);
         primaryStage.initStyle(StageStyle.UNDECORATED);
         primaryStage.setScene(scene);
         primaryStage.initStyle(StageStyle.TRANSPARENT);
         primaryStage.show();
+
+        ProgressDialog progressDialog = new ProgressDialog();
+        progressDialog.show(rootContainer);
+
     }
 
     public static void launchUi(String[] args) {
