@@ -18,10 +18,10 @@ import org.bkl.game.MCVersionChecker;
 
 public class FirstPage extends Application {
 
-    private static StackPane stackPane = null;
     private double xOffset = 0;
     private double yOffset = 0;
     private static ObservableList<String> options = null;
+    private StackPane stackPane = null;
 
     public FirstPage() {
         FirstPage.options = FXCollections.observableArrayList(MCVersionChecker.getVersionNameList());
@@ -183,7 +183,9 @@ public class FirstPage extends Application {
                 "-fx-padding: 10 20 10 20;"
         );
         startButton.setOnAction(e -> {
-            GameLauncher.start();
+            ProgressDialog progressDialog = new ProgressDialog();
+            progressDialog.show(stackPane);
+            GameLauncher.start(progressDialog);
         });
         startButtonVBox.getChildren().addAll(startButton);
         startButtonHBox.getChildren().addAll(comboBoxHBox, startButtonVBox);
@@ -207,7 +209,8 @@ public class FirstPage extends Application {
 
         content.getChildren().addAll(leftPanel, mainContent);
 
-        stackPane = new StackPane();
+        StackPane stackPane = new StackPane();
+        this.stackPane = stackPane;
         stackPane.setStyle(
                 "-fx-background-radius: 10 10 10 10;" +
                 "-fx-background-color: transparent"
@@ -234,8 +237,5 @@ public class FirstPage extends Application {
         launch(args);
     }
 
-    public static Pane getStackPane() {
-        return stackPane;
-    }
 
 }

@@ -7,6 +7,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 
@@ -14,8 +15,8 @@ import javafx.util.Duration;
 public class ProgressDialog extends HBox {
 
     private final static int ANIMATION_DURATION = 300;
-    private Label progressName = null;
-    private ProgressBar progressBar = null;
+    private static Label progressName = null;
+    private static ProgressBar progressBar = null;
 
     public ProgressDialog() {
         setPrefSize(400, 40);
@@ -46,18 +47,15 @@ public class ProgressDialog extends HBox {
         this.progressBar.setProgress(0);
         vBox.getChildren().add(this.progressName);
         vBox.getChildren().add(this.progressBar);
-
-
     }
 
-    public void updateProgress(Double v) {
-        this.progressBar.setProgress(v);
+    public static void updateProgress(Double v) {
+        progressBar.setProgress(v);
     }
 
-    public void show(Pane parent) {
+    public void show(StackPane parent) {
         parent.getChildren().remove(this);
-        layoutXProperty().bind(parent.widthProperty().subtract(this.widthProperty()).divide(2));
-        layoutYProperty().bind(parent.heightProperty().subtract(this.heightProperty()).divide(2));
+        StackPane.setAlignment(this, Pos.CENTER);
         parent.getChildren().add(this);
         FadeTransition fadeIn = new FadeTransition(Duration.millis(ANIMATION_DURATION), this);
         fadeIn.setFromValue(0);

@@ -23,8 +23,6 @@ public class GameLauncher {
     private static String minecraftDir = null;
     private static String auth = null;
     private static Boolean isStart = false;
-    private static Pane firstPagePane = null;
-    private static ProgressDialog progressDialog = null;
 
     public GameLauncher(String version, String auth, String minecraftDir) {
         GameLauncher.version = version;
@@ -32,20 +30,16 @@ public class GameLauncher {
         GameLauncher.auth = auth;
     }
 
-    public static void start() {
+    public static void start(ProgressDialog progressDialog) {
         if (GameLauncher.isStart ) {
             return;
         }
         GameLauncher.isStart = true;
 
-        GameLauncher.firstPagePane = FirstPage.getStackPane();
-        progressDialog = new ProgressDialog();
-        progressDialog.show(firstPagePane);
-
         GameLauncher.gameLauncher(new LauncherCallback() {
             @Override
             public void onProgress(String message, double progress) {
-                System.out.println(message + progress);
+                ProgressDialog.updateProgress(progress / 100);
             }
 
             @Override
