@@ -11,6 +11,7 @@ import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import org.bkl.game.GameLauncher;
@@ -94,9 +95,6 @@ public class FirstPage extends Application {
         mainContent.setPrefHeight(500);
         mainContent.setPrefWidth(600);
         mainContent.setStyle(
-                "-fx-background-image: url('image/bgc.jpg');" +
-                "-fx-background-size: cover;" +
-                "-fx-background-color: white;" +
                 "-fx-padding: 0 0 20 0;"
         );
 
@@ -203,10 +201,10 @@ public class FirstPage extends Application {
         leftPanel.setPrefHeight(500);
         leftPanel.setPrefWidth(200);
         leftPanel.setStyle(
-                "-fx-background-color: skyblue;" +
+                "-fx-background-color: rgba(255, 255, 255, 0.5);" +
                 "-fx-background-radius: 0 0 0 10;"
         );
-
+        LeftVersionPane leftVersionPane = new LeftVersionPane(leftPanel);
         content.getChildren().addAll(leftPanel, mainContent);
 
         StackPane stackPane = new StackPane();
@@ -219,11 +217,19 @@ public class FirstPage extends Application {
         root.setTop(titleBar);
         root.setCenter(content);
         root.setStyle(
-                "-fx-background-color: white;" +
+                "-fx-background-image: url('image/bgc.jpg');" +
+                "-fx-background-size: cover;" +
                 "-fx-background-radius: 10 10 10 10;" +
                 "-fx-background-insets: 0;"
         );
         stackPane.getChildren().add(root);
+        // set radius for background
+        Rectangle clip = new Rectangle();
+        root.setClip(clip);
+        clip.widthProperty().bind(root.widthProperty());
+        clip.heightProperty().bind(root.heightProperty());
+        clip.setArcWidth(10);
+        clip.setArcHeight(10);
 
         Scene scene = new Scene(stackPane, 800, 500);
         scene.setFill(Color.TRANSPARENT);
