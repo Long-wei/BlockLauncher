@@ -19,7 +19,8 @@ public class LeftVersionPane {
 
     private void initUi(VBox parent) {
         parent.setStyle("""
-                -fx-padding: 10
+                -fx-padding: 10;
+                -fx-background-color: rgba(255, 255, 255, 0.5);
                 """);
 
         Label accountLabel = new Label("账号");
@@ -74,8 +75,66 @@ public class LeftVersionPane {
                 """);
         Label addAccount = new Label("点击添加游戏账户");
         accountContainer.getChildren().addAll(accountName, addAccount);
-
         parent.getChildren().addAll(avatarHBox);
+
+        Label gameLabel = new Label("游戏");
+        gameLabel.setStyle("""
+                -fx-padding: 20 0 0 0;
+                """);
+        parent.getChildren().add(gameLabel);
+        Separator separator2 = new Separator();
+        separator2.setStyle("""
+                -fx-background-color: #000000;
+                """);
+        parent.getChildren().add(separator2);
+
+        HBox versionManageBox = new HBox();
+        versionManageBox.setPrefSize(200, 50);
+        versionManageBox.setMinSize(200, 50);
+        versionManageBox.setMaxSize(200, 50);
+        VBox.setMargin(versionManageBox, new Insets(10, 0, 0, 0));
+        versionManageBox.setAlignment(Pos.CENTER);
+        versionManageBox.setStyle("""
+                -fx-background-color: transparent;
+                """);
+        versionManageBox.setOnMouseEntered(e -> {
+            versionManageBox.setStyle("""
+                    -fx-background-color: rgba(0, 0, 0, 0.1);
+                    """);
+        });
+        versionManageBox.setOnMouseExited(e -> {
+            versionManageBox.setStyle("""
+                    -fx-background-color: transparent;
+                    """);
+        });
+
+        VBox versionManageImgBox = new VBox();
+        versionManageImgBox.setPrefSize(35, 35);
+        versionManageImgBox.setMaxSize(35, 35);
+        versionManageImgBox.setMinSize(35, 35);
+        versionManageImgBox.setStyle("""
+                -fx-background-image: url("image/versionlogo.png");
+                -fx-background-size: cover;
+                """);
+        VBox versionManageLabelBox = new VBox();
+        HBox.setMargin(versionManageLabelBox, new Insets(0, 0, 0, 10));
+        versionManageLabelBox.setPrefSize(120, 35);
+        versionManageLabelBox.setMaxSize(120, 35);
+        versionManageLabelBox.setMinSize(120, 35);
+        Label versionManageLabel = new Label("版本管理");
+        versionManageLabel.setStyle("""
+                -fx-font-size: 12px;
+                -fx-font-weight: 800 !important;
+                """);
+        Label currentVersion = new Label("1.21.7");
+        currentVersion.setStyle("""
+                -fx-font-size: 10px;
+                -fx-font-weight: 500;
+                """);
+        versionManageLabelBox.getChildren().addAll(versionManageLabel, currentVersion);
+        versionManageBox.getChildren().addAll(versionManageImgBox, versionManageLabelBox);
+        parent.getChildren().add(versionManageBox);
+
     }
 
 }
