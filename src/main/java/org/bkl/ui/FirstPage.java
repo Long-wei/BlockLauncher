@@ -19,6 +19,8 @@ import org.bkl.game.MCVersionChecker;
 
 public class FirstPage extends Application {
 
+    private static Stage primaryStage;
+
     private double xOffset = 0;
     private double yOffset = 0;
     private static ObservableList<String> options = null;
@@ -30,6 +32,7 @@ public class FirstPage extends Application {
 
     @Override
     public void start(Stage primaryStage) {
+        this.primaryStage = primaryStage;
 
         HBox titleBar = new HBox();
         titleBar.setStyle(
@@ -204,7 +207,7 @@ public class FirstPage extends Application {
                 "-fx-background-color: rgba(255, 255, 255, 0.5);" +
                 "-fx-background-radius: 0 0 0 10;"
         );
-        LeftVersionPane leftVersionPane = new LeftVersionPane(leftPanel);
+        LeftMainPane leftMainPane = new LeftMainPane(leftPanel);
         content.getChildren().addAll(leftPanel, mainContent);
 
         StackPane stackPane = new StackPane();
@@ -243,5 +246,9 @@ public class FirstPage extends Application {
         launch(args);
     }
 
+    public static void showVersionManegePane() {
+        Scene secondPage = new Scene(new VersionManagePane(), 800, 500);
+        primaryStage.setScene(secondPage);
+    }
 
 }

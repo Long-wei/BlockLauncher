@@ -7,12 +7,10 @@ import javafx.scene.control.Separator;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
-import javax.swing.plaf.synth.Region;
 
+public class LeftMainPane {
 
-public class LeftVersionPane {
-
-    public LeftVersionPane(VBox parent) {
+    public LeftMainPane(VBox parent) {
 
         initUi(parent);
     }
@@ -106,6 +104,9 @@ public class LeftVersionPane {
             versionManageBox.setStyle("""
                     -fx-background-color: transparent;
                     """);
+        });
+        versionManageBox.setOnMouseClicked(e -> {
+            FirstPage.showVersionManegePane();
         });
 
         VBox versionManageImgBox = new VBox();
