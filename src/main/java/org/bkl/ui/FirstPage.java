@@ -247,7 +247,7 @@ public class FirstPage extends Application {
     }
 
     public static void showVersionManegePane() {
-        Scene secondPage = new Scene(new VersionManagePane(), 800, 500);
+        Scene secondPage = new Scene(new VersionManagePane(primaryStage), 800, 500);
         primaryStage.setScene(secondPage);
     }
 
