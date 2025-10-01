@@ -1,5 +1,6 @@
 package org.bkl.ui;
 
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -17,6 +18,12 @@ public class VersionManagePane extends StackPane {
     private double yOffset = 0;
 
     public VersionManagePane(Stage primaryStage) {
+        this.setStyle("""
+                -fx-background-color: pink;
+                -fx-background-radius: 10;
+                -fx-padding: 0;
+                """);
+
         initUi(primaryStage);
     }
 
@@ -26,17 +33,24 @@ public class VersionManagePane extends StackPane {
                 "-fx-background-color: #2196F3;" +
                 "-fx-background-radius: 10 10 0 0;"
         );
-        titleBar.setSpacing(20);
         titleBar.setMinHeight(20);
         titleBar.setAlignment(Pos.CENTER);
         titleBar.setMinHeight(30);
 
-        Label title = new Label("BlockLauncher");
+        Button returnButton = new Button("◂");
+        returnButton.setStyle("""
+                -fx-background-color: #2196F3;
+                -fx-text-fill: white;
+                """);
+        returnButton.setOnMouseClicked(e -> {
+            FirstPage.show();
+        });
+
+        Label title = new Label("游戏版本管理");
         title.setStyle(
                 "-fx-text-fill: white;" +
                 " -fx-font-size: 16px;" +
                 " -fx-font-weight: 500;" +
-                "-fx-padding: 0 0 0 10;" +
                 "-fx-background-radius: 10 0 0 0;"
         );
 
@@ -55,18 +69,16 @@ public class VersionManagePane extends StackPane {
         );
         closeButton.setOnAction(e -> primaryStage.close());
 
-        Button minimizeButton = new Button("-");
+        Button minimizeButton = new Button("━");
+        HBox.setMargin(minimizeButton, new Insets(0, 10, 0, 0));
         minimizeButton.setStyle(
                 "-fx-background-color: #2196F3;" +
                 "-fx-text-fill: white;" +
-                "-fx-font-size: 16px;" +
-                "-fx-font-weight: 900;" +
-                "-fx-background-radius: 0 10 0 0;" +
                 "-fx-padding: 0 10 0 0;"
         );
         minimizeButton.setOnAction(e -> primaryStage.setIconified(true));
 
-        titleBar.getChildren().addAll(title, titleSpacer, minimizeButton, closeButton);
+        titleBar.getChildren().addAll(returnButton, title, titleSpacer, minimizeButton, closeButton);
         titleBar.setOnMousePressed((MouseEvent event) -> {
             xOffset = event.getSceneX();
             yOffset = event.getSceneY();
@@ -79,11 +91,6 @@ public class VersionManagePane extends StackPane {
 
         BorderPane root = new BorderPane();
         root.setStyle("""
-                -fx-background-color: transparent;
-                -fx-background-radius: 10;
-                """);
-        this.setStyle("""
-                -fx-background-color: transparent;
                 -fx-background-radius: 10;
                 """);
         this.getChildren().add(root);

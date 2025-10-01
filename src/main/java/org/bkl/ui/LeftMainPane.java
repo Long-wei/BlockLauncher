@@ -83,6 +83,9 @@ public class LeftMainPane {
         Separator separator2 = new Separator();
         separator2.setStyle("""
                 -fx-background-color: #000000;
+                -fx-padding: 0;
+                -fx-border-width: 0;
+                -fx-opacity: 1;
                 """);
         parent.getChildren().add(separator2);
 

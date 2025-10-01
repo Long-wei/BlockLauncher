@@ -20,6 +20,7 @@ import org.bkl.game.MCVersionChecker;
 public class FirstPage extends Application {
 
     private static Stage primaryStage;
+    private static Scene scene;
 
     private double xOffset = 0;
     private double yOffset = 0;
@@ -68,13 +69,10 @@ public class FirstPage extends Application {
         );
         closeButton.setOnAction(e -> primaryStage.close());
 
-        Button minimizeButton = new Button("-");
+        Button minimizeButton = new Button("━");
         minimizeButton.setStyle(
                 "-fx-background-color: #2196F3;" +
                 "-fx-text-fill: white;" +
-                "-fx-font-size: 16px;" +
-                "-fx-font-weight: 900;" +
-                "-fx-background-radius: 0 10 0 0;" +
                 "-fx-padding: 0 10 0 0;"
         );
         minimizeButton.setOnAction(e -> primaryStage.setIconified(true));
@@ -90,15 +88,17 @@ public class FirstPage extends Application {
         });
 
         HBox content = new HBox();
-        content.setStyle(
-                "-fx-background-radius: 0 0 10 10;"
-        );
+        content.setStyle("""
+            -fx-background-color: transparent;
+            -fx-background-radius: 0 0 10 10;
+            -fx-padding: 0;
+        """);
 
         VBox mainContent = new VBox();
         mainContent.setPrefHeight(500);
         mainContent.setPrefWidth(600);
         mainContent.setStyle(
-                "-fx-padding: 0 0 20 0;"
+            "-fx-padding: 0 0 20 0;"
         );
 
         HBox startButtonHBox = new HBox();
@@ -203,28 +203,29 @@ public class FirstPage extends Application {
         VBox leftPanel = new VBox();
         leftPanel.setPrefHeight(500);
         leftPanel.setPrefWidth(200);
-        leftPanel.setStyle(
-                "-fx-background-color: rgba(255, 255, 255, 0.5);" +
-                "-fx-background-radius: 0 0 0 10;"
-        );
+        leftPanel.setStyle("""
+            -fx-background-color: rgba(255, 255, 255, 0.5);
+            -fx-background-radius: 0 0 0 10;
+            -fx-padding: 10 0 0 0;
+        """);
         LeftMainPane leftMainPane = new LeftMainPane(leftPanel);
         content.getChildren().addAll(leftPanel, mainContent);
 
         StackPane stackPane = new StackPane();
         this.stackPane = stackPane;
-        stackPane.setStyle(
-                "-fx-background-radius: 10 10 10 10;" +
-                "-fx-background-color: transparent"
-        );
+        stackPane.setStyle("""
+            -fx-background-color: transparent;
+            -fx-padding: 0;
+        """);
         BorderPane root = new BorderPane();
         root.setTop(titleBar);
         root.setCenter(content);
-        root.setStyle(
-                "-fx-background-image: url('image/bgc.jpg');" +
-                "-fx-background-size: cover;" +
-                "-fx-background-radius: 10 10 10 10;" +
-                "-fx-background-insets: 0;"
-        );
+        root.setStyle("""
+            -fx-background-image: url('image/bgc.jpg');
+            -fx-background-size: cover;
+            -fx-background-position: center;
+            -fx-background-insets: 0;
+        """);
         stackPane.getChildren().add(root);
         // set radius for background
         Rectangle clip = new Rectangle();
@@ -235,6 +236,7 @@ public class FirstPage extends Application {
         clip.setArcHeight(10);
 
         Scene scene = new Scene(stackPane, 800, 500);
+        FirstPage.scene = scene;
         scene.setFill(Color.TRANSPARENT);
         primaryStage.initStyle(StageStyle.UNDECORATED);
         primaryStage.setScene(scene);
@@ -246,8 +248,14 @@ public class FirstPage extends Application {
         launch(args);
     }
 
+    public static void show() {
+        primaryStage.setScene(FirstPage.scene);
+    }
+
     public static void showVersionManegePane() {
-        Scene secondPage = new Scene(new VersionManagePane(primaryStage), 800, 500);
+        VersionManagePane versionManagePane = new VersionManagePane(primaryStage);
+        Scene secondPage = new Scene(versionManagePane, 800, 500);
+        secondPage.setFill(Color.TRANSPARENT);
         primaryStage.setScene(secondPage);
     }
 
