@@ -25,7 +25,7 @@ public class ProgressDialog extends HBox {
         setAlignment(Pos.CENTER);
         setStyle(
                 "-fx-background-color: transparent;" +
-                "-fx-border-width: 2;"
+                        "-fx-border-width: 2;"
         );
         setOpacity(0);
 

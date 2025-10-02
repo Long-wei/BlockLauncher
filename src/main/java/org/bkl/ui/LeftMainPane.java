@@ -28,9 +28,6 @@ public class LeftMainPane {
                 """);
         parent.getChildren().add(accountLabel);
         Separator separator1 = new Separator();
-        separator1.setStyle("""
-                -fx-background-color: #000000;
-                """);
         parent.getChildren().add(separator1);
 
         HBox avatarHBox = new HBox();
@@ -68,10 +65,13 @@ public class LeftMainPane {
         avatarHBox.getChildren().add(accountContainer);
         Label accountName = new Label("没有游戏账户");
         accountName.setStyle("""
-                -fx-font-size: 14px;
+                -fx-font-size: 12px;
                 -fx-font-weight: 800;
                 """);
         Label addAccount = new Label("点击添加游戏账户");
+        addAccount.setStyle("""
+                -fx-font-weight: 300;
+                """);
         accountContainer.getChildren().addAll(accountName, addAccount);
         parent.getChildren().addAll(avatarHBox);
 
@@ -81,12 +81,6 @@ public class LeftMainPane {
                 """);
         parent.getChildren().add(gameLabel);
         Separator separator2 = new Separator();
-        separator2.setStyle("""
-                -fx-background-color: #000000;
-                -fx-padding: 0;
-                -fx-border-width: 0;
-                -fx-opacity: 1;
-                """);
         parent.getChildren().add(separator2);
 
         HBox versionManageBox = new HBox();

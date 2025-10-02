@@ -43,7 +43,6 @@ public class FirstPage extends Application {
         titleBar.setSpacing(20);
         titleBar.setMinHeight(20);
         titleBar.setAlignment(Pos.CENTER);
-        titleBar.setMinHeight(30);
 
         Label title = new Label("BlockLauncher");
         title.setStyle(
@@ -253,8 +252,8 @@ public class FirstPage extends Application {
     }
 
     public static void showVersionManegePane() {
-        VersionManagePane versionManagePane = new VersionManagePane(primaryStage);
-        Scene secondPage = new Scene(versionManagePane, 800, 500);
+        VersionManagePage versionManagePage = new VersionManagePage(primaryStage);
+        Scene secondPage = new Scene(versionManagePage, 800, 500);
         secondPage.setFill(Color.TRANSPARENT);
         primaryStage.setScene(secondPage);
     }

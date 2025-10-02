@@ -9,15 +9,16 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
-public class VersionManagePane extends StackPane {
+public class VersionManagePage extends StackPane {
 
     private static Stage primaryStage;
     private double xOffset = 0;
     private double yOffset = 0;
 
-    public VersionManagePane(Stage primaryStage) {
+    public VersionManagePage(Stage primaryStage) {
         this.setStyle("""
                 -fx-background-color: pink;
                 -fx-background-radius: 10;
@@ -88,13 +89,25 @@ public class VersionManagePane extends StackPane {
             primaryStage.setY(event.getScreenY() - yOffset);
         });
 
+        VersionManageLeftPane versionManageLeftPane = new VersionManageLeftPane();
 
         BorderPane root = new BorderPane();
         root.setStyle("""
-                -fx-background-radius: 10;
-                """);
-        this.getChildren().add(root);
-        root.setTop(titleBar);
+            -fx-background-image: url('image/bgc.jpg');
+            -fx-background-size: cover;
+            -fx-background-position: center;
+            -fx-background-insets: 0;
+        """);
 
+        Rectangle clip = new Rectangle();
+        root.setClip(clip);
+        clip.widthProperty().bind(root.widthProperty());
+        clip.heightProperty().bind(root.heightProperty());
+        clip.setArcWidth(10);
+        clip.setArcHeight(10);
+
+        this.getChildren().addAll(root);
+        root.setTop(titleBar);
+        root.setLeft(versionManageLeftPane);
     }
 }
