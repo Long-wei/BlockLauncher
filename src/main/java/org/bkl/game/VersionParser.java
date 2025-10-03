@@ -1,6 +1,7 @@
 package org.bkl.game;
 
-import org.json.JSONObject;
+
+import org.to2mbn.jmccc.internal.org.json.JSONObject;
 
 import java.nio.file.Files;
 import java.nio.file.Paths;

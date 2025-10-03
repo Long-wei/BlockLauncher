@@ -1,9 +1,7 @@
 package org.bkl.game;
 
 
-import javafx.concurrent.Task;
-import javafx.scene.layout.Pane;
-import org.bkl.ui.FirstPage;
+import javafx.application.Platform;
 import org.bkl.ui.ProgressDialog;
 import org.to2mbn.jmccc.auth.OfflineAuthenticator;
 import org.to2mbn.jmccc.launch.Launcher;
@@ -60,6 +58,8 @@ public class GameLauncher {
 
     private static void gameLauncher(LauncherCallback callback) {
         new Thread(() -> {
+
+            Process gameProcess = null;
             try {
                 callback.onProgress("初始化起动器", 10);
                 Launcher launcher = LauncherBuilder.buildDefault();
@@ -71,18 +71,28 @@ public class GameLauncher {
                 LaunchOption option = new LaunchOption(version, new OfflineAuthenticator(auth), minecraftDirectory);
 
                 callback.onProgress("游戏启动中", 70);
-                launcher.launch(option);
+                gameProcess = launcher.launch(option);
 
-                callback.onProgress("游戏启动成功", 100);
-                callback.onSuccess();
+                if (gameProcess != null) {
+                    callback.onProgress("游戏已启动", 100);
+                    callback.onSuccess();
+                    gameProcess.waitFor();
+                    GameLauncher.isStart = false;
+                } else {
+                    GameLauncher.isStart = false;
+                    callback.onError("游戏启动失败");
+                }
 
+                Platform.exit();
+                System.exit(0);
+
+                System.out.println("Minecraft 游戏已关闭，启动器准备退出");
             } catch ( Exception e) {
                 GameLauncher.isStart = false;
                 callback.onError("游戏启动失败");
                 e.printStackTrace();
             }
         }).start();
-
 
     }
 

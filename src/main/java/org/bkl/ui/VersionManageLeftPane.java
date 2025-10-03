@@ -25,7 +25,7 @@ public class VersionManageLeftPane extends VBox {
         HBox autoInstallBox = new HBox();
         Button autoInstallButton = new Button("♕   自动安装");
         autoInstallButton.setStyle("""
-                -fx-background-color: tansparent;
+                -fx-background-color: transparent;
                 -fx-text-fill: #000000;
                 -fx-font-weight: 500;
                 """);
@@ -38,7 +38,7 @@ public class VersionManageLeftPane extends VBox {
                     -fx-background-color: rgba(0, 0, 0, 0.1);
                     """);
             autoInstallButton.setStyle("""
-                    -fx-background-color: tansparent;
+                    -fx-background-color: transparent;
                     -fx-text-fill: #000000;
                     -fx-font-weight: 800;
                     """);
@@ -48,7 +48,7 @@ public class VersionManageLeftPane extends VBox {
                     -fx-background-color: transparent;
                     """);
             autoInstallButton.setStyle("""
-                    -fx-background-color: tansparent;
+                    -fx-background-color: transparent;
                     -fx-text-fill: #000000;
                     -fx-font-weight: 500;
                     """);
@@ -60,7 +60,7 @@ public class VersionManageLeftPane extends VBox {
         HBox modManageBox = new HBox();
         Button modManageButton = new Button("❦   模组管理");
         modManageButton.setStyle("""
-                -fx-background-color: tansparent;
+                -fx-background-color: transparent;
                 -fx-text-fill: #000000;
                 -fx-font-weight: 500;
                 """);
@@ -72,7 +72,7 @@ public class VersionManageLeftPane extends VBox {
                     -fx-background-color: rgba(0, 0, 0, 0.1);
                     """);
             modManageButton.setStyle("""
-                    -fx-background-color: tansparent;
+                    -fx-background-color: transparent;
                     -fx-text-fill: #000000;
                         -fx-font-weight: 800;
                         """);
@@ -82,7 +82,7 @@ public class VersionManageLeftPane extends VBox {
                     -fx-background-color: transparent;
                     """);
             modManageButton.setStyle("""
-                -fx-background-color: tansparent;
+                -fx-background-color: transparent;
                 -fx-text-fill: #000000;
                 -fx-font-weight: 500;
                     """);
