@@ -6,6 +6,11 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Separator;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import org.bkl.game.GameLauncher;
+import org.bkl.modloader.ModLoaderChecker;
+import org.bkl.modloader.ModLoaderType;
+
+import java.util.List;
 
 
 public class LeftMainPane {
@@ -110,10 +115,29 @@ public class LeftMainPane {
         versionManageImgBox.setPrefSize(35, 35);
         versionManageImgBox.setMaxSize(35, 35);
         versionManageImgBox.setMinSize(35, 35);
-        versionManageImgBox.setStyle("""
+
+        /**
+         *  检查已经安装的模组加载器
+         *  如果已经安装的模组加载器的数量大于一个或者没有就使用默认照片
+         */
+        ModLoaderChecker modLoaderChecker = new ModLoaderChecker();
+        List<ModLoaderType> modLoaderTypes = modLoaderChecker.checkInstalledModLoaders(GameLauncher.getVersion());
+        if (modLoaderTypes.size() > 1) {
+            versionManageImgBox.setStyle("""
                 -fx-background-image: url("image/versionlogo.png");
                 -fx-background-size: cover;
                 """);
+        } else {
+            switch (modLoaderTypes.get(0)){
+                case FABRIC -> {
+                    versionManageImgBox.setStyle("""
+                        -fx-background-image: url("image/modloaderlogo/fabric.png");
+                        -fx-background-size: cover;
+                        """);
+                }
+            }
+        }
+
         VBox versionManageLabelBox = new VBox();
         HBox.setMargin(versionManageLabelBox, new Insets(0, 0, 0, 10));
         versionManageLabelBox.setPrefSize(120, 35);

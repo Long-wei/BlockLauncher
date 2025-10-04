@@ -17,6 +17,7 @@ import org.to2mbn.jmccc.option.MinecraftDirectory;
 
 public class GameLauncher {
 
+    // 全局游戏版本
     private static String version = null;
     private static String minecraftDir = null;
     private static String auth = null;
@@ -98,6 +99,11 @@ public class GameLauncher {
 
     public static void setVersion(String version) {
         GameLauncher.version = version;
+    }
+
+    // 获取全局游戏版本
+    public static String getVersion() {
+        return GameLauncher.version;
     }
 
 }
