@@ -10,7 +10,14 @@ public class MinecraftPath {
     public static String minecraftPath = null;
 
     public MinecraftPath() {
+        getMinecraftPath();
+    }
+
+    public static String getMinecraftPath() {
         String osName = SystemUtils.osName;
+        if (osName == null) {
+            osName = SystemUtils.getOsName();
+        }
 
         if (osName.contains("win")) {
             MinecraftPath.minecraftPath = System.getenv("APPDATA") + "/.minecraft";
@@ -26,6 +33,7 @@ public class MinecraftPath {
         } else {
             minecraftPath = ".minecraft";
         }
+        return minecraftPath;
     }
 
 }

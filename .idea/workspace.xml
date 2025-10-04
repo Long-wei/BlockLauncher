@@ -5,13 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1ef6fceb-646f-4ee4-b80a-46dbd324612a" name="Changes" comment="完善左侧头像区域">
-      <change afterPath="$PROJECT_DIR$/src/main/resources/lib/jmccc-cli-3.1.1-all.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/bkl/modloader/ModLoaderChecker.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/bkl/modloader/ModLoaderType.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/FabricTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/bkl/game/GameLauncher.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/bkl/game/GameLauncher.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/bkl/game/MinecraftPath.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/bkl/game/MinecraftPath.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/bkl/modloader/FabricChecker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/bkl/modloader/FabricChecker.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/bkl/ui/VersionManageLeftPane.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/bkl/ui/VersionManageLeftPane.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/bkl/os/SystemUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/bkl/os/SystemUtils.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -23,6 +23,7 @@
       <list>
         <option value="Interface" />
         <option value="Class" />
+        <option value="Enum" />
       </list>
     </option>
   </component>
@@ -63,6 +64,8 @@
   "keyToString": {
     "Application.Main.executor": "Run",
     "Application.SystemUtils.executor": "Run",
+    "JUnit.FabricTest.isFabricInstall.executor": "Debug",
+    "JUnit.FabricTest.versionJonsIncludeMainClass.executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
@@ -143,33 +146,21 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ClassPathBuilder.buildClasspath" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="FabricTest.isFabricInstall" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="BlockLauncher" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="org.bkl.game.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="org.bkl.game" />
-      <option name="MAIN_CLASS_NAME" value="org.bkl.game.ClassPathBuilder" />
-      <option name="METHOD_NAME" value="buildClasspath" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="FabricTest" />
+      <option name="METHOD_NAME" value="isFabricInstall" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="GameLauncher.testWorkSpace" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="FabricTest.versionJonsIncludeMainClass" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="BlockLauncher" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="org.bkl.game.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="org.bkl.game" />
-      <option name="MAIN_CLASS_NAME" value="org.bkl.game.GameLauncher" />
-      <option name="METHOD_NAME" value="testWorkSpace" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="FabricTest" />
+      <option name="METHOD_NAME" value="versionJonsIncludeMainClass" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -177,11 +168,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.FabricTest.isFabricInstall" />
         <item itemvalue="Application.Main" />
+        <item itemvalue="JUnit.FabricTest.versionJonsIncludeMainClass" />
         <item itemvalue="Application.SystemUtils" />
         <item itemvalue="Application.JarMerger" />
-        <item itemvalue="JUnit.ClassPathBuilder.buildClasspath" />
-        <item itemvalue="JUnit.GameLauncher.testWorkSpace" />
       </list>
     </recent_temporary>
   </component>

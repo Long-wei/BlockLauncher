@@ -7,7 +7,6 @@ import org.bkl.game.MinecraftPath;
 
 import java.io.File;
 import java.io.FileReader;
-import java.io.IOException;
 
 /**
  * @author LongWei
@@ -25,7 +24,7 @@ public class FabricChecker {
      */
     public static boolean isFabricInstall(String mcVersion) {
         // 检查游戏版本文件夹
-        File versionDir = new File(MinecraftPath.minecraftPath + "/versions/");
+        File versionDir = new File(MinecraftPath.getMinecraftPath() + "/versions/");
         if (!versionDir.exists()) {
             return false;
         }
