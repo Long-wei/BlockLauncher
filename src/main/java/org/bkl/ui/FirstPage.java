@@ -36,6 +36,7 @@ public class FirstPage extends Application {
         this.primaryStage = primaryStage;
 
         HBox titleBar = new HBox();
+        titleBar.setPrefHeight(30);
         titleBar.setStyle(
                 "-fx-background-color: #2196F3;" +
                 "-fx-background-radius: 10 10 0 0;"
@@ -215,7 +216,7 @@ public class FirstPage extends Application {
         stackPane.setStyle("""
             -fx-background-color: transparent;
             -fx-padding: 0;
-        """);
+            -fx-font-family: "Microsoft YaHei", "文泉驿微米黑", "宋体", "SimSun", "Noto Sans CJK SC", sans-serif;        """);
         BorderPane root = new BorderPane();
         root.setTop(titleBar);
         root.setCenter(content);

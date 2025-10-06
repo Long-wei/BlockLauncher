@@ -5,14 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1ef6fceb-646f-4ee4-b80a-46dbd324612a" name="Changes" comment="完善左侧头像区域">
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/bkl/modloader/QuiltChecker.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/bkl/modloader/RiftChecker.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/image/modloaderlogo/quilt.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/QuiltTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/RiftTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/bkl/modloader/ModLoaderChecker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/bkl/modloader/ModLoaderChecker.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/bkl/ui/LeftMainPane.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/bkl/ui/LeftMainPane.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/bkl/ui/FirstPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/bkl/ui/FirstPage.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

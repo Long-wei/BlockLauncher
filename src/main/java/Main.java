@@ -1,3 +1,4 @@
+import javafx.scene.text.Font;
 import org.bkl.game.GameLauncher;
 import org.bkl.game.MCVersionChecker;
 import org.bkl.game.MinecraftPath;
@@ -10,6 +11,7 @@ import org.bkl.ui.FirstPage;
  */
 public class Main {
     public static void main(String[] args) {
+
         SystemUtils systemUtils = new SystemUtils();
         MinecraftPath minecraftPath = new MinecraftPath();
         MCVersionChecker mcVersionChecker = new MCVersionChecker();
