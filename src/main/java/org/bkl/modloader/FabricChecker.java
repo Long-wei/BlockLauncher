@@ -29,10 +29,13 @@ public class FabricChecker {
             return false;
         }
 
+        /**
+         * 直接检查 version.json 文件里面是否包含 fabric 的 net.fabricmc:fabric-loader 加载库路径
+         */
         File[] versionFolder = versionDir.listFiles();
         if (versionFolder != null) {
             for (File folder : versionFolder) {
-                if (folder.isDirectory() && folder.getName().contains("fabric") && folder.getName().contains(mcVersion)) {
+                if (folder.getName().contains(mcVersion)) {
                     File versionJson = new File(folder, folder.getName() + ".json");
                     if (versionJson.exists() && checkJsonForFabric(versionJson)) {
                         return true;
@@ -42,8 +45,9 @@ public class FabricChecker {
         }
 
         // 2. 检查libraries目录下是否有Fabric核心库
-        File fabricLibDir = new File(MinecraftPath.minecraftPath + "/libraries/net/fabricmc/fabric-loader");
-        return fabricLibDir.exists() && fabricLibDir.listFiles() != null && fabricLibDir.listFiles().length > 0;
+        //File fabricLibDir = new File(MinecraftPath.minecraftPath + "/libraries/net/fabricmc/fabric-loader");
+        //return fabricLibDir.exists() && fabricLibDir.listFiles() != null && fabricLibDir.listFiles().length > 0;
+        return false;
     }
 
     /**

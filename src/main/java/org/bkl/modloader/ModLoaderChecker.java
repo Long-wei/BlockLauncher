@@ -15,9 +15,17 @@ public class ModLoaderChecker {
     public List<ModLoaderType> checkInstalledModLoaders(String mcVersion) {
         List<ModLoaderType> installed = new ArrayList<>();
 
+        // 检查是否安装fabric
         if (FabricChecker.isFabricInstall(mcVersion)) {
             installed.add(ModLoaderType.FABRIC);
         }
+
+        // 检查是否安装forge
+        if (ForgeChecker.isForgeInstalled(mcVersion)) {
+            installed.add(ModLoaderType.FORGE);
+        }
+
+
 
         return installed;
     }

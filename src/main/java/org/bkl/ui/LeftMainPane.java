@@ -122,7 +122,7 @@ public class LeftMainPane {
          */
         ModLoaderChecker modLoaderChecker = new ModLoaderChecker();
         List<ModLoaderType> modLoaderTypes = modLoaderChecker.checkInstalledModLoaders(GameLauncher.getVersion());
-        if (modLoaderTypes.size() > 1) {
+        if (modLoaderTypes.size() != 1) {
             versionManageImgBox.setStyle("""
                 -fx-background-image: url("image/versionlogo.png");
                 -fx-background-size: cover;
@@ -134,6 +134,17 @@ public class LeftMainPane {
                         -fx-background-image: url("image/modloaderlogo/fabric.png");
                         -fx-background-size: cover;
                         """);
+                    break;
+                }
+                case FORGE -> {
+                    versionManageImgBox.setStyle("""
+                        -fx-background-image: url("image/modloaderlogo/forge.jpeg");
+                        -fx-background-size: cover;
+                        """);
+                    break;
+                }
+                default -> {
+
                 }
             }
         }
