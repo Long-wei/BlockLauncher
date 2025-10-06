@@ -143,6 +143,20 @@ public class LeftMainPane {
                         """);
                     break;
                 }
+                case QUILT -> {
+                    versionManageImgBox.setStyle("""
+                        -fx-background-image: url("image/modloaderlogo/quilt.png");
+                        -fx-background-size: cover;
+                        """);
+                    break;
+                }
+                case OPTIFINE -> {
+                    versionManageImgBox.setStyle("""
+                        -fx-background-image: url("image/modloaderlogo/optifine.png");
+                        -fx-background-size: cover;
+                        """);
+                    break;
+                }
                 default -> {
 
                 }

@@ -5,12 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1ef6fceb-646f-4ee4-b80a-46dbd324612a" name="Changes" comment="完善左侧头像区域">
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/bkl/modloader/ForgeChecker.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/image/modloaderlogo/fabric.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/image/modloaderlogo/forge.jpeg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/ForgeTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/bkl/modloader/QuiltChecker.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/bkl/modloader/RiftChecker.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/image/modloaderlogo/quilt.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/QuiltTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/RiftTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/bkl/modloader/FabricChecker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/bkl/modloader/FabricChecker.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/bkl/modloader/ModLoaderChecker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/bkl/modloader/ModLoaderChecker.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/bkl/ui/LeftMainPane.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/bkl/ui/LeftMainPane.java" afterDir="false" />
     </list>
@@ -68,12 +68,15 @@
     "JUnit.FabricTest.isFabricInstall.executor": "Debug",
     "JUnit.FabricTest.versionJonsIncludeMainClass.executor": "Run",
     "JUnit.ForgeTest.isForgeInstall.executor": "Run",
+    "JUnit.QuiltTest.isQuiltInstall.executor": "Run",
+    "JUnit.RiftTest.isRiftInstall.executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
     "RunOnceActivity.git.unshallow": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
+    "deletionFromPopupRequiresConfirmation": "false",
     "git-widget-placeholder": "master",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "/home/l/IdeaProjects/BlockLauncher/src/main/resources/lib",
@@ -84,7 +87,7 @@
     "project.structure.last.edited": "Libraries",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "preferences.editor",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
     "settings.editor.splitter.proportion": "0.27407408",
     "vue.rearranger.settings.migration": "true"
   }
@@ -102,19 +105,6 @@
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Main" />
       <module name="BlockLauncher" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="SystemUtils" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="org.bkl.os.SystemUtils" />
-      <module name="BlockLauncher" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="org.bkl.os.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -139,11 +129,11 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ForgeTest.isForgeInstall" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="RiftTest.isRiftInstall" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="BlockLauncher" />
       <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="ForgeTest" />
-      <option name="METHOD_NAME" value="isForgeInstall" />
+      <option name="MAIN_CLASS_NAME" value="RiftTest" />
+      <option name="METHOD_NAME" value="isRiftInstall" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -152,10 +142,9 @@
     <recent_temporary>
       <list>
         <item itemvalue="Application.Main" />
-        <item itemvalue="JUnit.ForgeTest.isForgeInstall" />
-        <item itemvalue="JUnit.FabricTest.isFabricInstall" />
+        <item itemvalue="JUnit.RiftTest.isRiftInstall" />
         <item itemvalue="JUnit.FabricTest.versionJonsIncludeMainClass" />
-        <item itemvalue="Application.SystemUtils" />
+        <item itemvalue="JUnit.FabricTest.isFabricInstall" />
       </list>
     </recent_temporary>
   </component>

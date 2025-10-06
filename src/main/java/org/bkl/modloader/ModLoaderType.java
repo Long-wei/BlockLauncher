@@ -4,7 +4,7 @@ public enum ModLoaderType {
     FORGE("Forge"),
     FABRIC("Fabric"),
     QUILT("Quilt"),
-    RIFT("Rift"),
+    OPTIFINE("Rift"),
     UNKNOWN("Unknown");
 
     private final String displayName;

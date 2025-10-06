@@ -25,7 +25,15 @@ public class ModLoaderChecker {
             installed.add(ModLoaderType.FORGE);
         }
 
+        // 检查是否安装quilt
+        if (QuiltChecker.isQuiltInstalled(mcVersion)) {
+            installed.add(ModLoaderType.QUILT);
+        }
 
+        // 检查是否安装rift
+        if (OptiFineChecker.isRiftInstalled(mcVersion)) {
+            installed.add(ModLoaderType.OPTIFINE);
+        }
 
         return installed;
     }
