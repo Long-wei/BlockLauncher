@@ -12,7 +12,7 @@ public class OptiFineChecker {
     public OptiFineChecker() {
     }
 
-    public static boolean isRiftInstalled(String mcVersion) {
+    public static boolean isOptiFineInstalled(String mcVersion) {
         File versionDir = new File(MinecraftPath.getMinecraftPath() + "/versions/");
 
         if (!versionDir.exists()) {
@@ -33,7 +33,7 @@ public class OptiFineChecker {
                  */
                 if (versionFile.exists()) {
                     File f = new File(versionFile.getPath(),mcVersion + ".json");
-                    if (f.exists() && checkerJsonForRift(f)) {
+                    if (f.exists() && checkerJsonForOptiFine(f)) {
                         return true;
                     }
                 }
@@ -42,7 +42,7 @@ public class OptiFineChecker {
         return false;
     }
 
-    private static boolean checkerJsonForRift(File versionJson) {
+    private static boolean checkerJsonForOptiFine(File versionJson) {
         try(FileReader reader = new FileReader(versionJson)){
             JsonObject jsonObject = JsonParser.parseReader(reader).getAsJsonObject();
 

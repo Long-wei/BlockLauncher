@@ -6,10 +6,10 @@ import java.util.List;
 /**
  * 一个版本游戏不允许存在多个模组加载器
  */
-public class ModLoaderChecker {
+public class ModLoaderManager {
     private List<ModLoaderType> installed = new ArrayList<>();
 
-    public ModLoaderChecker() {
+    public ModLoaderManager() {
     }
 
     public List<ModLoaderType> checkInstalledModLoaders(String mcVersion) {
@@ -31,7 +31,7 @@ public class ModLoaderChecker {
         }
 
         // 检查是否安装rift
-        if (OptiFineChecker.isRiftInstalled(mcVersion)) {
+        if (OptiFineChecker.isOptiFineInstalled(mcVersion)) {
             installed.add(ModLoaderType.OPTIFINE);
         }
 

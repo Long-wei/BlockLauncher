@@ -32,7 +32,7 @@ public class VersionManagePage extends StackPane {
         HBox titleBar = new HBox();
         titleBar.setStyle(
                 "-fx-background-color: #2196F3;" +
-                "-fx-background-radius: 10 10 0 0;"
+                "-fx-background-radius: 5 5 0 0;"
         );
         titleBar.setMinHeight(20);
         titleBar.setAlignment(Pos.CENTER);

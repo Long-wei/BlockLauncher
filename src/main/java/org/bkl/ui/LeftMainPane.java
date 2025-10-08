@@ -7,7 +7,7 @@ import javafx.scene.control.Separator;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import org.bkl.game.GameLauncher;
-import org.bkl.modloader.ModLoaderChecker;
+import org.bkl.modloader.ModLoaderManager;
 import org.bkl.modloader.ModLoaderType;
 
 import java.util.List;
@@ -120,8 +120,8 @@ public class LeftMainPane {
          *  检查已经安装的模组加载器
          *  如果已经安装的模组加载器的数量大于一个或者没有就使用默认照片
          */
-        ModLoaderChecker modLoaderChecker = new ModLoaderChecker();
-        List<ModLoaderType> modLoaderTypes = modLoaderChecker.checkInstalledModLoaders(GameLauncher.getVersion());
+        ModLoaderManager modLoaderManager = new ModLoaderManager();
+        List<ModLoaderType> modLoaderTypes = modLoaderManager.checkInstalledModLoaders(GameLauncher.getVersion());
         if (modLoaderTypes.size() != 1) {
             versionManageImgBox.setStyle("""
                 -fx-background-image: url("image/versionlogo.png");

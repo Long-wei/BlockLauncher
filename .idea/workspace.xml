@@ -5,9 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1ef6fceb-646f-4ee4-b80a-46dbd324612a" name="Changes" comment="完善左侧头像区域">
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/bkl/modloader/FabricRemover.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/bkl/modloader/ModLoaderChecker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/bkl/modloader/ModLoaderManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/bkl/modloader/OptiFineChecker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/bkl/modloader/OptiFineChecker.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/bkl/ui/FirstPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/bkl/ui/FirstPage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/bkl/ui/LeftMainPane.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/bkl/ui/LeftMainPane.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/bkl/ui/VersionManagePage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/bkl/ui/VersionManagePage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/FabricTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/FabricTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/RiftTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/RiftTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -61,6 +67,7 @@
     "Application.Main.executor": "Run",
     "Application.SystemUtils.executor": "Run",
     "JUnit.FabricTest.isFabricInstall.executor": "Debug",
+    "JUnit.FabricTest.removeFabric.executor": "Debug",
     "JUnit.FabricTest.versionJonsIncludeMainClass.executor": "Run",
     "JUnit.ForgeTest.isForgeInstall.executor": "Run",
     "JUnit.QuiltTest.isQuiltInstall.executor": "Run",
@@ -96,7 +103,7 @@
       <recent name="org.bkl.game" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.Main">
+  <component name="RunManager" selected="JUnit.FabricTest.removeFabric">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Main" />
       <module name="BlockLauncher" />
@@ -109,6 +116,16 @@
       <option name="PACKAGE_NAME" value="" />
       <option name="MAIN_CLASS_NAME" value="FabricTest" />
       <option name="METHOD_NAME" value="isFabricInstall" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="FabricTest.removeFabric" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="BlockLauncher" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="FabricTest" />
+      <option name="METHOD_NAME" value="removeFabric" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -136,6 +153,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.FabricTest.removeFabric" />
         <item itemvalue="Application.Main" />
         <item itemvalue="JUnit.RiftTest.isRiftInstall" />
         <item itemvalue="JUnit.FabricTest.versionJonsIncludeMainClass" />
@@ -226,5 +244,16 @@
     <MESSAGE value="开始游戏加载进度（完成)" />
     <MESSAGE value="完善左侧头像区域" />
     <option name="LAST_COMMIT_MESSAGE" value="完善左侧头像区域" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/org/bkl/modloader/FabricRemover.java</url>
+          <line>60</line>
+          <option name="timeStamp" value="26" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

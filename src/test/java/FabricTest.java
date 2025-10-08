@@ -2,6 +2,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import org.bkl.game.MinecraftPath;
 import org.bkl.modloader.FabricChecker;
+import org.bkl.modloader.FabricRemover;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
@@ -27,4 +28,11 @@ public class FabricTest {
         boolean fabricInstall = FabricChecker.isFabricInstall("1.21.7");
         System.out.println(fabricInstall);
     }
+
+
+    @Test
+    public void removeFabric() {
+        FabricRemover.remove("1.21.7");
+    }
+
 }
