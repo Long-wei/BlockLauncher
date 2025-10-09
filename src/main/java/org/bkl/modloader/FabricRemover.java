@@ -38,24 +38,23 @@ public class FabricRemover {
 
                         for (int i = 0; i < jsonArray.size(); i++) {
                             JsonObject asJsonObjectLibraries = jsonArray.get(i).getAsJsonObject();
-                            String name = asJsonObjectLibraries.get("name") == null ? null : asJsonObjectLibraries.get("name").getAsString();
-                            String url = asJsonObjectLibraries.get("url") == null ? null : asJsonObjectLibraries.get("url").getAsString();
 
-                            boolean flag = false;
-                            JsonObject asJsonObject1 = asJsonObjectLibraries.getAsJsonObject("downloads");
-                            if (asJsonObject1 != null) {
-                                JsonObject asJsonObject2 = asJsonObject1.getAsJsonObject("artifact");
-                                if (asJsonObject2 != null) {
-                                    String url1 = asJsonObject2.get("url").getAsString();
-                                    if (url1.contains("fabric")) {
-                                        flag = true;
-                                    }
+                            if (asJsonObjectLibraries.has("name")) {
+                                String name = asJsonObjectLibraries.get("name").getAsString();
+                                if (name.contains("fabric")) {
+                                    jsonArray.remove(i);
+                                    continue;
                                 }
                             }
 
-                            if (flag || (name == null ? false : name.contains("fabric")) || (url== null ? false : url.contains("fabric"))) {
-                                jsonArray.remove(i);
+                            if (asJsonObjectLibraries.has("url")) {
+                                String url = asJsonObjectLibraries.get("url").getAsString();
+                                if (url.contains("fabric")) {
+                                    jsonArray.remove(i);
+                                    continue;
+                                }
                             }
+
                         }
 
                         System.out.println(jsonArray.toString());
