@@ -163,6 +163,7 @@ public class FirstPage extends Application {
         comboBox.setOnAction(e -> {
             String selected = comboBox.getValue();
             GameLauncher.setVersion(selected);
+            LeftMainPane.alertVersion(options.get(0));
         });
 
         comboBoxHBox.getChildren().add(comboBox);

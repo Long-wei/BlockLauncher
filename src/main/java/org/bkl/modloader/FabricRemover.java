@@ -2,7 +2,6 @@ package org.bkl.modloader;
 
 
 import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import org.bkl.game.MinecraftPath;
@@ -36,7 +35,7 @@ public class FabricRemover {
                     if (asJsonObject.has("libraries")) {
                         JsonArray jsonArray = asJsonObject.get("libraries").getAsJsonArray();
 
-                        for (int i = 0; i < jsonArray.size(); i++) {
+                        for (int i = jsonArray.size() - 1; i >= 0 ; i--) {
                             JsonObject asJsonObjectLibraries = jsonArray.get(i).getAsJsonObject();
 
                             if (asJsonObjectLibraries.has("name")) {
@@ -55,9 +54,25 @@ public class FabricRemover {
                                 }
                             }
 
+                            if (asJsonObjectLibraries.has("downloads")) {
+                                JsonObject asJsonObject1 = asJsonObjectLibraries.get("downloads").getAsJsonObject();
+                                if (asJsonObject1.has("artifact")) {
+                                    JsonObject asJsonObject2 = asJsonObject1.get("artifact").getAsJsonObject();
+                                    if (asJsonObject2.has("url")) {
+                                        String url = asJsonObject2.get("url").getAsString();
+                                        if (url.contains("fabric")) {
+                                            jsonArray.remove(i);
+                                            continue;
+                                        }
+                                    }
+                                }
+                            }
                         }
+                    }
 
-                        System.out.println(jsonArray.toString());
+                    if (asJsonObject.has("patches")) {
+                        JsonObject patchesJsonObject = asJsonObject.get("patches").getAsJsonObject();
+
                     }
 
                 } catch (Exception e) {

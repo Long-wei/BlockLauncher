@@ -15,6 +15,9 @@ import java.util.List;
 
 public class LeftMainPane {
 
+    private static VBox _versionManageImgBox = null;
+    private static Label _currentVersion = null;
+
     public LeftMainPane(VBox parent) {
 
         initUi(parent);
@@ -115,53 +118,7 @@ public class LeftMainPane {
         versionManageImgBox.setPrefSize(35, 35);
         versionManageImgBox.setMaxSize(35, 35);
         versionManageImgBox.setMinSize(35, 35);
-
-        /**
-         *  检查已经安装的模组加载器
-         *  如果已经安装的模组加载器的数量大于一个或者没有就使用默认照片
-         */
-        ModLoaderManager modLoaderManager = new ModLoaderManager();
-        List<ModLoaderType> modLoaderTypes = modLoaderManager.checkInstalledModLoaders(GameLauncher.getVersion());
-        if (modLoaderTypes.size() != 1) {
-            versionManageImgBox.setStyle("""
-                -fx-background-image: url("image/versionlogo.png");
-                -fx-background-size: cover;
-                """);
-        } else {
-            switch (modLoaderTypes.get(0)){
-                case FABRIC -> {
-                    versionManageImgBox.setStyle("""
-                        -fx-background-image: url("image/modloaderlogo/fabric.png");
-                        -fx-background-size: cover;
-                        """);
-                    break;
-                }
-                case FORGE -> {
-                    versionManageImgBox.setStyle("""
-                        -fx-background-image: url("image/modloaderlogo/forge.jpeg");
-                        -fx-background-size: cover;
-                        """);
-                    break;
-                }
-                case QUILT -> {
-                    versionManageImgBox.setStyle("""
-                        -fx-background-image: url("image/modloaderlogo/quilt.png");
-                        -fx-background-size: cover;
-                        """);
-                    break;
-                }
-                case OPTIFINE -> {
-                    versionManageImgBox.setStyle("""
-                        -fx-background-image: url("image/modloaderlogo/optifine.png");
-                        -fx-background-size: cover;
-                        """);
-                    break;
-                }
-                default -> {
-
-                }
-            }
-        }
+        _versionManageImgBox = versionManageImgBox;
 
         VBox versionManageLabelBox = new VBox();
         HBox.setMargin(versionManageLabelBox, new Insets(0, 0, 0, 10));
@@ -173,7 +130,8 @@ public class LeftMainPane {
                 -fx-font-size: 12px;
                 -fx-font-weight: 800 !important;
                 """);
-        Label currentVersion = new Label("1.21.7");
+        Label currentVersion = new Label(GameLauncher.getVersion());
+        _currentVersion = currentVersion;
         currentVersion.setStyle("""
                 -fx-font-size: 10px;
                 -fx-font-weight: 500;
@@ -182,6 +140,58 @@ public class LeftMainPane {
         versionManageBox.getChildren().addAll(versionManageImgBox, versionManageLabelBox);
         parent.getChildren().add(versionManageBox);
 
+        alertVersion(GameLauncher.getVersion());
+    }
+
+    public static void alertVersion(String mcVersion) {
+        _currentVersion.setText(mcVersion);
+
+        /**
+         *  检查已经安装的模组加载器
+         *  如果已经安装的模组加载器的数量大于一个或者没有就使用默认照片
+         */
+        ModLoaderManager modLoaderManager = new ModLoaderManager();
+        List<ModLoaderType> modLoaderTypes = modLoaderManager.checkInstalledModLoaders(GameLauncher.getVersion());
+        if (modLoaderTypes.size() != 1) {
+            _versionManageImgBox.setStyle("""
+                -fx-background-image: url("image/versionlogo.png");
+                -fx-background-size: cover;
+                """);
+        } else {
+            switch (modLoaderTypes.get(0)){
+                case FABRIC -> {
+                    _versionManageImgBox.setStyle("""
+                        -fx-background-image: url("image/modloaderlogo/fabric.png");
+                        -fx-background-size: cover;
+                        """);
+                    break;
+                }
+                case FORGE -> {
+                    _versionManageImgBox.setStyle("""
+                        -fx-background-image: url("image/modloaderlogo/forge.jpeg");
+                        -fx-background-size: cover;
+                        """);
+                    break;
+                }
+                case QUILT -> {
+                    _versionManageImgBox.setStyle("""
+                        -fx-background-image: url("image/modloaderlogo/quilt.png");
+                        -fx-background-size: cover;
+                        """);
+                    break;
+                }
+                case OPTIFINE -> {
+                    _versionManageImgBox.setStyle("""
+                        -fx-background-image: url("image/modloaderlogo/optifine.png");
+                        -fx-background-size: cover;
+                        """);
+                    break;
+                }
+                default -> {
+
+                }
+            }
+        }
     }
 
 }
