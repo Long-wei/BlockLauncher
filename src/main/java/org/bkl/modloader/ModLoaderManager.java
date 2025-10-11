@@ -1,7 +1,10 @@
 package org.bkl.modloader;
 
+import javafx.application.Platform;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 /**
  * 一个版本游戏不允许存在多个模组加载器
@@ -36,6 +39,21 @@ public class ModLoaderManager {
         }
 
         return installed;
+    }
+
+
+    /**
+     * @param mcVersion 游戏版本
+     * @param modLoaderType 加载模组类型
+     * @return 可用版本 List<String>
+     */
+    public static List<String> loadRemoteVersions(String mcVersion, ModLoaderType modLoaderType) {
+        switch (modLoaderType) {
+            case FABRIC -> {
+                return FabricVersionFetcher.getCompatibleFabricLoaders(mcVersion);
+            }
+        }
+        return null;
     }
 
 }

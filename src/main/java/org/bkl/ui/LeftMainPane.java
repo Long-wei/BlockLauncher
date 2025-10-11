@@ -1,5 +1,6 @@
 package org.bkl.ui;
 
+import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
@@ -130,13 +131,13 @@ public class LeftMainPane {
                 -fx-font-size: 12px;
                 -fx-font-weight: 800 !important;
                 """);
-        Label currentVersion = new Label(GameLauncher.getVersion());
-        _currentVersion = currentVersion;
-        currentVersion.setStyle("""
+        _currentVersion = new Label(GameLauncher.getVersion());
+
+        _currentVersion.setStyle("""
                 -fx-font-size: 10px;
                 -fx-font-weight: 500;
                 """);
-        versionManageLabelBox.getChildren().addAll(versionManageLabel, currentVersion);
+        versionManageLabelBox.getChildren().addAll(versionManageLabel, _currentVersion);
         versionManageBox.getChildren().addAll(versionManageImgBox, versionManageLabelBox);
         parent.getChildren().add(versionManageBox);
 
@@ -144,54 +145,56 @@ public class LeftMainPane {
     }
 
     public static void alertVersion(String mcVersion) {
-        _currentVersion.setText(mcVersion);
+        Platform.runLater(() -> {
+            _currentVersion.setText(mcVersion);
 
-        /**
-         *  检查已经安装的模组加载器
-         *  如果已经安装的模组加载器的数量大于一个或者没有就使用默认照片
-         */
-        ModLoaderManager modLoaderManager = new ModLoaderManager();
-        List<ModLoaderType> modLoaderTypes = modLoaderManager.checkInstalledModLoaders(GameLauncher.getVersion());
-        if (modLoaderTypes.size() != 1) {
-            _versionManageImgBox.setStyle("""
+            /**
+             *  检查已经安装的模组加载器
+             *  如果已经安装的模组加载器的数量大于一个或者没有就使用默认照片
+             */
+            ModLoaderManager modLoaderManager = new ModLoaderManager();
+            List<ModLoaderType> modLoaderTypes = modLoaderManager.checkInstalledModLoaders(GameLauncher.getVersion());
+            if (modLoaderTypes.size() != 1) {
+                _versionManageImgBox.setStyle("""
                 -fx-background-image: url("image/versionlogo.png");
                 -fx-background-size: cover;
                 """);
-        } else {
-            switch (modLoaderTypes.get(0)){
-                case FABRIC -> {
-                    _versionManageImgBox.setStyle("""
+            } else {
+                switch (modLoaderTypes.get(0)){
+                    case FABRIC -> {
+                        _versionManageImgBox.setStyle("""
                         -fx-background-image: url("image/modloaderlogo/fabric.png");
                         -fx-background-size: cover;
                         """);
-                    break;
-                }
-                case FORGE -> {
-                    _versionManageImgBox.setStyle("""
+                        break;
+                    }
+                    case FORGE -> {
+                        _versionManageImgBox.setStyle("""
                         -fx-background-image: url("image/modloaderlogo/forge.jpeg");
                         -fx-background-size: cover;
                         """);
-                    break;
-                }
-                case QUILT -> {
-                    _versionManageImgBox.setStyle("""
+                        break;
+                    }
+                    case QUILT -> {
+                        _versionManageImgBox.setStyle("""
                         -fx-background-image: url("image/modloaderlogo/quilt.png");
                         -fx-background-size: cover;
                         """);
-                    break;
-                }
-                case OPTIFINE -> {
-                    _versionManageImgBox.setStyle("""
+                        break;
+                    }
+                    case OPTIFINE -> {
+                        _versionManageImgBox.setStyle("""
                         -fx-background-image: url("image/modloaderlogo/optifine.png");
                         -fx-background-size: cover;
                         """);
-                    break;
-                }
-                default -> {
+                        break;
+                    }
+                    default -> {
 
+                    }
                 }
             }
-        }
+        });
     }
 
 }

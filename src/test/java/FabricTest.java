@@ -3,6 +3,7 @@ import com.google.gson.JsonParser;
 import org.bkl.game.MinecraftPath;
 import org.bkl.modloader.FabricChecker;
 import org.bkl.modloader.FabricRemover;
+import org.bkl.modloader.FabricVersionFetcher;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
@@ -32,7 +33,12 @@ public class FabricTest {
 
     @Test
     public void removeFabric() {
-        FabricRemover.remove("1.21.7");
+        FabricRemover.remove("1.21.1");
+    }
+
+    @Test
+    public void getCompatibleFabricLoaders () {
+        System.out.println(FabricVersionFetcher.getCompatibleFabricLoaders("1.20.1"));
     }
 
 }

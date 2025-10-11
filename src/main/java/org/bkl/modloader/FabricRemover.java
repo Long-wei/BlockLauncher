@@ -2,9 +2,11 @@ package org.bkl.modloader;
 
 
 import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import org.bkl.game.MinecraftPath;
+import org.bkl.util.GsonUtil;
 
 import java.io.File;
 import java.io.FileReader;
@@ -12,6 +14,8 @@ import java.io.FileReader;
 public class FabricRemover {
     public FabricRemover () {
     }
+
+    // 成就感满满满！！！！！！
     // net.minecraft.client.main.Main
     public static void remove(String mcVersion) {
         File versionFolder = new File(MinecraftPath.getMinecraftPath(), "/versions/");
@@ -71,9 +75,23 @@ public class FabricRemover {
                     }
 
                     if (asJsonObject.has("patches")) {
-                        JsonObject patchesJsonObject = asJsonObject.get("patches").getAsJsonObject();
+                        JsonArray patches = asJsonObject.get("patches").getAsJsonArray();
 
+                        for (int i = patches.size() - 1; i >= 0; i--) {
+                            JsonElement patch = patches.get(i);
+                            if (patch.isJsonObject()) {
+                                JsonObject patchObj = patch.getAsJsonObject();
+                                if (patchObj.has("id")) {
+                                    String id = patchObj.get("id").getAsString();
+                                    if (id.contains("fabric")) {
+                                        patches.remove(i);
+                                    }
+                                }
+                            }
+                        }
                     }
+
+                    GsonUtil.jsonObjectWriter(asJsonObject, f1.getPath());
 
                 } catch (Exception e) {
                     e.printStackTrace();

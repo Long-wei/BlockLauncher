@@ -14,7 +14,6 @@ import javafx.stage.Stage;
 
 public class VersionManagePage extends StackPane {
 
-    private static Stage primaryStage;
     private double xOffset = 0;
     private double yOffset = 0;
 
@@ -34,7 +33,6 @@ public class VersionManagePage extends StackPane {
                 "-fx-background-color: #2196F3;" +
                 "-fx-background-radius: 5 5 0 0;"
         );
-        titleBar.setMinHeight(20);
         titleBar.setAlignment(Pos.CENTER);
         titleBar.setMinHeight(30);
 
@@ -89,7 +87,6 @@ public class VersionManagePage extends StackPane {
             primaryStage.setY(event.getScreenY() - yOffset);
         });
 
-        VersionManageLeftPane versionManageLeftPane = new VersionManageLeftPane();
 
         BorderPane root = new BorderPane();
         root.setStyle("""
@@ -108,6 +105,7 @@ public class VersionManagePage extends StackPane {
 
         this.getChildren().addAll(root);
         root.setTop(titleBar);
+        VersionManageLeftPane versionManageLeftPane = new VersionManageLeftPane(root);
         root.setLeft(versionManageLeftPane);
     }
 }
