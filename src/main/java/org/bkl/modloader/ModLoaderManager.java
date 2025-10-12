@@ -15,7 +15,7 @@ public class ModLoaderManager {
     public ModLoaderManager() {
     }
 
-    public List<ModLoaderType> checkInstalledModLoaders(String mcVersion) {
+    public static List<ModLoaderType> checkInstalledModLoaders(String mcVersion) {
         List<ModLoaderType> installed = new ArrayList<>();
 
         // 检查是否安装fabric
@@ -41,6 +41,14 @@ public class ModLoaderManager {
         return installed;
     }
 
+    public static List<String> getModLoaderType(String mcVersion) {
+        List<String> installed = new ArrayList<>();
+
+        if (FabricChecker.getModLoaderVersion(mcVersion) != null) {
+            installed.add(FabricChecker.getModLoaderVersion(mcVersion));
+        }
+        return installed;
+    }
 
     /**
      * @param mcVersion 游戏版本

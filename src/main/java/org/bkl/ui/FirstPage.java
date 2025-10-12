@@ -60,7 +60,7 @@ public class FirstPage extends Application {
         Region titleSpacer = new Region();
         HBox.setHgrow(titleSpacer, javafx.scene.layout.Priority.ALWAYS);
 
-        Button closeButton = new Button("✕");
+        Button closeButton = new Button("\uD83D\uDDD9");
         closeButton.setStyle(
                 "-fx-background-color: #2196F3;" +
                 "-fx-text-fill: white;" +
@@ -116,6 +116,9 @@ public class FirstPage extends Application {
         ComboBox<String> comboBox = new ComboBox<>(options);
         comboBox.setPrefHeight(20);
         comboBox.setPrefWidth(70);
+        comboBox.setStyle("""
+                -fx-font-size: 14;
+                """);
         comboBox.getStyleClass().add("custom-combo");
 
         comboBox.getStylesheets().add(

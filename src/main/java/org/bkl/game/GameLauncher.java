@@ -2,12 +2,16 @@ package org.bkl.game;
 
 
 import javafx.application.Platform;
+import org.bkl.modloader.ModLoaderManager;
+import org.bkl.modloader.ModLoaderType;
 import org.bkl.ui.ProgressDialog;
 import org.to2mbn.jmccc.auth.OfflineAuthenticator;
 import org.to2mbn.jmccc.launch.Launcher;
 import org.to2mbn.jmccc.launch.LauncherBuilder;
 import org.to2mbn.jmccc.option.LaunchOption;
 import org.to2mbn.jmccc.option.MinecraftDirectory;
+
+import java.util.List;
 
 /**
  * @author LongWei
@@ -17,16 +21,28 @@ import org.to2mbn.jmccc.option.MinecraftDirectory;
 
 public class GameLauncher {
 
-    // 全局游戏版本
+    // 游戏全局变量
     private static String version = null;
     private static String minecraftDir = null;
     private static String auth = null;
     private static Boolean isStart = false;
+    private static ModLoaderType modLoaderType = null;
+    private static String modLoaderVersion = null;
 
     public GameLauncher(String version, String auth, String minecraftDir) {
         GameLauncher.version = version;
         GameLauncher.minecraftDir = minecraftDir;
         GameLauncher.auth = auth;
+
+        // 首次进入加载游戏版本加载器和版本
+        if (MCVersionChecker.getVersionNameList().size() > 0) {
+            version = MCVersionChecker.getVersionNameList().get(0);
+        }
+
+        if (ModLoaderManager.getModLoaderType(version).size() == 1) {
+            modLoaderVersion = ModLoaderManager.getModLoaderType(version).get(0);
+        }
+
     }
 
     public static void start(ProgressDialog progressDialog) {
@@ -106,4 +122,15 @@ public class GameLauncher {
         return GameLauncher.version;
     }
 
+    public static ModLoaderType getModLoaderType() {
+        return GameLauncher.modLoaderType;
+    }
+
+    public static void setModLoader(ModLoaderType modLoaderType) {
+        GameLauncher.modLoaderType = modLoaderType;
+    }
+
+    public  static String getModLoaderVersion() {
+        return GameLauncher.modLoaderVersion;
+    }
 }

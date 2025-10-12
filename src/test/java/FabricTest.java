@@ -41,4 +41,10 @@ public class FabricTest {
         System.out.println(FabricVersionFetcher.getCompatibleFabricLoaders("1.20.1"));
     }
 
+    @Test
+    public void getModLoaderVersion () {
+        System.out.println(FabricChecker.getModLoaderVersion("1.21.7"));
+
+    }
+
 }

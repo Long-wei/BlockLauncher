@@ -11,13 +11,22 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
+import org.bkl.game.GameLauncher;
+import org.bkl.modloader.ModLoaderType;
 
 public class VersionManagePage extends StackPane {
 
     private double xOffset = 0;
     private double yOffset = 0;
+    private String mcVersion;
+    private ModLoaderType modLoaderType;
+    private String modLoaderVersion;
 
     public VersionManagePage(Stage primaryStage) {
+        this.mcVersion = GameLauncher.getVersion();
+        this.modLoaderType = GameLauncher.getModLoaderType();
+        this.modLoaderVersion =  GameLauncher.getModLoaderVersion();
+
         this.setStyle("""
                 -fx-background-color: pink;
                 -fx-background-radius: 10;
@@ -57,7 +66,7 @@ public class VersionManagePage extends StackPane {
         Region titleSpacer = new Region();
         HBox.setHgrow(titleSpacer, javafx.scene.layout.Priority.ALWAYS);
 
-        Button closeButton = new Button("✕");
+        Button closeButton = new Button("\uD83D\uDDD9");
         closeButton.setStyle(
                 "-fx-background-color: #2196F3;" +
                 "-fx-text-fill: white;" +
@@ -105,7 +114,7 @@ public class VersionManagePage extends StackPane {
 
         this.getChildren().addAll(root);
         root.setTop(titleBar);
-        VersionManageLeftPane versionManageLeftPane = new VersionManageLeftPane(root);
+        VersionManageLeftPane versionManageLeftPane = new VersionManageLeftPane(root, mcVersion, modLoaderVersion, modLoaderType);
         root.setLeft(versionManageLeftPane);
     }
 }

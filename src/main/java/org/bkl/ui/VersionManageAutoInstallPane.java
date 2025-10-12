@@ -25,8 +25,10 @@ public class VersionManageAutoInstallPane extends VBox {
     private final List<Button> topButtons = new ArrayList<>();
     private final ExecutorService executor = Executors.newSingleThreadExecutor();
     private ProgressIndicator loadingIndicator;
+    private String mcVersion;
 
-    public VersionManageAutoInstallPane() {
+    public VersionManageAutoInstallPane(String mcVersion) {
+        this.mcVersion = mcVersion;
         this.setPrefSize(600, 470);
         this.setMinSize(600, 470);
         this.setMaxSize(600, 470);
@@ -42,7 +44,6 @@ public class VersionManageAutoInstallPane extends VBox {
         top.setMinSize(600, 60);
         top.setMaxSize(600, 60);
         top.setPadding(new Insets(10));
-        top.setSpacing(10);
         top.setAlignment(Pos.CENTER_LEFT);
         top.setStyle("""
                     -fx-background-color: rgba(255, 255, 255, 0.5);
@@ -89,9 +90,9 @@ public class VersionManageAutoInstallPane extends VBox {
         loadingIndicator.setVisible(false);
 
         versionListView = new ListView<>();
-        versionListView.setPrefSize(560, 340);
-        versionListView.setMinSize(560, 340);
-        versionListView.setMaxSize(560, 340);
+        versionListView.setPrefSize(560, 330);
+        versionListView.setMinSize(560, 330);
+        versionListView.setMaxSize(560, 330);
         versionListView.setStyle("""
                     -fx-font-size: 14px;
                     -fx-background-color: white;
@@ -168,7 +169,7 @@ public class VersionManageAutoInstallPane extends VBox {
                     Task<List<String>> task = new Task<>() {
                         @Override
                         protected List<String> call() throws Exception {
-                            return loadRemoteVersions("1.21.1", ModLoaderType.FABRIC);
+                            return loadRemoteVersions(mcVersion, ModLoaderType.FABRIC);
                         }
 
                         @Override

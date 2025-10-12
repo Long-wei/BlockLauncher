@@ -144,6 +144,10 @@ public class LeftMainPane {
         alertVersion(GameLauncher.getVersion());
     }
 
+    /**
+     * 更新主界面左侧当前版本显示
+     * @param mcVersion 当前游戏版本
+     */
     public static void alertVersion(String mcVersion) {
         Platform.runLater(() -> {
             _currentVersion.setText(mcVersion);
@@ -153,13 +157,16 @@ public class LeftMainPane {
              *  如果已经安装的模组加载器的数量大于一个或者没有就使用默认照片
              */
             ModLoaderManager modLoaderManager = new ModLoaderManager();
-            List<ModLoaderType> modLoaderTypes = modLoaderManager.checkInstalledModLoaders(GameLauncher.getVersion());
+            List<ModLoaderType> modLoaderTypes = ModLoaderManager.checkInstalledModLoaders(GameLauncher.getVersion());
             if (modLoaderTypes.size() != 1) {
+                GameLauncher.setModLoader(null);
                 _versionManageImgBox.setStyle("""
                 -fx-background-image: url("image/versionlogo.png");
                 -fx-background-size: cover;
                 """);
             } else {
+                GameLauncher.setModLoader(modLoaderTypes.get(0));
+
                 switch (modLoaderTypes.get(0)){
                     case FABRIC -> {
                         _versionManageImgBox.setStyle("""

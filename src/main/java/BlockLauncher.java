@@ -1,4 +1,3 @@
-import javafx.scene.text.Font;
 import org.bkl.game.GameLauncher;
 import org.bkl.game.MCVersionChecker;
 import org.bkl.game.MinecraftPath;
@@ -9,7 +8,7 @@ import org.bkl.ui.FirstPage;
  * @author LongWei
  * @date 2025/9/14 21:36
  */
-public class Main {
+public class BlockLauncher {
     public static void main(String[] args) {
 
         SystemUtils systemUtils = new SystemUtils();
