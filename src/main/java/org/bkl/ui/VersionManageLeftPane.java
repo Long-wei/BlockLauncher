@@ -18,13 +18,15 @@ public class VersionManageLeftPane extends VBox {
     private static final String BUTTON_SELECTED_STYLE = """
             -fx-background-color: transparent;
             -fx-text-fill: #000000;
-            -fx-font-weight: 800;
+            -fx-font-weight: bold;
+            -fx-font-size: 14;
+
             """;
     private static final String BOX_UNSELECTED_STYLE = "-fx-background-color: transparent;";
     private static final String BUTTON_UNSELECTED_STYLE = """
             -fx-background-color: transparent;
             -fx-text-fill: #000000;
-            -fx-font-weight: 500;
+            -fx-font-size: 14;
             """;
 
     private HBox selectedBox;

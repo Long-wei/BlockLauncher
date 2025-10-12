@@ -12,12 +12,12 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import org.bkl.game.GameLauncher;
 import org.bkl.game.MCVersionChecker;
+import org.bkl.util.FontUtil;
+
 
 public class FirstPage extends Application {
 
@@ -51,7 +51,7 @@ public class FirstPage extends Application {
         title.setStyle(
                 "-fx-text-fill: white;" +
                 " -fx-font-size: 16px;" +
-                " -fx-font-weight: 500;" +
+                " -fx-font-weight: bold;" +
                 "-fx-padding: 0 0 0 10;" +
                 "-fx-background-radius: 10 0 0 0;"
         );
@@ -65,7 +65,7 @@ public class FirstPage extends Application {
                 "-fx-background-color: #2196F3;" +
                 "-fx-text-fill: white;" +
                 "-fx-font-size: 16px;" +
-                "-fx-font-weight: 900;" +
+                "-fx-font-weight: bold;" +
                 "-fx-background-radius: 0 10 0 0;" +
                 "-fx-padding: 0 10 0 0;"
         );
@@ -182,7 +182,7 @@ public class FirstPage extends Application {
                 "-fx-background-color: #2196F3;" +
                 "-fx-text-fill: white;" +
                 "-fx-font-size: 16px;" +
-                "-fx-font-weight: 500;" +
+                "-fx-font-weight: bold;" +
                 "-fx-background-radius: 25 25 25 25;" +
                 "-fx-padding: 10 20 10 20;"
         );
@@ -241,10 +241,12 @@ public class FirstPage extends Application {
         Scene scene = new Scene(stackPane, 800, 500);
         FirstPage.scene = scene;
         scene.setFill(Color.TRANSPARENT);
-        primaryStage.initStyle(StageStyle.UNDECORATED);
         primaryStage.setScene(scene);
         primaryStage.initStyle(StageStyle.TRANSPARENT);
         primaryStage.show();
+
+        FontUtil.loadFonts(FirstPage.class);
+        FontUtil.applySceneDefault(scene, 16);
     }
 
     public static void launchUi(String[] args) {
@@ -259,6 +261,7 @@ public class FirstPage extends Application {
         VersionManagePage versionManagePage = new VersionManagePage(primaryStage);
         Scene secondPage = new Scene(versionManagePage, 800, 500);
         secondPage.setFill(Color.TRANSPARENT);
+        FontUtil.applySceneDefault(secondPage, 16);
         primaryStage.setScene(secondPage);
     }
 

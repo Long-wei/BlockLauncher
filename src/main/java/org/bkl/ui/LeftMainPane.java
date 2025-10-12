@@ -74,12 +74,12 @@ public class LeftMainPane {
         avatarHBox.getChildren().add(accountContainer);
         Label accountName = new Label("没有游戏账户");
         accountName.setStyle("""
-                -fx-font-size: 12px;
-                -fx-font-weight: 800;
+                -fx-font-size: 14px;
+                -fx-font-weight: bold;
                 """);
         Label addAccount = new Label("点击添加游戏账户");
         addAccount.setStyle("""
-                -fx-font-weight: 300;
+                -fx-font-size: 12;
                 """);
         accountContainer.getChildren().addAll(accountName, addAccount);
         parent.getChildren().addAll(avatarHBox);
@@ -128,7 +128,7 @@ public class LeftMainPane {
         versionManageLabelBox.setMinSize(120, 35);
         Label versionManageLabel = new Label("版本管理");
         versionManageLabel.setStyle("""
-                -fx-font-size: 12px;
+                -fx-font-size: 14px;
                 -fx-font-weight: 800 !important;
                 """);
         _currentVersion = new Label(GameLauncher.getVersion());

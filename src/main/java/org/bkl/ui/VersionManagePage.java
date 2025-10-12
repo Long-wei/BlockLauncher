@@ -36,7 +36,7 @@ public class VersionManagePage extends StackPane {
         titleBar.setAlignment(Pos.CENTER);
         titleBar.setMinHeight(30);
 
-        Button returnButton = new Button("◂");
+        Button returnButton = new Button("⇦");
         returnButton.setStyle("""
                 -fx-background-color: #2196F3;
                 -fx-text-fill: white;
@@ -49,7 +49,7 @@ public class VersionManagePage extends StackPane {
         title.setStyle(
                 "-fx-text-fill: white;" +
                 " -fx-font-size: 16px;" +
-                " -fx-font-weight: 500;" +
+                " -fx-font-weight: bold;" +
                 "-fx-background-radius: 10 0 0 0;"
         );
 
