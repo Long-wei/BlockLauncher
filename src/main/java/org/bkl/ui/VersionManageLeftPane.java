@@ -160,7 +160,7 @@ public class VersionManageLeftPane extends VBox {
 
         switch (selectedIndex) {
             case 0 -> root.setCenter(new VersionManageGlobalPane(mcVersion, modLoaderType, modLoaderVersion));
-            case 1 -> root.setCenter(new VersionManageAutoInstallPane(mcVersion));
+            case 1 -> root.setCenter(new VersionManageAutoInstallPane(mcVersion, modLoaderType, modLoaderVersion));
             default -> {}
         }
     }

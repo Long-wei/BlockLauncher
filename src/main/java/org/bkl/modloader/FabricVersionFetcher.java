@@ -37,16 +37,12 @@ public class FabricVersionFetcher {
                 .build();
 
         try {
-            HttpResponse<String> response = client.send(
-                    request,
-                    HttpResponse.BodyHandlers.ofString()
-            );
+            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
 
             if (response.statusCode() != 200) {
                 new RuntimeException("Failed to fetch Fabric versions: HTTP " + response.statusCode());
             }
 
-            // 解析json响应
             JsonArray jsonArray = gson.fromJson(response.body(), JsonArray.class);
             for (int i = 0; i < jsonArray.size(); i++) {
                 JsonObject loaderObj = jsonArray.get(i).getAsJsonObject();
@@ -59,6 +55,40 @@ public class FabricVersionFetcher {
         }
 
         return fabricLoaders;
+    }
+
+    public static JsonObject getLibraries(String mcVersion, String loaderVersion) {
+        String apiUrl = FABRIC_LOADER_API + mcVersion + "/" + loaderVersion;
+
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(apiUrl))
+                .header("Accept", "application/json")
+                .build();
+
+        try{
+            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+            if (response.statusCode() != 200) {
+                new RuntimeException("Failed to fetch Fabric loader details: HTTP " + response.statusCode());
+            }
+            JsonObject jsonObject = gson.fromJson(response.body(), JsonObject.class);
+
+            if (jsonObject.has("launcherMeta")) {
+                JsonObject asJsonObject = jsonObject.get("launcherMeta").getAsJsonObject();
+
+                if (asJsonObject.has("libraries")) {
+                    JsonObject asJsonObject1 = asJsonObject.get("libraries").getAsJsonObject();
+
+                    if (asJsonObject1.has("common")) {
+                        return asJsonObject1;
+                    }
+                }
+            }
+
+        }catch (Exception e){
+
+        }
+
+        return null;
     }
 
 }

@@ -26,9 +26,14 @@ public class VersionManageAutoInstallPane extends VBox {
     private final ExecutorService executor = Executors.newSingleThreadExecutor();
     private ProgressIndicator loadingIndicator;
     private String mcVersion;
+    private ModLoaderType modLoaderType;
+    private String modLoaderVersion;
 
-    public VersionManageAutoInstallPane(String mcVersion) {
+    public VersionManageAutoInstallPane(String mcVersion, ModLoaderType modLoaderType, String modLoaderVersion) {
         this.mcVersion = mcVersion;
+        this.modLoaderType = modLoaderType;
+        this.modLoaderVersion = modLoaderVersion;
+
         this.setPrefSize(600, 470);
         this.setMinSize(600, 470);
         this.setMaxSize(600, 470);
@@ -106,9 +111,15 @@ public class VersionManageAutoInstallPane extends VBox {
             private final HBox itemBox = new HBox();
             private final Label versionLabel = new Label();
             private final Region spacer = new Region();
-            private final Button downloadBtn = new Button("下载");
+            private final Button downloadBtn = new Button();
 
             {
+                if (modLoaderType != null) {
+                    downloadBtn.setText("移除");
+                } else {
+                    downloadBtn.setText("下载");
+                }
+
                 versionLabel.setStyle("-fx-padding: 0 0 0 10;");
 
                 HBox.setHgrow(spacer, Priority.ALWAYS);
@@ -125,6 +136,20 @@ public class VersionManageAutoInstallPane extends VBox {
 
                 itemBox.getChildren().addAll(versionLabel, spacer, downloadBtn);
                 itemBox.setPadding(new Insets(5, 0, 5, 0));
+
+                downloadBtn.setOnAction(event -> {
+                    if (modLoaderType != null) {
+                        switch (modLoaderType) {
+                            case FABRIC -> ModLoaderManager.removeModLoader(mcVersion, ModLoaderType.FABRIC);
+                            case FORGE -> ModLoaderManager.removeModLoader(mcVersion, ModLoaderType.FORGE);
+                            case QUILT -> ModLoaderManager.removeModLoader(mcVersion, ModLoaderType.QUILT);
+                            case OPTIFINE -> ModLoaderManager.removeModLoader(mcVersion, ModLoaderType.OPTIFINE);
+                        }
+                        updateVersionList(new ArrayList<>());
+                    } else {
+                        System.out.println("下载模组加载器" + versionLabel.getText());
+                    }
+                });
             }
 
             @Override
@@ -147,9 +172,18 @@ public class VersionManageAutoInstallPane extends VBox {
         setSelectedButton(btn1);
 
         this.getChildren().addAll(top, content);
+
+        if (modLoaderType != null) {
+            ArrayList<String> value = new ArrayList<>();
+            value.add(modLoaderType.name() + "：" + modLoaderVersion);
+            updateVersionList(value);
+        } else {
+            getRemoteVersions(ModLoaderType.FABRIC);
+        }
+
     }
 
-    private Button createSelectableButton(String text, ModLoaderType modLoaderType) {
+    private Button createSelectableButton(String text, ModLoaderType modLoaderType1) {
         Button btn = new Button(text);
         btn.setPrefSize(100, 40);
         setButtonUnselected(btn);
@@ -159,47 +193,58 @@ public class VersionManageAutoInstallPane extends VBox {
                 setButtonUnselected(b);
             }
             setButtonSelected(btn);
-            switch (modLoaderType) {
-                case FABRIC -> {
-                    Platform.runLater(() -> {
-                        loadingIndicator.setVisible(true);
-                        versionListView.setVisible(false);
-                    });
 
-                    Task<List<String>> task = new Task<>() {
-                        @Override
-                        protected List<String> call() throws Exception {
-                            return loadRemoteVersions(mcVersion, ModLoaderType.FABRIC);
-                        }
-
-                        @Override
-                        protected void succeeded() {
-                            super.succeeded();
-                            List<String> value = getValue();
-                            Platform.runLater(() -> {
-                                loadingIndicator.setVisible(false);
-                                versionListView.setVisible(true);
-                                updateVersionList(value);
-                            });
-                        }
-
-                        @Override
-                        protected void failed() {
-                            super.failed();
-                            Throwable exception = getException();
-                            Platform.runLater(() -> {
-                                versionListView.setVisible(false);
-                            });
-                        }
-
-                    };
-                    executor.submit(task);
-                }
+            if (modLoaderType != null) {
+                ArrayList<String> value = new ArrayList<>();
+                value.add(modLoaderType.name() + "：" + modLoaderVersion);
+                updateVersionList(value);
+            } else {
+                getRemoteVersions(modLoaderType1);
             }
 
         });
-
         return btn;
+    }
+
+    private List<String> getRemoteVersions(ModLoaderType modLoaderType) {
+        switch (modLoaderType) {
+            case FABRIC -> {
+                Platform.runLater(() -> {
+                    loadingIndicator.setVisible(true);
+                    versionListView.setVisible(false);
+                });
+
+                Task<List<String>> task = new Task<>() {
+                    @Override
+                    protected List<String> call() throws Exception {
+                        return loadRemoteVersions(mcVersion, ModLoaderType.FABRIC);
+                    }
+
+                    @Override
+                    protected void succeeded() {
+                        super.succeeded();
+                        List<String> value = getValue();
+                        Platform.runLater(() -> {
+                            loadingIndicator.setVisible(false);
+                            versionListView.setVisible(true);
+                            updateVersionList(value);
+                        });
+                    }
+
+                    @Override
+                    protected void failed() {
+                        super.failed();
+                        Throwable exception = getException();
+                        Platform.runLater(() -> {
+                            versionListView.setVisible(false);
+                        });
+                    }
+
+                };
+                executor.submit(task);
+            }
+        }
+        return new ArrayList<>();
     }
 
     private void setButtonSelected(Button btn) {

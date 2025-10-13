@@ -7,18 +7,20 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import org.apache.commons.codec.binary.StringUtils;
+import org.bkl.game.MinecraftPath;
 import org.bkl.modloader.ModLoaderType;
 
 public class VersionManageGlobalPane extends VBox {
     private String mcVersion = null;
     private ModLoaderType modLoaderType = null;
     private String modLoaderVersion = null;
-
+    private String mcPath = null;
 
     public VersionManageGlobalPane(String mcVersion, ModLoaderType modLoaderType, String modLoaderVersion) {
         this.mcVersion = mcVersion;
         this.modLoaderVersion = modLoaderVersion;
         this.modLoaderType = modLoaderType;
+        this.mcPath = MinecraftPath.getMinecraftPath();
 
         this.setPrefSize(600, 470);
         this.setMinSize(600, 470);
@@ -73,7 +75,13 @@ public class VersionManageGlobalPane extends VBox {
                     -fx-text-fill: #444444;
                 """);
 
-        content.getChildren().addAll(gameVersionLabel, modLoaderVersionLabel);
+        Label gameInstallPath = new Label("游戏安装路径：" + this.mcPath);
+        gameInstallPath.setStyle("""
+                    -fx-font-size: 16px;
+                    -fx-text-fill: #444444;
+                """);
+
+        content.getChildren().addAll(gameVersionLabel, modLoaderVersionLabel, gameInstallPath);
 
         this.getChildren().addAll(top, content);
     }

@@ -2,6 +2,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import org.bkl.game.MinecraftPath;
 import org.bkl.modloader.FabricChecker;
+import org.bkl.modloader.FabricInstall;
 import org.bkl.modloader.FabricRemover;
 import org.bkl.modloader.FabricVersionFetcher;
 import org.junit.jupiter.api.Test;
@@ -45,6 +46,16 @@ public class FabricTest {
     public void getModLoaderVersion () {
         System.out.println(FabricChecker.getModLoaderVersion("1.21.7"));
 
+    }
+
+    @Test
+    public void getLibraries() {
+        FabricVersionFetcher.getLibraries("1.21.7", "0.17.3");
+    }
+
+    @Test
+    public void installFabric() {
+        FabricInstall.installFabric(MinecraftPath.getMinecraftPath(), "1.21.7", "0.17.1");
     }
 
 }

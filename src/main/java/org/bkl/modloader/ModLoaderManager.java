@@ -53,7 +53,7 @@ public class ModLoaderManager {
     /**
      * @param mcVersion 游戏版本
      * @param modLoaderType 加载模组类型
-     * @return 可用版本 List<String>
+     * @return 可用版本 List&ltString&gt
      */
     public static List<String> loadRemoteVersions(String mcVersion, ModLoaderType modLoaderType) {
         switch (modLoaderType) {
@@ -62,6 +62,16 @@ public class ModLoaderManager {
             }
         }
         return null;
+    }
+
+    /**
+     * @param mcVersion 游戏版本
+     * @param modLoaderType 模组加载器类型
+     */
+    public static void removeModLoader(String mcVersion, ModLoaderType modLoaderType) {
+        if (ModLoaderType.FABRIC.equals(modLoaderType)) {
+            FabricRemover.remove(mcVersion);
+        }
     }
 
 }

@@ -5,17 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1ef6fceb-646f-4ee4-b80a-46dbd324612a" name="Changes" comment="完善左侧头像区域">
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/bkl/ui/VersionManageGlobalPane.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/bkl/modloader/FabricInstall.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/BlockLauncher.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/bkl/game/GameLauncher.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/bkl/game/GameLauncher.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/bkl/modloader/FabricChecker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/bkl/modloader/FabricChecker.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/bkl/modloader/FabricVersionFetcher.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/bkl/modloader/FabricVersionFetcher.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/bkl/modloader/ModLoaderManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/bkl/modloader/ModLoaderManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/bkl/ui/FirstPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/bkl/ui/FirstPage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/bkl/ui/LeftMainPane.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/bkl/ui/LeftMainPane.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/bkl/ui/VersionManageAutoInstallPane.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/bkl/ui/VersionManageAutoInstallPane.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/bkl/ui/VersionManageGlobalPane.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/bkl/ui/VersionManageGlobalPane.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/bkl/ui/VersionManageLeftPane.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/bkl/ui/VersionManageLeftPane.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/bkl/ui/VersionManagePage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/bkl/ui/VersionManagePage.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/FabricTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/FabricTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -67,10 +63,12 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    "Application.BlockLauncher.executor": "Debug",
+    "Application.BlockLauncher.executor": "Run",
     "Application.Main.executor": "Run",
     "Application.SystemUtils.executor": "Run",
+    "JUnit.FabricTest.getLibraries.executor": "Debug",
     "JUnit.FabricTest.getModLoaderVersion.executor": "Run",
+    "JUnit.FabricTest.installFabric.executor": "Debug",
     "JUnit.FabricTest.isFabricInstall.executor": "Debug",
     "JUnit.FabricTest.removeFabric.executor": "Debug",
     "JUnit.FabricTest.versionJonsIncludeMainClass.executor": "Run",
@@ -114,10 +112,20 @@
       <recent name="org.bkl.game" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.BlockLauncher">
+  <component name="RunManager" selected="JUnit.FabricTest.installFabric">
     <configuration name="BlockLauncher" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="BlockLauncher" />
       <module name="BlockLauncher" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="FabricTest.getLibraries" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="BlockLauncher" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="FabricTest" />
+      <option name="METHOD_NAME" value="getLibraries" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -132,11 +140,11 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="FabricTest.removeFabric" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="FabricTest.installFabric" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="BlockLauncher" />
       <option name="PACKAGE_NAME" value="" />
       <option name="MAIN_CLASS_NAME" value="FabricTest" />
-      <option name="METHOD_NAME" value="removeFabric" />
+      <option name="METHOD_NAME" value="installFabric" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -152,23 +160,13 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="RiftTest.isRiftInstall" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="BlockLauncher" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="RiftTest" />
-      <option name="METHOD_NAME" value="isRiftInstall" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.FabricTest.installFabric" />
+        <item itemvalue="JUnit.FabricTest.getLibraries" />
         <item itemvalue="Application.BlockLauncher" />
         <item itemvalue="JUnit.FabricTest.getModLoaderVersion" />
         <item itemvalue="JUnit.LoadFont.loadCustomFont" />
-        <item itemvalue="JUnit.FabricTest.removeFabric" />
-        <item itemvalue="JUnit.RiftTest.isRiftInstall" />
       </list>
     </recent_temporary>
   </component>
@@ -201,7 +199,10 @@
       <workItem from="1760251490409" duration="3384000" />
       <workItem from="1760254914038" duration="13768000" />
       <workItem from="1760280514300" duration="2045000" />
-      <workItem from="1760282743386" duration="2491000" />
+      <workItem from="1760282743386" duration="2728000" />
+      <workItem from="1760327796193" duration="11897000" />
+      <workItem from="1760368395158" duration="395000" />
+      <workItem from="1760368807623" duration="2048000" />
     </task>
     <task id="LOCAL-00001" summary="增加系统检测及游戏版本显示ui">
       <option name="closed" value="true" />
@@ -269,15 +270,6 @@
     <option name="LAST_COMMIT_MESSAGE" value="完善左侧头像区域" />
   </component>
   <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/org/bkl/ui/VersionManagePage.java</url>
-          <line>27</line>
-          <option name="timeStamp" value="9" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
     <watches-manager>
       <configuration name="JUnit">
         <watch expression="((com.google.gson.internal.LinkedTreeMap.Node)((com.google.gson.internal.LinkedTreeMap)((JsonObject)((com.google.gson.internal.LinkedTreeMap.Node)((com.google.gson.internal.LinkedTreeMap)((JsonObject)jsonArray.elements.get(2)).members).entrySet().toArray()[1]).getValue()).members).entrySet().toArray()[0]).getValue()" custom="com.google.gson.JsonObject,com.google.gson.internal.LinkedTreeMap.Node,com.google.gson.internal.LinkedTreeMap" />
