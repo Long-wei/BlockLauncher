@@ -24,13 +24,11 @@ public class FabricTest {
 
     }
 
-
     @Test
     public void isFabricInstall() {
         boolean fabricInstall = FabricChecker.isFabricInstall("1.21.7");
         System.out.println(fabricInstall);
     }
-
 
     @Test
     public void removeFabric() {
@@ -50,12 +48,17 @@ public class FabricTest {
 
     @Test
     public void getLibraries() {
-        FabricVersionFetcher.getLibraries("1.21.7", "0.17.3");
+        System.out.println(FabricVersionFetcher.getLibraries("1.21.7", "0.17.3"));
     }
 
     @Test
     public void installFabric() {
         FabricInstall.installFabric(MinecraftPath.getMinecraftPath(), "1.21.7", "0.17.1");
+    }
+
+    @Test
+    public void getFabricLoaderName() {
+        System.out.println(FabricVersionFetcher.getFabricLoaderName("1.21.7", "0.17.3"));
     }
 
 }

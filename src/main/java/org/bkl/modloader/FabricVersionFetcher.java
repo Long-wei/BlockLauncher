@@ -83,11 +83,37 @@ public class FabricVersionFetcher {
                     }
                 }
             }
-
         }catch (Exception e){
 
         }
+        return null;
+    }
 
+    public static JsonObject getFabricLoaderName(String mcVersion, String loaderVersion) {
+        String apiUrl = FABRIC_LOADER_API + mcVersion + "/" + loaderVersion;
+
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(apiUrl))
+                .header("Accept", "application/json")
+                .build();
+
+        try{
+            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+            if (response.statusCode() != 200) {
+                new RuntimeException("Failed to fetch Fabric loader details: HTTP " + response.statusCode());
+            }
+            JsonObject jsonObject = gson.fromJson(response.body(), JsonObject.class);
+
+            if (jsonObject.has("launcherMeta")) {
+                JsonObject asJsonObject = jsonObject.get("launcherMeta").getAsJsonObject();
+
+                if (asJsonObject.has("mainClass")) {
+                    return  asJsonObject.get("mainClass").getAsJsonObject();
+                }
+            }
+        }catch (Exception e){
+
+        }
         return null;
     }
 

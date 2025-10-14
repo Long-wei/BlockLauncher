@@ -5,13 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1ef6fceb-646f-4ee4-b80a-46dbd324612a" name="Changes" comment="完善左侧头像区域">
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/bkl/modloader/FabricInstall.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/bkl/modloader/FabricInstall.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/bkl/modloader/FabricInstall.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/bkl/modloader/FabricVersionFetcher.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/bkl/modloader/FabricVersionFetcher.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/bkl/modloader/ModLoaderManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/bkl/modloader/ModLoaderManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/bkl/ui/VersionManageAutoInstallPane.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/bkl/ui/VersionManageAutoInstallPane.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/bkl/ui/VersionManageGlobalPane.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/bkl/ui/VersionManageGlobalPane.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/bkl/ui/VersionManageLeftPane.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/bkl/ui/VersionManageLeftPane.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/FabricTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/FabricTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -66,9 +62,10 @@
     "Application.BlockLauncher.executor": "Run",
     "Application.Main.executor": "Run",
     "Application.SystemUtils.executor": "Run",
-    "JUnit.FabricTest.getLibraries.executor": "Debug",
+    "JUnit.FabricTest.getFabricLoaderName.executor": "Run",
+    "JUnit.FabricTest.getLibraries.executor": "Run",
     "JUnit.FabricTest.getModLoaderVersion.executor": "Run",
-    "JUnit.FabricTest.installFabric.executor": "Debug",
+    "JUnit.FabricTest.installFabric.executor": "Run",
     "JUnit.FabricTest.isFabricInstall.executor": "Debug",
     "JUnit.FabricTest.removeFabric.executor": "Debug",
     "JUnit.FabricTest.versionJonsIncludeMainClass.executor": "Run",
@@ -94,7 +91,7 @@
     "project.structure.last.edited": "Project",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "preferences.lookFeel",
+    "settings.editor.selected.configurable": "editor.preferences.folding",
     "settings.editor.splitter.proportion": "0.27407408",
     "vue.rearranger.settings.migration": "true"
   }
@@ -116,6 +113,16 @@
     <configuration name="BlockLauncher" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="BlockLauncher" />
       <module name="BlockLauncher" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="FabricTest.getFabricLoaderName" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="BlockLauncher" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="FabricTest" />
+      <option name="METHOD_NAME" value="getFabricLoaderName" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -150,23 +157,13 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="LoadFont.loadCustomFont" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="BlockLauncher" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="LoadFont" />
-      <option name="METHOD_NAME" value="loadCustomFont" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <recent_temporary>
       <list>
         <item itemvalue="JUnit.FabricTest.installFabric" />
-        <item itemvalue="JUnit.FabricTest.getLibraries" />
         <item itemvalue="Application.BlockLauncher" />
+        <item itemvalue="JUnit.FabricTest.getFabricLoaderName" />
+        <item itemvalue="JUnit.FabricTest.getLibraries" />
         <item itemvalue="JUnit.FabricTest.getModLoaderVersion" />
-        <item itemvalue="JUnit.LoadFont.loadCustomFont" />
       </list>
     </recent_temporary>
   </component>
@@ -202,7 +199,8 @@
       <workItem from="1760282743386" duration="2728000" />
       <workItem from="1760327796193" duration="11897000" />
       <workItem from="1760368395158" duration="395000" />
-      <workItem from="1760368807623" duration="2048000" />
+      <workItem from="1760368807623" duration="2444000" />
+      <workItem from="1760413832521" duration="12853000" />
     </task>
     <task id="LOCAL-00001" summary="增加系统检测及游戏版本显示ui">
       <option name="closed" value="true" />
