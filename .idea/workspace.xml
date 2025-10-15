@@ -62,7 +62,9 @@
     "Application.BlockLauncher.executor": "Run",
     "Application.Main.executor": "Run",
     "Application.SystemUtils.executor": "Run",
+    "JUnit.FabricTest.getFabricLoader.executor": "Run",
     "JUnit.FabricTest.getFabricLoaderName.executor": "Run",
+    "JUnit.FabricTest.getIntermediaryName.executor": "Run",
     "JUnit.FabricTest.getLibraries.executor": "Run",
     "JUnit.FabricTest.getModLoaderVersion.executor": "Run",
     "JUnit.FabricTest.installFabric.executor": "Run",
@@ -117,6 +119,16 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="FabricTest.getFabricLoader" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="BlockLauncher" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="FabricTest" />
+      <option name="METHOD_NAME" value="getFabricLoader" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="FabricTest.getFabricLoaderName" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="BlockLauncher" />
       <option name="PACKAGE_NAME" value="" />
@@ -127,21 +139,11 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="FabricTest.getLibraries" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="FabricTest.getIntermediaryName" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="BlockLauncher" />
       <option name="PACKAGE_NAME" value="" />
       <option name="MAIN_CLASS_NAME" value="FabricTest" />
-      <option name="METHOD_NAME" value="getLibraries" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="FabricTest.getModLoaderVersion" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="BlockLauncher" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="FabricTest" />
-      <option name="METHOD_NAME" value="getModLoaderVersion" />
+      <option name="METHOD_NAME" value="getIntermediaryName" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -160,10 +162,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="JUnit.FabricTest.installFabric" />
+        <item itemvalue="JUnit.FabricTest.getIntermediaryName" />
+        <item itemvalue="JUnit.FabricTest.getFabricLoader" />
         <item itemvalue="Application.BlockLauncher" />
         <item itemvalue="JUnit.FabricTest.getFabricLoaderName" />
-        <item itemvalue="JUnit.FabricTest.getLibraries" />
-        <item itemvalue="JUnit.FabricTest.getModLoaderVersion" />
       </list>
     </recent_temporary>
   </component>
@@ -201,6 +203,7 @@
       <workItem from="1760368395158" duration="395000" />
       <workItem from="1760368807623" duration="2444000" />
       <workItem from="1760413832521" duration="12853000" />
+      <workItem from="1760506320302" duration="11996000" />
     </task>
     <task id="LOCAL-00001" summary="增加系统检测及游戏版本显示ui">
       <option name="closed" value="true" />

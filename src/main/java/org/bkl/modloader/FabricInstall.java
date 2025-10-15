@@ -20,6 +20,7 @@ import java.nio.file.StandardCopyOption;
 
 public class FabricInstall {
     private static HttpClient client = HttpClient.newHttpClient();
+    private static final String MAVEN_URL = "https://maven.fabricmc.net/";
 
     public FabricInstall() {}
 
@@ -79,14 +80,13 @@ public class FabricInstall {
         HttpResponse<InputStream> libResp = null;
         if (libraries.has("common")) {
             String mainClass = null;
-            JsonObject fabricLoaderName = FabricVersionFetcher.getFabricLoaderName(mcVersion, loaderVersion);
+            JsonObject fabricLoaderName = FabricVersionFetcher.getFabricLoaderMainClassName(mcVersion, loaderVersion);
             if (fabricLoaderName != null && fabricLoaderName.has("client")) {
                  mainClass = fabricLoaderName.get("client").getAsString();
 
                 if (versionJsonObject.has("mainClass")) {
                     versionJsonObject.addProperty("mainClass", mainClass);
                 }
-                GsonUtil.jsonObjectWriter(versionJsonObject, jsonPath);
             }
 
             JsonObject patchesObject = new JsonObject();
@@ -94,13 +94,42 @@ public class FabricInstall {
             patchesObject.addProperty("mainClass", mainClass);
             JsonArray patchesArrayI = new JsonArray();
             JsonArray patchesArrayO = new JsonArray();
+            patchesObject.add("libraries", patchesArrayI);
 
             JsonArray common = libraries.getAsJsonArray("common");
+            JsonArray asJsonArray = versionJsonObject.getAsJsonArray("libraries");
             for (int i = 0; i < common.size(); i++) {
                 JsonObject asJsonObject = common.get(i).getAsJsonObject();
 
                 String name = asJsonObject.get("name").getAsString();
                 String url = asJsonObject.get("url").getAsString();
+
+                JsonObject libJsonObject = new JsonObject();
+                libJsonObject.addProperty("name", name);
+                libJsonObject.addProperty("url", url);
+
+                if (versionJsonObject.has("libraries")) {
+                    JsonArray ja1 = versionJsonObject.getAsJsonArray("libraries");
+
+                    boolean flag = false;
+                    for (int j = 0; j < ja1.size(); j++) {
+                        JsonObject ja2 = ja1.get(j).getAsJsonObject();
+                        if (libJsonObject.get("name").getAsString() != null && ja2.get("name").getAsString().contains(libJsonObject.get("name").getAsString())) {
+                            flag = true;
+                        }
+                    }
+                    if (!flag) {
+                        asJsonArray.add(libJsonObject);
+                    }
+                }
+                patchesArrayI.add(libJsonObject);
+
+                String libPath = mcPath + "/libraries/" + name.substring(0, name.lastIndexOf(":")).replace(".", "/").replace(":", "/") + "/" + name.substring(name.lastIndexOf(":") + 1);
+                String libName = name.substring(name.indexOf(":") + 1).replace(":", "-") + ".jar";
+
+                if ((new File(libPath + "/" +  libName)).exists()) {
+                    continue;
+                }
 
                 String libUrl = url
                         + name.substring(0, name.lastIndexOf(":")).replace(".", "/").replace(":", "/") + "/"
@@ -121,11 +150,9 @@ public class FabricInstall {
                 } catch (Exception e) {}
 
                 try {
-                    String libPath = mcPath + "/libraries/" + name.substring(0, name.lastIndexOf(":")).replace(".", "/").replace(":", "/") + "/" + name.substring(name.lastIndexOf(":") + 1);
                     Path libDir = Paths.get(libPath);
                     Files.createDirectories(libDir);
 
-                    String libName = name.substring(name.indexOf(":") + 1).replace(":", "-") + ".jar";
                     Path target = libDir.resolve(libName);
                     try (InputStream is = libResp.body()) {
                         Files.copy(is, target, StandardCopyOption.REPLACE_EXISTING);
@@ -133,18 +160,79 @@ public class FabricInstall {
                 } catch (Exception e) {
 
                 }
+            }
 
-                if (versionJsonObject.has("libraries")) {
-                    JsonArray asJsonArray = versionJsonObject.getAsJsonArray("libraries");
-                    asJsonArray.add(asJsonObject);
-                    patchesArrayI.add(asJsonObject);
+            String intermediaryName = FabricVersionFetcher.getIntermediaryName(mcVersion, loaderVersion);
+            String intermediaUrl = intermediaryName.substring(0, intermediaryName.lastIndexOf(":")).replace(".", "/").replace(":", "/") + "/"
+                    + intermediaryName.substring(intermediaryName.lastIndexOf(":") + 1) + "/"
+                    + intermediaryName.substring(intermediaryName.indexOf(":") + 1).replace(":", "-") + ".jar";
+
+            HttpRequest requestIntermedia = HttpRequest.newBuilder()
+                    .uri(URI.create(MAVEN_URL + intermediaUrl))
+                    .header("Accept", "application/java-archive")
+                    .build();
+
+            HttpResponse<InputStream> intermediaryResp = null;
+            try {
+                HttpResponse<InputStream> resp = client.send(requestIntermedia, HttpResponse.BodyHandlers.ofInputStream());
+                if  (resp.statusCode() != 200) {
+                    throw new RuntimeException("Failed to download Fabric library: HTTP " + resp.statusCode());
                 }
-
-                patchesObject.add("libraries", patchesArrayI);
-                patchesArrayO.add(patchesObject);
-                versionJsonObject.add("patches", patchesArrayO);
+                intermediaryResp = resp;
+            } catch (Exception e) {
 
             }
+
+            try {
+                Path path = Paths.get(mcPath, intermediaUrl);
+                Files.createDirectories(path.getParent());
+
+                String name = String.format("intermediary-%s", mcVersion);
+                Path resolve = path.resolve(name);
+                try (InputStream is = intermediaryResp.body()) {
+                    Files.copy(is, resolve, StandardCopyOption.REPLACE_EXISTING);
+                }
+
+            } catch (Exception e) {
+
+            }
+            patchesObject.addProperty(intermediaryName, MAVEN_URL);
+
+            boolean flag = false;
+            for (int i = 0; i < asJsonArray.size(); i++) {
+                JsonObject asJsonObject = asJsonArray.get(i).getAsJsonObject();
+                if (asJsonObject.has("name") && asJsonObject.get("name").getAsString().contains(intermediaryName)) {
+                    flag = true;
+                }
+            }
+            JsonObject jsonObject = new JsonObject();
+            jsonObject.addProperty("name", intermediaryName);
+            jsonObject.addProperty("url", MAVEN_URL);
+            if (!flag) {
+                asJsonArray.add(jsonObject);
+            }
+            patchesArrayI.add(jsonObject);
+
+            String fabricLoaderName1 = FabricVersionFetcher.getFabricLoaderName(mcVersion, loaderVersion);
+            boolean flag1 = false;
+            for (int i = 0; i < asJsonArray.size(); i++) {
+                JsonObject asJsonObject = asJsonArray.get(i).getAsJsonObject();
+                if (asJsonObject.has("name") && asJsonObject.get("name").getAsString().contains(fabricLoaderName1)) {
+                    flag1 = true;
+                }
+            }
+            JsonObject jsonObject1 = new JsonObject();
+            jsonObject1.addProperty("name", fabricLoaderName1);
+            jsonObject1.addProperty("url", MAVEN_URL);
+            if (!flag1) {
+                asJsonArray.add(jsonObject1);
+            }
+            patchesArrayI.add(jsonObject1);
+
+            patchesArrayO.add(patchesObject);
+            versionJsonObject.add("patches", patchesArrayO);
+
+            GsonUtil.jsonObjectWriter(versionJsonObject, jsonPath);
         }
     }
 }

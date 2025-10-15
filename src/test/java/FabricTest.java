@@ -58,7 +58,17 @@ public class FabricTest {
 
     @Test
     public void getFabricLoaderName() {
-        System.out.println(FabricVersionFetcher.getFabricLoaderName("1.21.7", "0.17.3"));
+        System.out.println(FabricVersionFetcher.getFabricLoaderMainClassName("1.21.7", "0.17.3"));
+    }
+
+    @Test
+    public void getFabricLoader() {
+        System.out.println(FabricVersionFetcher.getFabricLoaderName("1.21.7", "0.17.1"));
+    }
+
+    @Test
+    public void getIntermediaryName() {
+        System.out.println(FabricVersionFetcher.getIntermediaryName("1.21.7", "0.17.1"));
     }
 
 }
