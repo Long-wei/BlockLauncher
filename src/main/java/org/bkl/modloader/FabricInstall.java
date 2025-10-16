@@ -90,11 +90,17 @@ public class FabricInstall {
             }
 
             JsonObject patchesObject = new JsonObject();
-            patchesObject.addProperty("id", "fabric");
-            patchesObject.addProperty("mainClass", mainClass);
             JsonArray patchesArrayI = new JsonArray();
-            JsonArray patchesArrayO = new JsonArray();
-            patchesObject.add("libraries", patchesArrayI);
+
+            if (versionJsonObject.has("patches")) {
+                patchesObject = versionJsonObject.getAsJsonArray("patches").get(0).getAsJsonObject();
+                patchesObject.addProperty("id", "fabric");
+                patchesObject.addProperty("mainClass", mainClass);
+
+                if (patchesObject.has("libraries")) {
+                    patchesArrayI = patchesObject.getAsJsonArray("libraries");
+                }
+            }
 
             JsonArray common = libraries.getAsJsonArray("common");
             JsonArray asJsonArray = versionJsonObject.getAsJsonArray("libraries");
@@ -122,7 +128,17 @@ public class FabricInstall {
                         asJsonArray.add(libJsonObject);
                     }
                 }
-                patchesArrayI.add(libJsonObject);
+
+                boolean flag1 = false;
+                for (int j = 0; j < patchesArrayI.size(); j++) {
+                    JsonObject asJsonObject1 = patchesArrayI.get(j).getAsJsonObject();
+                    if (libJsonObject.get("name").getAsString() != null && asJsonObject1.get("name").getAsString().contains(libJsonObject.get("name").getAsString())) {
+                        flag1 = true;
+                    }
+                }
+                if (!flag1) {
+                    patchesArrayI.add(libJsonObject);
+                }
 
                 String libPath = mcPath + "/libraries/" + name.substring(0, name.lastIndexOf(":")).replace(".", "/").replace(":", "/") + "/" + name.substring(name.lastIndexOf(":") + 1);
                 String libName = name.substring(name.indexOf(":") + 1).replace(":", "-") + ".jar";
@@ -196,7 +212,6 @@ public class FabricInstall {
             } catch (Exception e) {
 
             }
-            patchesObject.addProperty(intermediaryName, MAVEN_URL);
 
             boolean flag = false;
             for (int i = 0; i < asJsonArray.size(); i++) {
@@ -211,7 +226,17 @@ public class FabricInstall {
             if (!flag) {
                 asJsonArray.add(jsonObject);
             }
-            patchesArrayI.add(jsonObject);
+
+            boolean flag2 = false;
+            for (int i = 0; i < patchesArrayI.size(); i++) {
+                JsonObject asJsonObject = patchesArrayI.get(i).getAsJsonObject();
+                if (asJsonObject.get("name").getAsString() != null && jsonObject.get("name").getAsString().contains(asJsonObject.get("name").getAsString())) {
+                    flag2 = true;
+                }
+            }
+            if (!flag2) {
+                patchesArrayI.add(jsonObject);
+            }
 
             String fabricLoaderName1 = FabricVersionFetcher.getFabricLoaderName(mcVersion, loaderVersion);
             boolean flag1 = false;
@@ -227,11 +252,16 @@ public class FabricInstall {
             if (!flag1) {
                 asJsonArray.add(jsonObject1);
             }
-            patchesArrayI.add(jsonObject1);
-
-            patchesArrayO.add(patchesObject);
-            versionJsonObject.add("patches", patchesArrayO);
-
+            boolean flag3 = false;
+            for (int i = 0; i < patchesArrayI.size(); i++) {
+                JsonObject asJsonObject = patchesArrayI.get(i).getAsJsonObject();
+                if (asJsonObject.get("name").getAsString() != null && jsonObject1.get("name").getAsString().contains(asJsonObject.get("name").getAsString())) {
+                    flag3 = true;
+                }
+            }
+            if (!flag3) {
+                patchesArrayI.add(jsonObject1);
+            }
             GsonUtil.jsonObjectWriter(versionJsonObject, jsonPath);
         }
     }

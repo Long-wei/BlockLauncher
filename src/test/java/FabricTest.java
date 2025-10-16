@@ -32,7 +32,7 @@ public class FabricTest {
 
     @Test
     public void removeFabric() {
-        FabricRemover.remove("1.21.1");
+        FabricRemover.remove("1.21.7");
     }
 
     @Test
@@ -53,7 +53,7 @@ public class FabricTest {
 
     @Test
     public void installFabric() {
-        FabricInstall.installFabric(MinecraftPath.getMinecraftPath(), "1.21.7", "0.17.1");
+        FabricInstall.installFabric(MinecraftPath.getMinecraftPath(), "1.21.7", "0.17.3");
     }
 
     @Test
