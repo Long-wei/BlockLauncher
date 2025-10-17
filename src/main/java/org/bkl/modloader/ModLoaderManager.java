@@ -6,9 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-/**
- * 一个版本游戏不允许存在多个模组加载器
- */
+
 public class ModLoaderManager {
     private List<ModLoaderType> installed = new ArrayList<>();
 
@@ -41,20 +39,14 @@ public class ModLoaderManager {
         return installed;
     }
 
-    public static List<String> getModLoaderType(String mcVersion) {
-        List<String> installed = new ArrayList<>();
-
-        if (FabricChecker.getModLoaderVersion(mcVersion) != null) {
-            installed.add(FabricChecker.getModLoaderVersion(mcVersion));
+    public static ModLoaderType getModLoaderType(String mcVersion) {
+        if (FabricChecker.isFabricInstall(mcVersion)) {
+            return ModLoaderType.FABRIC;
         }
-        return installed;
+
+        return null;
     }
 
-    /**
-     * @param mcVersion 游戏版本
-     * @param modLoaderType 加载模组类型
-     * @return 可用版本 List&ltString&gt
-     */
     public static List<String> loadRemoteVersions(String mcVersion, ModLoaderType modLoaderType) {
         switch (modLoaderType) {
             case FABRIC -> {
@@ -64,14 +56,25 @@ public class ModLoaderManager {
         return null;
     }
 
-    /**
-     * @param mcVersion 游戏版本
-     * @param modLoaderType 模组加载器类型
-     */
     public static void removeModLoader(String mcVersion, ModLoaderType modLoaderType) {
         if (ModLoaderType.FABRIC.equals(modLoaderType)) {
             FabricRemover.remove(mcVersion);
         }
+    }
+
+    public static void installModLoader(String mcPath, String mcVersion, String loaderVersion ,ModLoaderType modLoaderType) {
+        switch (modLoaderType) {
+            case FABRIC -> FabricInstall.installFabric(mcPath, mcVersion, loaderVersion);
+        }
+
+    }
+
+    public static String getModLoaderVersion(String mcVersion) {
+        if (FabricChecker.getModLoaderVersion(mcVersion) != null) {
+            return FabricChecker.getModLoaderVersion(mcVersion);
+        }
+
+        return null;
     }
 
 }

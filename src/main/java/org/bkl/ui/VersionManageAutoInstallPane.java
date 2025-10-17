@@ -8,6 +8,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import org.bkl.game.MinecraftPath;
 import org.bkl.modloader.ModLoaderManager;
 import org.bkl.modloader.ModLoaderType;
 
@@ -28,6 +29,7 @@ public class VersionManageAutoInstallPane extends VBox {
     private String mcVersion;
     private ModLoaderType modLoaderType;
     private String modLoaderVersion;
+    private ModLoaderType currentModLoaderType =  ModLoaderType.FABRIC;
 
     public VersionManageAutoInstallPane(String mcVersion, ModLoaderType modLoaderType, String modLoaderVersion) {
         this.mcVersion = mcVersion;
@@ -139,15 +141,83 @@ public class VersionManageAutoInstallPane extends VBox {
 
                 downloadBtn.setOnAction(event -> {
                     if (modLoaderType != null) {
-                        switch (modLoaderType) {
-                            case FABRIC -> ModLoaderManager.removeModLoader(mcVersion, ModLoaderType.FABRIC);
-                            case FORGE -> ModLoaderManager.removeModLoader(mcVersion, ModLoaderType.FORGE);
-                            case QUILT -> ModLoaderManager.removeModLoader(mcVersion, ModLoaderType.QUILT);
-                            case OPTIFINE -> ModLoaderManager.removeModLoader(mcVersion, ModLoaderType.OPTIFINE);
-                        }
-                        updateVersionList(new ArrayList<>());
+                        Platform.runLater(() -> {
+                            loadingIndicator.setVisible(true);
+                            versionListView.setVisible(false);
+                        });
+
+                        Task<Void> task = new Task<>() {
+                            @Override
+                            protected Void call() throws Exception {
+                                switch (modLoaderType) {
+                                    case FABRIC -> ModLoaderManager.removeModLoader(mcVersion, ModLoaderType.FABRIC);
+                                    case FORGE -> ModLoaderManager.removeModLoader(mcVersion, ModLoaderType.FORGE);
+                                    case QUILT -> ModLoaderManager.removeModLoader(mcVersion, ModLoaderType.QUILT);
+                                    case OPTIFINE -> ModLoaderManager.removeModLoader(mcVersion, ModLoaderType.OPTIFINE);
+                                }
+                                // TODO
+                                return null;
+                            }
+
+                            @Override
+                            protected void succeeded() {
+                                super.succeeded();
+                                Platform.runLater(() -> {
+                                    modLoaderType = null;
+                                    modLoaderVersion = null;
+
+                                    VersionManageLeftPane.modLoaderType = null;
+                                    VersionManageLeftPane.modLoaderVersion = null;
+
+                                    loadingIndicator.setVisible(false);
+                                    getRemoteVersions(ModLoaderType.FABRIC);
+                                });
+                            }
+
+                            @Override
+                            protected void failed() {
+                                versionListView.setVisible(true);
+                            }
+                        };
+                        executor.execute(task);
                     } else {
-                        System.out.println("下载模组加载器" + versionLabel.getText());
+                        Platform.runLater(() -> {
+                            loadingIndicator.setVisible(true);
+                            versionListView.setVisible(false);
+                        });
+
+                        Task<Void> task = new Task<>() {
+                            @Override
+                            protected Void call() throws Exception {
+                                ModLoaderManager.installModLoader(MinecraftPath.getMinecraftPath(), mcVersion, versionLabel.getText(), currentModLoaderType);
+                                return null;
+                            }
+
+                            @Override
+                            protected void succeeded() {
+                                super.succeeded();
+                                Platform.runLater(() -> {
+                                    modLoaderType = ModLoaderManager.getModLoaderType(mcVersion);
+                                    modLoaderVersion = ModLoaderManager.getModLoaderVersion(mcVersion);
+
+                                    VersionManageLeftPane.modLoaderType = modLoaderType;
+                                    VersionManageLeftPane.modLoaderVersion = modLoaderVersion;
+
+                                    ArrayList<String> value = new ArrayList<>();
+                                    value.add(modLoaderType.name() + "：" + modLoaderVersion);
+                                    updateVersionList(value);
+
+                                    loadingIndicator.setVisible(false);
+                                    versionListView.setVisible(true);
+                                });
+                            }
+
+                            @Override
+                            protected void failed() {
+                                versionListView.setVisible(true);
+                            }
+                        };
+                        executor.submit(task);
                     }
                 });
             }
@@ -159,6 +229,11 @@ public class VersionManageAutoInstallPane extends VBox {
                     setGraphic(null);
                 } else {
                     versionLabel.setText(versionText);
+                    if (modLoaderType != null) {
+                        downloadBtn.setText("移除");
+                    } else {
+                        downloadBtn.setText("下载");
+                    }
                     setGraphic(itemBox);
                 }
             }
@@ -189,6 +264,7 @@ public class VersionManageAutoInstallPane extends VBox {
         setButtonUnselected(btn);
 
         btn.setOnAction(e -> {
+            currentModLoaderType = modLoaderType1;
             for (Button b : topButtons) {
                 setButtonUnselected(b);
             }

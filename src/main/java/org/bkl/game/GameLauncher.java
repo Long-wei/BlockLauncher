@@ -38,10 +38,8 @@ public class GameLauncher {
         if (MCVersionChecker.getVersionNameList().size() > 0) {
             version = MCVersionChecker.getVersionNameList().get(0);
         }
-
-        if (ModLoaderManager.getModLoaderType(version).size() == 1) {
-            modLoaderVersion = ModLoaderManager.getModLoaderType(version).get(0);
-        }
+        modLoaderType = ModLoaderManager.getModLoaderType(version);
+        modLoaderVersion = ModLoaderManager.getModLoaderVersion(version);
 
     }
 
@@ -132,5 +130,9 @@ public class GameLauncher {
 
     public  static String getModLoaderVersion() {
         return GameLauncher.modLoaderVersion;
+    }
+
+    public static void setModLoaderVersion(String modLoaderVersion) {
+        GameLauncher.modLoaderVersion = modLoaderVersion;
     }
 }

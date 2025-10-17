@@ -14,14 +14,6 @@ import java.io.FileReader;
  */
 public class FabricChecker {
 
-    public FabricChecker() {
-    }
-
-    /**
-     * 检查指定版本是否已经安装fabric
-     * @param mcVersion 检查版本
-     * @return 已经安装fabric
-     */
     public static boolean isFabricInstall(String mcVersion) {
         // 检查游戏版本文件夹
         File versionDir = new File(MinecraftPath.getMinecraftPath() + "/versions/");
@@ -29,9 +21,6 @@ public class FabricChecker {
             return false;
         }
 
-        /**
-         * 直接检查 version.json 文件里面是否包含 fabric 的 net.fabricmc:fabric-loader 加载库路径
-         */
         File[] versionFolder = versionDir.listFiles();
         if (versionFolder != null) {
             for (File folder : versionFolder) {
@@ -50,11 +39,6 @@ public class FabricChecker {
         return false;
     }
 
-    /**
-     * 解析版本JSON文件，确认是否包含Fabric依赖
-     * @param versionJson 版本JSON文件
-     * @return 是否包含Fabric依赖
-     */
     private static boolean checkJsonForFabric(File versionJson) {
         try(FileReader reader = new FileReader(versionJson)) {
             JsonObject json = JsonParser.parseReader(reader).getAsJsonObject();
@@ -77,10 +61,6 @@ public class FabricChecker {
         return false;
     }
 
-    /**
-     * @param mcVersion 游戏版本
-     * @return 模组加载器版本
-     */
     public static String getModLoaderVersion(String mcVersion) {
         File versionDir = new File(MinecraftPath.getMinecraftPath() + "/versions/");
         if (!versionDir.exists()) {
@@ -120,7 +100,6 @@ public class FabricChecker {
                 }
             }
         }
-
         return null;
     }
 

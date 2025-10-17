@@ -6,8 +6,14 @@
   <component name="ChangeListManager">
     <list default="true" id="1ef6fceb-646f-4ee4-b80a-46dbd324612a" name="Changes" comment="完善左侧头像区域">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/bkl/game/GameLauncher.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/bkl/game/GameLauncher.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/bkl/modloader/FabricChecker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/bkl/modloader/FabricChecker.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/bkl/modloader/FabricInstall.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/bkl/modloader/FabricInstall.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/FabricTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/FabricTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/bkl/modloader/ModLoaderManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/bkl/modloader/ModLoaderManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/bkl/ui/FirstPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/bkl/ui/FirstPage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/bkl/ui/VersionManageAutoInstallPane.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/bkl/ui/VersionManageAutoInstallPane.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/bkl/ui/VersionManageGlobalPane.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/bkl/ui/VersionManageGlobalPane.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/bkl/ui/VersionManageLeftPane.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/bkl/ui/VersionManageLeftPane.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -73,47 +79,47 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.BlockLauncher.executor": "Run",
-    "Application.Main.executor": "Run",
-    "Application.SystemUtils.executor": "Run",
-    "JUnit.FabricTest.getFabricLoader.executor": "Run",
-    "JUnit.FabricTest.getFabricLoaderName.executor": "Run",
-    "JUnit.FabricTest.getIntermediaryName.executor": "Run",
-    "JUnit.FabricTest.getLibraries.executor": "Run",
-    "JUnit.FabricTest.getModLoaderVersion.executor": "Run",
-    "JUnit.FabricTest.installFabric.executor": "Run",
-    "JUnit.FabricTest.isFabricInstall.executor": "Debug",
-    "JUnit.FabricTest.removeFabric.executor": "Run",
-    "JUnit.FabricTest.versionJonsIncludeMainClass.executor": "Run",
-    "JUnit.ForgeTest.isForgeInstall.executor": "Run",
-    "JUnit.LoadFont.loadCustomFont.executor": "Debug",
-    "JUnit.QuiltTest.isQuiltInstall.executor": "Run",
-    "JUnit.RiftTest.isRiftInstall.executor": "Run",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "deletionFromPopupRequiresConfirmation": "false",
-    "git-widget-placeholder": "master",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/home/l/IdeaProjects/BlockLauncher/src/main/resources/fonts",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Project",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "editor.preferences.folding",
-    "settings.editor.splitter.proportion": "0.27407408",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.BlockLauncher.executor&quot;: &quot;Debug&quot;,
+    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
+    &quot;Application.SystemUtils.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.FabricTest.getFabricLoader.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.FabricTest.getFabricLoaderName.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.FabricTest.getIntermediaryName.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.FabricTest.getLibraries.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.FabricTest.getModLoaderVersion.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.FabricTest.installFabric.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.FabricTest.isFabricInstall.executor&quot;: &quot;Debug&quot;,
+    &quot;JUnit.FabricTest.removeFabric.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.FabricTest.versionJonsIncludeMainClass.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ForgeTest.isForgeInstall.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.LoadFont.loadCustomFont.executor&quot;: &quot;Debug&quot;,
+    &quot;JUnit.QuiltTest.isQuiltInstall.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.RiftTest.isRiftInstall.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;deletionFromPopupRequiresConfirmation&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/l/IdeaProjects/BlockLauncher/src/main/resources/fonts&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;editor.preferences.folding&quot;,
+    &quot;settings.editor.splitter.proportion&quot;: &quot;0.27407408&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/main/resources/fonts" />
@@ -220,7 +226,9 @@
       <workItem from="1760368807623" duration="2444000" />
       <workItem from="1760413832521" duration="12853000" />
       <workItem from="1760506320302" duration="12221000" />
-      <workItem from="1760624213312" duration="3283000" />
+      <workItem from="1760624213312" duration="5320000" />
+      <workItem from="1760695588223" duration="9388000" />
+      <workItem from="1760718992426" duration="1003000" />
     </task>
     <task id="LOCAL-00001" summary="增加系统检测及游戏版本显示ui">
       <option name="closed" value="true" />

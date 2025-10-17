@@ -16,6 +16,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import org.bkl.game.GameLauncher;
 import org.bkl.game.MCVersionChecker;
+import org.bkl.modloader.ModLoaderManager;
 import org.bkl.util.FontUtil;
 
 
@@ -165,8 +166,12 @@ public class FirstPage extends Application {
         }
         comboBox.setOnAction(e -> {
             String selected = comboBox.getValue();
-            GameLauncher.setVersion(selected);
             LeftMainPane.alertVersion(selected);
+
+            GameLauncher.setVersion(selected);
+            GameLauncher.setModLoader(ModLoaderManager.getModLoaderType(selected));
+            GameLauncher.setModLoaderVersion(ModLoaderManager.getModLoaderVersion(selected));
+
         });
 
         comboBoxHBox.getChildren().add(comboBox);

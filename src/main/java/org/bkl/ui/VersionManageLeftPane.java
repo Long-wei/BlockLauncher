@@ -32,9 +32,9 @@ public class VersionManageLeftPane extends VBox {
     private Button selectedButton;
     private BorderPane root;
     private int selectedIndex = 0;
-    private String mcVersion;
-    private String modLoaderVersion;
-    private ModLoaderType modLoaderType;
+    public static String mcVersion;
+    public static String modLoaderVersion;
+    public static ModLoaderType modLoaderType;
 
     /**
      * @param root
@@ -44,9 +44,9 @@ public class VersionManageLeftPane extends VBox {
      */
     public VersionManageLeftPane(BorderPane root, String version, String modLoaderVersion, ModLoaderType modLoaderType) {
         this.root = root;
-        this.mcVersion = version;
-        this.modLoaderVersion = modLoaderVersion;
-        this.modLoaderType = modLoaderType;
+        VersionManageLeftPane.mcVersion = version;
+        VersionManageLeftPane.modLoaderVersion = modLoaderVersion;
+        VersionManageLeftPane.modLoaderType = modLoaderType;
 
         this.setPrefWidth(200);
         this.setStyle("-fx-background-color: rgba(255, 255, 255, 0.5);");
@@ -140,7 +140,11 @@ public class VersionManageLeftPane extends VBox {
         });
 
         this.getChildren().addAll(versionNameBox, autoInstallBox, modManageBox);
-        root.setCenter(new VersionManageGlobalPane(mcVersion, modLoaderType, modLoaderVersion));
+
+        VersionManageGlobalPane.mcVersion = mcVersion;
+        VersionManageGlobalPane.modLoaderType = modLoaderType;
+        VersionManageGlobalPane.modLoaderVersion = modLoaderVersion;
+        root.setCenter(new VersionManageGlobalPane());
     }
 
     /**
@@ -159,9 +163,18 @@ public class VersionManageLeftPane extends VBox {
         selectedButton = targetButton;
 
         switch (selectedIndex) {
-            case 0 -> root.setCenter(new VersionManageGlobalPane(mcVersion, modLoaderType, modLoaderVersion));
-            case 1 -> root.setCenter(new VersionManageAutoInstallPane(mcVersion, modLoaderType, modLoaderVersion));
-            default -> {}
+            case 0: {
+                VersionManageGlobalPane.mcVersion = mcVersion;
+                VersionManageGlobalPane.modLoaderType = modLoaderType;
+                VersionManageGlobalPane.modLoaderVersion = modLoaderVersion;
+                root.setCenter(new VersionManageGlobalPane());
+                break;
+            }
+            case 1: {
+                root.setCenter(new VersionManageAutoInstallPane(mcVersion, modLoaderType, modLoaderVersion));
+                break;
+            }
+            default: {}
         }
     }
 }
