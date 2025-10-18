@@ -1,3 +1,5 @@
+package modloader;
+
 import org.bkl.modloader.QuiltChecker;
 import org.junit.jupiter.api.Test;
 

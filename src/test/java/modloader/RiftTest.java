@@ -1,3 +1,5 @@
+package modloader;
+
 import org.bkl.modloader.OptiFineChecker;
 import org.junit.jupiter.api.Test;
 

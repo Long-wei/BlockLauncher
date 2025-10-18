@@ -1,9 +1,10 @@
+package modloader;
+
 import javafx.scene.text.Font;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Objects;
 
 public class LoadFont {
 

@@ -1,3 +1,5 @@
+package modloader;
+
 import org.bkl.modloader.ForgeChecker;
 import org.junit.jupiter.api.Test;
 

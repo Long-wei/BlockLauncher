@@ -1,6 +1,5 @@
-package org.bkl.ui;
+package org.bkl.ui.versionmanage;
 
-import com.sun.javafx.binding.StringFormatter;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;

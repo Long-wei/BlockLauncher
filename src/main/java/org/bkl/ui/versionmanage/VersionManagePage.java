@@ -1,4 +1,4 @@
-package org.bkl.ui;
+package org.bkl.ui.versionmanage;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -13,6 +13,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import org.bkl.game.GameLauncher;
 import org.bkl.modloader.ModLoaderType;
+import org.bkl.ui.FirstPage;
 
 public class VersionManagePage extends StackPane {
 

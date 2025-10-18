@@ -1,4 +1,4 @@
-package org.bkl.ui;
+package org.bkl.ui.versionmanage;
 
 import javafx.application.Platform;
 import javafx.collections.FXCollections;

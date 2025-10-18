@@ -1,10 +1,12 @@
-package org.bkl.ui;
+package org.bkl.ui.versionmanage;
 
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import org.bkl.log.Logger;
+import org.bkl.log.LoggerFactory;
 import org.bkl.modloader.ModLoaderType;
 
 
@@ -13,6 +15,7 @@ import org.bkl.modloader.ModLoaderType;
  * @date 2025/10/2 22:38
  */
 public class VersionManageLeftPane extends VBox {
+    private static final Logger log = LoggerFactory.getLogger(VersionManageLeftPane.class.getName());
     private static final String BOX_SELECTED_STYLE = "-fx-background-color: rgba(0, 0, 0, 0.1);";
     private static final String BUTTON_SELECTED_STYLE = """
             -fx-background-color: transparent;
@@ -59,19 +62,7 @@ public class VersionManageLeftPane extends VBox {
         versionNameBox.setStyle(BOX_SELECTED_STYLE);
         versionNameLabel.setStyle(BUTTON_SELECTED_STYLE);
         versionNameBox.getChildren().add(versionNameLabel);
-        versionNameBox.setOnMouseEntered(e -> {
-            versionNameBox.setStyle(BOX_SELECTED_STYLE);
-            versionNameLabel.setStyle(BUTTON_SELECTED_STYLE);
-        });
-        versionNameBox.setOnMouseExited(e -> {
-            if (selectedBox == versionNameBox) { // 仍选中则保持样式
-                versionNameBox.setStyle(BOX_SELECTED_STYLE);
-                versionNameLabel.setStyle(BUTTON_SELECTED_STYLE);
-            } else { // 已切换到其他按钮，恢复未选中
-                versionNameBox.setStyle(BOX_UNSELECTED_STYLE);
-                versionNameLabel.setStyle(BUTTON_UNSELECTED_STYLE);
-            }
-        });
+        mouseEnAndExStyle(versionNameBox, versionNameLabel);
         versionNameBox.setOnMouseClicked(e -> {
             selectedIndex = 0;
             setSelected(versionNameBox, versionNameLabel);
@@ -93,19 +84,7 @@ public class VersionManageLeftPane extends VBox {
         autoInstallBox.setAlignment(Pos.CENTER);
         autoInstallBox.setPrefSize(200, 40);
 
-        autoInstallBox.setOnMouseEntered(e -> {
-            autoInstallBox.setStyle(BOX_SELECTED_STYLE);
-            autoInstallButton.setStyle(BUTTON_SELECTED_STYLE);
-        });
-        autoInstallBox.setOnMouseExited(e -> {
-            if (selectedBox == autoInstallBox) { // 仍选中则保持样式
-                autoInstallBox.setStyle(BOX_SELECTED_STYLE);
-                autoInstallButton.setStyle(BUTTON_SELECTED_STYLE);
-            } else { // 已切换到其他按钮，恢复未选中
-                autoInstallBox.setStyle(BOX_UNSELECTED_STYLE);
-                autoInstallButton.setStyle(BUTTON_UNSELECTED_STYLE);
-            }
-        });
+        mouseEnAndExStyle(autoInstallBox, autoInstallButton);
         autoInstallButton.setOnMouseClicked(e -> {
             selectedIndex = 1;
             setSelected(autoInstallBox, autoInstallButton); // 切换选中态
@@ -114,44 +93,62 @@ public class VersionManageLeftPane extends VBox {
         HBox modManageBox = new HBox();
         Button modManageButton = new Button("❦   模组管理");
 
-        modManageBox.setStyle(BOX_UNSELECTED_STYLE);
-        modManageButton.setStyle(BUTTON_UNSELECTED_STYLE);
-
-        modManageBox.getChildren().add(modManageButton);
-        modManageBox.setAlignment(Pos.CENTER);
-        modManageBox.setPrefSize(200, 40);
-
-        modManageBox.setOnMouseEntered(e -> {
-            modManageBox.setStyle(BOX_SELECTED_STYLE);
-            modManageButton.setStyle(BUTTON_SELECTED_STYLE);
-        });
-        modManageBox.setOnMouseExited(e -> {
-            if (selectedBox == modManageBox) {
-                modManageBox.setStyle(BOX_SELECTED_STYLE);
-                modManageButton.setStyle(BUTTON_SELECTED_STYLE);
-            } else {
-                modManageBox.setStyle(BOX_UNSELECTED_STYLE);
-                modManageButton.setStyle(BUTTON_UNSELECTED_STYLE);
-            }
-        });
+        labelInitial(modManageBox, modManageButton);
         modManageButton.setOnMouseClicked(e -> {
             selectedIndex = 2;
             setSelected(modManageBox, modManageButton); // 切换选中态
         });
 
-        this.getChildren().addAll(versionNameBox, autoInstallBox, modManageBox);
+        HBox gameInstallBox = new HBox();
+        Button gameInstallButton = new Button("☯   游戏安装");
 
-        VersionManageGlobalPane.mcVersion = mcVersion;
-        VersionManageGlobalPane.modLoaderType = modLoaderType;
-        VersionManageGlobalPane.modLoaderVersion = modLoaderVersion;
-        root.setCenter(new VersionManageGlobalPane());
+        labelInitial(gameInstallBox, gameInstallButton);
+        gameInstallButton.setOnMouseClicked(e -> {
+            selectedIndex = 3;
+            setSelected(gameInstallBox, gameInstallButton); // 切换选中态
+        });
+
+        this.getChildren().addAll(versionNameBox, autoInstallBox, modManageBox, gameInstallBox);
+
+        if (mcVersion != null && !"".equals(mcVersion)) {
+            log.info("open version manage global pane for version: " + mcVersion);
+            VersionManageGlobalPane.mcVersion = mcVersion;
+            VersionManageGlobalPane.modLoaderType = modLoaderType;
+            VersionManageGlobalPane.modLoaderVersion = modLoaderVersion;
+            root.setCenter(new VersionManageGlobalPane());
+        } else {
+            log.info("open game install pane");
+            root.setCenter(new VersionManageGameInstallPane());
+        }
     }
 
-    /**
-     * 切换选中态：设置目标按钮为选中，其他为未选中
-     * @param targetBox 目标容器（HBox）
-     * @param targetButton 目标按钮（Button）
-     */
+    private void mouseEnAndExStyle(HBox versionNameBox, Button versionNameLabel) {
+        versionNameBox.setOnMouseEntered(e -> {
+            versionNameBox.setStyle(BOX_SELECTED_STYLE);
+            versionNameLabel.setStyle(BUTTON_SELECTED_STYLE);
+        });
+        versionNameBox.setOnMouseExited(e -> {
+            if (selectedBox == versionNameBox) { // 仍选中则保持样式
+                versionNameBox.setStyle(BOX_SELECTED_STYLE);
+                versionNameLabel.setStyle(BUTTON_SELECTED_STYLE);
+            } else { // 已切换到其他按钮，恢复未选中
+                versionNameBox.setStyle(BOX_UNSELECTED_STYLE);
+                versionNameLabel.setStyle(BUTTON_UNSELECTED_STYLE);
+            }
+        });
+    }
+
+    private void labelInitial(HBox gameInstallBox, Button gameInstallButton) {
+        gameInstallBox.setStyle(BOX_UNSELECTED_STYLE);
+        gameInstallButton.setStyle(BUTTON_UNSELECTED_STYLE);
+
+        gameInstallBox.getChildren().add(gameInstallButton);
+        gameInstallBox.setAlignment(Pos.CENTER);
+        gameInstallBox.setPrefSize(200, 40);
+
+        mouseEnAndExStyle(gameInstallBox, gameInstallButton);
+    }
+
     private void setSelected(HBox targetBox, Button targetButton) {
         if (selectedBox != null && selectedButton != null) {
             selectedBox.setStyle(BOX_UNSELECTED_STYLE);
@@ -171,8 +168,17 @@ public class VersionManageLeftPane extends VBox {
                 break;
             }
             case 1: {
-                root.setCenter(new VersionManageAutoInstallPane(mcVersion, modLoaderType, modLoaderVersion));
+                if (mcVersion != null && !"".equals(mcVersion)) {
+                    root.setCenter(new VersionManageAutoInstallPane(mcVersion, modLoaderType, modLoaderVersion));
+                    log.info("open modloader auto install pane for version: " + mcVersion);
+                } else {
+                    log.info("current game version is null, can not open modloader auto install pane");
+                }
                 break;
+            }
+            case 3: {
+                root.setCenter(new VersionManageGameInstallPane());
+                log.info("open game install pane");
             }
             default: {}
         }

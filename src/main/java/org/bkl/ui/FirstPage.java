@@ -17,6 +17,7 @@ import javafx.stage.StageStyle;
 import org.bkl.game.GameLauncher;
 import org.bkl.game.MCVersionChecker;
 import org.bkl.modloader.ModLoaderManager;
+import org.bkl.ui.versionmanage.VersionManagePage;
 import org.bkl.util.FontUtil;
 
 
