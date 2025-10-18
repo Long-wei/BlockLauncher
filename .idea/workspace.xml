@@ -5,15 +5,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1ef6fceb-646f-4ee4-b80a-46dbd324612a" name="Changes" comment="完善左侧头像区域">
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/bkl/log/ConsoleHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/bkl/log/FileHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/bkl/log/Formatter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/bkl/log/Handler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/bkl/log/LogLevel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/bkl/log/LogRecord.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/bkl/log/Logger.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/bkl/log/LoggerFactory.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/bkl/log/SimpleFormatter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/bkl/game/GameLauncher.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/bkl/game/GameLauncher.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/bkl/modloader/FabricChecker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/bkl/modloader/FabricChecker.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/bkl/modloader/FabricInstall.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/bkl/modloader/FabricInstall.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/bkl/modloader/ModLoaderManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/bkl/modloader/ModLoaderManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/bkl/ui/FirstPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/bkl/ui/FirstPage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/bkl/ui/VersionManageAutoInstallPane.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/bkl/ui/VersionManageAutoInstallPane.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/bkl/ui/VersionManageGlobalPane.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/bkl/ui/VersionManageGlobalPane.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/bkl/ui/VersionManageLeftPane.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/bkl/ui/VersionManageLeftPane.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/BlockLauncher.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/BlockLauncher.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/bkl/game/MCVersionChecker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/bkl/game/MCVersionChecker.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/bkl/game/MinecraftPath.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/bkl/game/MinecraftPath.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/bkl/os/SystemUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/bkl/util/SystemUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/bkl/util/FontUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/bkl/util/FontUtil.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -23,8 +29,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Interface" />
         <option value="Enum" />
+        <option value="Interface" />
         <option value="Class" />
       </list>
     </option>
@@ -81,7 +87,7 @@
   </component>
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
-    &quot;Application.BlockLauncher.executor&quot;: &quot;Debug&quot;,
+    &quot;Application.BlockLauncher.executor&quot;: &quot;Run&quot;,
     &quot;Application.Main.executor&quot;: &quot;Run&quot;,
     &quot;Application.SystemUtils.executor&quot;: &quot;Run&quot;,
     &quot;JUnit.FabricTest.getFabricLoader.executor&quot;: &quot;Run&quot;,
@@ -228,7 +234,10 @@
       <workItem from="1760506320302" duration="12221000" />
       <workItem from="1760624213312" duration="5320000" />
       <workItem from="1760695588223" duration="9388000" />
-      <workItem from="1760718992426" duration="1003000" />
+      <workItem from="1760718992426" duration="1672000" />
+      <workItem from="1760754075952" duration="11000" />
+      <workItem from="1760754798675" duration="34000" />
+      <workItem from="1760760351424" duration="2901000" />
     </task>
     <task id="LOCAL-00001" summary="增加系统检测及游戏版本显示ui">
       <option name="closed" value="true" />

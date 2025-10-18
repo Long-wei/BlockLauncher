@@ -1,9 +1,8 @@
 package org.bkl.game;
 
-import org.bkl.os.SystemUtils;
+import org.bkl.util.SystemUtil;
 
 import java.io.File;
-import java.util.Objects;
 
 public class MinecraftPath {
 
@@ -14,9 +13,9 @@ public class MinecraftPath {
     }
 
     public static String getMinecraftPath() {
-        String osName = SystemUtils.osName;
+        String osName = SystemUtil.osName;
         if (osName == null) {
-            osName = SystemUtils.getOsName();
+            osName = SystemUtil.getOsName();
         }
 
         if (osName.contains("win")) {

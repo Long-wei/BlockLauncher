@@ -23,7 +23,6 @@ public final class FontUtil {
                 Font b = Font.loadFont(isBold, 12);
                 if (b != null) boldFamily = b.getFamily();
             }
-            System.err.println("FontUtil loaded families: regular=" + regularFamily + ", bold=" + boldFamily);
         } catch (Exception e) {
             e.printStackTrace();
         }

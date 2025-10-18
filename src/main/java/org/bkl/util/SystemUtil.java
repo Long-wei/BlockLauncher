@@ -1,10 +1,10 @@
-package org.bkl.os;
+package org.bkl.util;
 
-public class SystemUtils {
+public class SystemUtil {
 
     public static String osName = null;
 
-    public SystemUtils() {
+    public SystemUtil() {
         osName = System.getProperty("os.name").toLowerCase();
     }
 
