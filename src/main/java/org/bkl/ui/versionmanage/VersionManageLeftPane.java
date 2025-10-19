@@ -59,8 +59,6 @@ public class VersionManageLeftPane extends VBox {
     public void initUi() {
         HBox versionNameBox = new HBox();
         Button versionNameLabel = new Button("    版本：" + this.mcVersion);
-        versionNameBox.setStyle(BOX_SELECTED_STYLE);
-        versionNameLabel.setStyle(BUTTON_SELECTED_STYLE);
         versionNameBox.getChildren().add(versionNameLabel);
         mouseEnAndExStyle(versionNameBox, versionNameLabel);
         versionNameBox.setOnMouseClicked(e -> {
@@ -101,12 +99,22 @@ public class VersionManageLeftPane extends VBox {
 
         HBox gameInstallBox = new HBox();
         Button gameInstallButton = new Button("☯   游戏安装");
-
         labelInitial(gameInstallBox, gameInstallButton);
         gameInstallButton.setOnMouseClicked(e -> {
             selectedIndex = 3;
             setSelected(gameInstallBox, gameInstallButton); // 切换选中态
         });
+        if (this.mcVersion == null || "".equals(this.mcVersion)) {
+            versionNameBox.setStyle(BOX_UNSELECTED_STYLE);
+            versionNameLabel.setStyle(BUTTON_UNSELECTED_STYLE);
+            gameInstallBox.setStyle(BOX_SELECTED_STYLE);
+            gameInstallButton.setStyle(BUTTON_SELECTED_STYLE);
+        } else {
+            versionNameBox.setStyle(BOX_SELECTED_STYLE);
+            versionNameLabel.setStyle(BUTTON_SELECTED_STYLE);
+            gameInstallBox.setStyle(BOX_UNSELECTED_STYLE);
+            gameInstallButton.setStyle(BUTTON_UNSELECTED_STYLE);
+        }
 
         this.getChildren().addAll(versionNameBox, autoInstallBox, modManageBox, gameInstallBox);
 

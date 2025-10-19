@@ -5,20 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1ef6fceb-646f-4ee4-b80a-46dbd324612a" name="Changes" comment="完善左侧头像区域">
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/bkl/download/GameVersionManifest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/bkl/ui/versionmanage/VersionManageGameInstallPane.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/download/GameVersionManifestTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/bkl/ui/FirstPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/bkl/ui/FirstPage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/bkl/ui/VersionManageAutoInstallPane.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/bkl/ui/versionmanage/VersionManageAutoInstallPane.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/bkl/ui/VersionManageGlobalPane.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/bkl/ui/versionmanage/VersionManageGlobalPane.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/bkl/ui/VersionManageLeftPane.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/bkl/ui/versionmanage/VersionManageLeftPane.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/bkl/ui/VersionManagePage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/bkl/ui/versionmanage/VersionManagePage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/FabricTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/modloader/FabricTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/ForgeTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/modloader/ForgeTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/LoadFont.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/modloader/LoadFont.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/QuiltTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/modloader/QuiltTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/RiftTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/modloader/RiftTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/bkl/download/GameVersionManifest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/bkl/download/GameVersionManifest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/bkl/ui/versionmanage/VersionManageGameInstallPane.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/bkl/ui/versionmanage/VersionManageGameInstallPane.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/bkl/ui/versionmanage/VersionManageLeftPane.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/bkl/ui/versionmanage/VersionManageLeftPane.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/bkl/ui/versionmanage/VersionManagePage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/bkl/ui/versionmanage/VersionManagePage.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -86,7 +77,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    "Application.BlockLauncher.executor": "Run",
+    "Application.BlockLauncher.executor": "Debug",
     "Application.Main.executor": "Run",
     "Application.SystemUtils.executor": "Run",
     "JUnit.FabricTest.getFabricLoader.executor": "Run",
@@ -140,7 +131,7 @@
       <recent name="org.bkl.game" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.GameVersionManifestTest.getManifestFetcher">
+  <component name="RunManager" selected="Application.BlockLauncher">
     <configuration name="BlockLauncher" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="BlockLauncher" />
       <module name="BlockLauncher" />
@@ -196,8 +187,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.GameVersionManifestTest.getManifestFetcher" />
         <item itemvalue="Application.BlockLauncher" />
+        <item itemvalue="JUnit.GameVersionManifestTest.getManifestFetcher" />
         <item itemvalue="JUnit.FabricTest.installFabric" />
         <item itemvalue="JUnit.FabricTest.removeFabric" />
         <item itemvalue="JUnit.FabricTest.getIntermediaryName" />
@@ -245,7 +236,9 @@
       <workItem from="1760754075952" duration="11000" />
       <workItem from="1760754798675" duration="34000" />
       <workItem from="1760760351424" duration="3292000" />
-      <workItem from="1760799788627" duration="4535000" />
+      <workItem from="1760799788627" duration="4668000" />
+      <workItem from="1760849779521" duration="411000" />
+      <workItem from="1760885310524" duration="5143000" />
     </task>
     <task id="LOCAL-00001" summary="增加系统检测及游戏版本显示ui">
       <option name="closed" value="true" />
@@ -313,6 +306,15 @@
     <option name="LAST_COMMIT_MESSAGE" value="完善左侧头像区域" />
   </component>
   <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/org/bkl/ui/versionmanage/VersionManageLeftPane.java</url>
+          <line>101</line>
+          <option name="timeStamp" value="8" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
     <watches-manager>
       <configuration name="JUnit">
         <watch expression="((com.google.gson.internal.LinkedTreeMap.Node)((com.google.gson.internal.LinkedTreeMap)((JsonObject)((com.google.gson.internal.LinkedTreeMap.Node)((com.google.gson.internal.LinkedTreeMap)((JsonObject)jsonArray.elements.get(2)).members).entrySet().toArray()[1]).getValue()).members).entrySet().toArray()[0]).getValue()" custom="com.google.gson.JsonObject,com.google.gson.internal.LinkedTreeMap.Node,com.google.gson.internal.LinkedTreeMap" />

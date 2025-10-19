@@ -3,24 +3,31 @@ package org.bkl.ui.versionmanage;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.concurrent.Task;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
+import org.bkl.download.GameVersionManifest;
+import org.bkl.log.Logger;
+import org.bkl.log.LoggerFactory;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class VersionManageGameInstallPane extends VBox {
+    private static final Logger log = LoggerFactory.getLogger(VersionManageGameInstallPane.class.getName());
 
     private enum Channel { RELEASE, SNAPSHOT, OLD }
 
     private final List<Button> topButtons = new ArrayList<>();
     private final ExecutorService executor = Executors.newSingleThreadExecutor();
-    private final ListView<String> versionListView = new ListView<>();
+    private ListView<String> versionListView = new ListView<>();
     private final ProgressIndicator loadingIndicator = new ProgressIndicator();
 
     private Channel currentChannel = Channel.RELEASE;
@@ -33,7 +40,6 @@ public class VersionManageGameInstallPane extends VBox {
                 -fx-background-color: rgba(245, 245, 245, 0.8);
             """);
         initUi();
-        // 默认拉取 Release 渠道
         getRemoteVersions(currentChannel);
     }
 
@@ -52,7 +58,9 @@ public class VersionManageGameInstallPane extends VBox {
         Button btnRelease = createSelectableButton("Release", Channel.RELEASE);
         Button btnSnapshot = createSelectableButton("Snapshot", Channel.SNAPSHOT);
         Button btnOld = createSelectableButton("Old", Channel.OLD);
-        topButtons.addAll(Arrays.asList(btnRelease, btnSnapshot, btnOld));
+        Button btnInstalled = createInstalledButton();
+
+        topButtons.addAll(Arrays.asList(btnRelease, btnSnapshot, btnOld, btnInstalled));
         top.getChildren().addAll(topButtons);
         setButtonSelected(btnRelease);
 
@@ -102,7 +110,7 @@ public class VersionManageGameInstallPane extends VBox {
             private final HBox itemBox = new HBox();
             private final Label versionLabel = new Label();
             private final Region spacer = new Region();
-            private final Button actionBtn = new Button();
+            private final Button actionBtn = new Button("下载");
 
             {
                 versionLabel.setStyle("-fx-padding: 0 0 0 10;");
@@ -125,9 +133,9 @@ public class VersionManageGameInstallPane extends VBox {
                     String ver = versionLabel.getText();
                     Platform.runLater(() -> {
                         loadingIndicator.setVisible(true);
-                        versionListView.setVisible(false);
+                        versionListView.setVisible(true);
                     });
-
+                    System.out.println(ver);
                 });
             }
 
@@ -137,6 +145,8 @@ public class VersionManageGameInstallPane extends VBox {
                 if (empty || versionText == null) {
                     setGraphic(null);
                 } else {
+                    versionLabel.setText(versionText);
+                    setGraphic(itemBox);
                 }
             }
         });
@@ -162,7 +172,94 @@ public class VersionManageGameInstallPane extends VBox {
         return btn;
     }
 
+    private Button createInstalledButton() {
+        Button btn = new Button("已安装");
+        btn.setPrefSize(100, 40);
+        setButtonUnselected(btn);
+        btn.setOnAction(e -> {
+            for (Button b : topButtons) setButtonUnselected(b);
+            setButtonSelected(btn);
+            getInstalledVersions();
+        });
+        return btn;
+    }
+
     private void getRemoteVersions(Channel channel) {
+        Platform.runLater(() -> {
+            loadingIndicator.setVisible(true);
+        });
+
+        Task<List<String>> task = new Task<>() {
+            @Override
+            protected List<String> call() throws Exception {
+                List<String> list = switch (channel) {
+                    case RELEASE -> GameVersionManifest.getReleaseVersions();
+                    case SNAPSHOT -> GameVersionManifest.getSnapShotVersions();
+                    case OLD -> GameVersionManifest.getOldVersions();
+                    default -> null;
+                };
+                return list;
+            }
+
+            @Override
+            protected void succeeded() {
+                List<String> list = getValue();
+                if (list == null || list.isEmpty()) {
+                    log.info("no versions found for channel: " + channel);
+                }
+                updateVersionList(list);
+                loadingIndicator.setVisible(false);
+                versionListView.setVisible(true);
+            }
+
+            @Override
+            protected void failed() {
+
+            }
+        };
+        executor.submit(task);
+    }
+
+    private void getInstalledVersions() {
+        Platform.runLater(() -> loadingIndicator.setVisible(true));
+
+        Task<List<String>> task = new Task<>() {
+            @Override
+            protected List<String> call() {
+                List<String> list = new ArrayList<>();
+                File versionsDir = new File(System.getProperty("user.home"), ".minecraft/versions");
+                if (versionsDir.exists() && versionsDir.isDirectory()) {
+                    File[] children = versionsDir.listFiles(File::isDirectory);
+                    if (children != null) {
+                        for (File f : children) {
+                            list.add(f.getName());
+                        }
+                        Collections.sort(list);
+                    }
+                }
+                return list;
+            }
+
+            @Override
+            protected void succeeded() {
+                List<String> list = getValue();
+                if (list == null || list.isEmpty()) {
+                    log.info("no installed versions found");
+                }
+                updateVersionList(list);
+                loadingIndicator.setVisible(false);
+                versionListView.setVisible(true);
+            }
+
+            @Override
+            protected void failed() {
+                Throwable ex = getException();
+                log.info("failed to list installed versions -> " + ex);
+                loadingIndicator.setVisible(false);
+            }
+        };
+
+        executor.submit(task);
     }
 
     private void setButtonSelected(Button btn) {

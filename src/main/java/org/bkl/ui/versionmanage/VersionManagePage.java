@@ -107,11 +107,11 @@ public class VersionManagePage extends StackPane {
         """);
 
         Rectangle clip = new Rectangle();
-        root.setClip(clip);
-        clip.widthProperty().bind(root.widthProperty());
-        clip.heightProperty().bind(root.heightProperty());
-        clip.setArcWidth(10);
+        clip.widthProperty().bind(this.widthProperty());
+        clip.heightProperty().bind(this.heightProperty());
+        clip.setArcWidth(10);   // 根据需要调整圆角大小
         clip.setArcHeight(10);
+        this.setClip(clip);
 
         this.getChildren().addAll(root);
         root.setTop(titleBar);

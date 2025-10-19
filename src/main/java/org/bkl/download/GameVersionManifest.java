@@ -1,5 +1,6 @@
 package org.bkl.download;
 
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import org.bkl.log.Logger;
@@ -9,6 +10,8 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class GameVersionManifest {
@@ -18,8 +21,6 @@ public class GameVersionManifest {
     private static JsonObject manifest;
 
     public static JsonObject getManifestFetcher() {
-        JsonObject manifest = new JsonObject();
-
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(MANIFEST_URL))
                 .header("Accept", "application/json")
@@ -36,7 +37,57 @@ public class GameVersionManifest {
         } catch (Exception e) {
             log.info("fail fetch game version manifest: " + e.getMessage());
         }
-
         return null;
+    }
+
+    public static List<String> getReleaseVersions() {
+        if (manifest == null) {
+            getManifestFetcher();
+        }
+
+        List<String> releaseVersions = new ArrayList<>();
+        JsonArray versions = manifest.get("versions").getAsJsonArray();
+        for (int i = 0; i < versions.size(); i++) {
+            JsonObject version = versions.get(i).getAsJsonObject();
+            String type = version.get("type").getAsString();
+            if (type.contains("release")) {
+                releaseVersions.add(version.get("id").getAsString());
+            }
+        }
+        return releaseVersions;
+    }
+
+    public static List<String> getSnapShotVersions() {
+        if (manifest == null) {
+            getManifestFetcher();
+        }
+
+        List<String> snapShopVersions = new ArrayList<>();
+        JsonArray versions = manifest.get("versions").getAsJsonArray();
+        for (int i = 0; i < versions.size(); i++) {
+            JsonObject version = versions.get(i).getAsJsonObject();
+            String type = version.get("type").getAsString();
+            if (type.contains("snapshot")) {
+                snapShopVersions.add(version.get("id").getAsString());
+            }
+        }
+        return snapShopVersions;
+    }
+
+    public static List<String> getOldVersions() {
+        if (manifest == null) {
+            getManifestFetcher();
+        }
+
+        List<String> oldVersions = new ArrayList<>();
+        JsonArray versions = manifest.get("versions").getAsJsonArray();
+        for (int i = 0; i < versions.size(); i++) {
+            JsonObject version = versions.get(i).getAsJsonObject();
+            String type = version.get("type").getAsString();
+            if (type.contains("old")) {
+                oldVersions.add(version.get("id").getAsString());
+            }
+        }
+        return oldVersions;
     }
 }
