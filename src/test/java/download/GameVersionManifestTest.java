@@ -9,4 +9,11 @@ public class GameVersionManifestTest {
     public void getManifestFetcher() {
         System.out.println(GameVersionManifest.getManifestFetcher());
     }
+
+    @Test
+    public void getVersionInfo() {
+        System.out.println(GameVersionManifest.getVersionInfo("1.20.4"));
+    }
+
+
 }

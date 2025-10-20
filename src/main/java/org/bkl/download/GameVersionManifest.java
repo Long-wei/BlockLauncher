@@ -90,4 +90,21 @@ public class GameVersionManifest {
         }
         return oldVersions;
     }
+
+    public static JsonObject getVersionInfo(String versionId) {
+        if (manifest == null) {
+            getManifestFetcher();
+        }
+
+        JsonArray versions = manifest.get("versions").getAsJsonArray();
+        for (int i = 0; i < versions.size(); i++) {
+            JsonObject version = versions.get(i).getAsJsonObject();
+            String id = version.get("id").getAsString();
+            if (id.equals(versionId)) {
+                return version;
+            }
+        }
+        return null;
+    }
+
 }
