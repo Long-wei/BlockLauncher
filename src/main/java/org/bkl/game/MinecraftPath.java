@@ -7,13 +7,10 @@ import java.io.File;
 public class MinecraftPath {
 
     public static String minecraftPath = null;
-
-    public MinecraftPath() {
-        getMinecraftPath();
-    }
+    public static String minecraftDefaultPath = null;
 
     public static String getMinecraftPath() {
-        String osName = SystemUtil.osName;
+        String osName = SystemUtil.getOsName();
         if (osName == null) {
             osName = SystemUtil.getOsName();
         }
@@ -33,6 +30,23 @@ public class MinecraftPath {
             minecraftPath = ".minecraft";
         }
         return minecraftPath;
+    }
+
+    public static String getDefaultMinecraftPath() {
+        String osName = SystemUtil.getOsName();
+        if (osName == null) {
+            osName = SystemUtil.getOsName();
+        }
+
+        if (osName.contains("win")) {
+            MinecraftPath.minecraftDefaultPath = System.getenv("APPDATA") + "/.minecraft";
+        } else if (osName.contains("nix") || osName.contains("nux") || osName.contains("mac")) {
+            String home = System.getProperty("user.home");
+            minecraftDefaultPath = home + "/.minecraft";
+        } else {
+            minecraftDefaultPath = ".minecraft";
+        }
+        return minecraftDefaultPath;
     }
 
 }

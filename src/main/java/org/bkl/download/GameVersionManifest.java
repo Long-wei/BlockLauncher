@@ -18,7 +18,7 @@ public class GameVersionManifest {
     private static final Logger log = LoggerFactory.getLogger(GameVersionManifest.class.getName());
     private static final String MANIFEST_URL = "https://launchermeta.mojang.com/mc/game/version_manifest_v2.json";
     private static final HttpClient client = HttpClient.newHttpClient();
-    private static JsonObject manifest;
+    private static JsonObject manifest = null;
 
     public static JsonObject getManifestFetcher() {
         HttpRequest request = HttpRequest.newBuilder()
