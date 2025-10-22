@@ -23,4 +23,15 @@ public class VersionManifestDownloaderTest {
     public void hashUt() {
         System.out.println(HashUtil.verifyHash(Path.of(MinecraftPath.getMinecraftPath() + "/versions/1.21.10/1.21.10.jar"), "d3bdf582a7fa723ce199f3665588dcfe6bf9aca8", "SHA-1"));
     }
+
+    @Test
+    public void downloadLibraries() {
+        VersionManifestDownloader.downloadLibraries("1.21.10");
+    }
+
+    @Test
+    public void downloadAssets() {
+        VersionManifestDownloader.downloadAssets("1.21.10");
+    }
+
 }

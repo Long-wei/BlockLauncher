@@ -1,5 +1,6 @@
 package org.bkl.download;
 
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import org.bkl.game.MinecraftPath;
@@ -9,10 +10,12 @@ import org.bkl.util.GsonUtil;
 import org.bkl.util.HashUtil;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.nio.file.Files;
 import java.nio.file.Path;
 
 public class VersionManifestDownloader {
@@ -38,7 +41,7 @@ public class VersionManifestDownloader {
     }
 
     public static void downloadVersionManifest(String mcVersion) {
-        if (gameVersionJsonObject == null) {
+        if (VersionManifestDownloader.gameVersionJsonObject == null || VersionManifestDownloader.gameInstallPath == null) {
             init(mcVersion);
         }
 
@@ -70,7 +73,7 @@ public class VersionManifestDownloader {
     }
 
     public static void downloadClientJar(String mcVersion) {
-        if (VersionManifestDownloader.gameVersionJsonObject == null) {
+        if (VersionManifestDownloader.gameVersionJsonObject == null || gameInstallPath == null) {
             init(mcVersion);
         }
         JsonObject downloads = VersionManifestDownloader.gameVersionJsonObject.getAsJsonObject("downloads");
@@ -123,8 +126,139 @@ public class VersionManifestDownloader {
 
     }
 
-    public static void downloadLibraries() {
+    public static void downloadLibraries(String mcVersion) {
+        if (VersionManifestDownloader.gameVersionJsonObject == null ||  VersionManifestDownloader.gameInstallPath == null) {
+            init(mcVersion);
+        }
 
+        JsonArray librariesJsonArray = VersionManifestDownloader.gameVersionJsonObject.getAsJsonArray("libraries");
+        if (librariesJsonArray == null || librariesJsonArray.isEmpty()) {
+            log.info("Game version JSON object or install path is not initialized.");
+            return;
+        }
+
+        for (int i = 0; i < librariesJsonArray.size(); i++) {
+            JsonObject libraryJsonObject = librariesJsonArray.get(i).getAsJsonObject();
+            if (libraryJsonObject.has("downloads")) {
+                JsonObject downloads = libraryJsonObject.getAsJsonObject("downloads");
+                if (downloads.has("artifact")) {
+                    JsonObject artifact = downloads.getAsJsonObject("artifact");
+                    String url = artifact.get("url").getAsString();
+                    String path = artifact.get("path").getAsString();
+                    String sha1 = artifact.get("sha1").getAsString();
+
+                    File libFile = new File(VersionManifestDownloader.gameInstallPath + "/libraries/" + path);
+                    if (!libFile.exists()) {
+                        libFile.getParentFile().mkdirs();
+                        try {
+                            libFile.createNewFile();
+                        } catch (Exception e) {
+                            log.info("Failed to create library file: " + e.getMessage());
+                        }
+                    }
+
+                    if (!HashUtil.verifyHash(libFile.toPath(), sha1, "SHA-1")) {
+                        log.info("Downloading library: " + path);
+                        byte[] libData = httpGetBytes(url);
+                        if (libData != null) {
+                            try {
+                                java.nio.file.Files.write(libFile.toPath(), libData);
+                            } catch (Exception e) {
+                                log.info("Failed to write library file: " + e.getMessage());
+                            }
+                        }
+                    } else {
+                        log.info("Library already exists and hash is verified: " + path);
+                    }
+                }
+            }
+
+        }
+
+    }
+
+    public static void downloadAssets(String mcVersion) {
+        if (VersionManifestDownloader.gameVersionJsonObject == null || gameInstallPath == null) {
+            init(mcVersion);
+        }
+        JsonObject assetIndex = VersionManifestDownloader.gameVersionJsonObject.getAsJsonObject("assetIndex");
+        if (assetIndex == null) {
+            log.info("No assetIndex found in version JSON.");
+            return;
+        }
+        String indexId = assetIndex.has("id") ? assetIndex.get("id").getAsString() : null;
+        String indexUrl = assetIndex.has("url") ? assetIndex.get("url").getAsString() : null;
+        String indexSha1 = assetIndex.has("sha1") ? assetIndex.get("sha1").getAsString() : null;
+        if (indexId == null || indexUrl == null) {
+            log.info("Asset index id or url missing.");
+            return;
+        }
+
+        String indexesDir = gameInstallPath + "/assets/indexes/";
+        new File(indexesDir).mkdirs();
+        String indexPath = indexesDir + indexId + ".json";
+        File indexFile = new File(indexPath);
+
+        // 下载并保存索引（若缺失或校验失败）
+        boolean needDownloadIndex = true;
+        if (indexFile.exists() && indexSha1 != null) {
+            if (HashUtil.verifyHash(indexFile.toPath(), indexSha1, "SHA-1")) {
+                needDownloadIndex = false;
+            } else {
+                log.info("Asset index sha1 mismatch, re-downloading index: " + indexId);
+            }
+        }
+        if (needDownloadIndex) {
+            byte[] idxBytes = httpGetBytes(indexUrl);
+            if (idxBytes == null) {
+                log.info("Failed to download asset index: " + indexUrl);
+                return;
+            }
+            try {
+                java.nio.file.Files.write(indexFile.toPath(), idxBytes);
+            } catch (Exception e) {
+                log.info("Failed to write asset index: " + e.getMessage());
+                return;
+            }
+        }
+
+        // 解析索引并下载 objects
+        String s = null;
+        try {
+            s = new String(Files.readAllBytes(indexFile.toPath()));
+        } catch (IOException e) {
+            log.info("Failed to read asset index file: " + e.getMessage());
+            return;
+        }
+        JsonObject indexJson = JsonParser.parseString(s).getAsJsonObject();
+        JsonObject objects = indexJson.getAsJsonObject("objects");
+        if (objects == null) {
+            log.info("No objects in asset index.");
+            return;
+        }
+
+        String objectsRoot = gameInstallPath + "/assets/objects/";
+        for (String key : objects.keySet()) {
+            JsonObject obj = objects.getAsJsonObject(key);
+            String hash = obj.get("hash").getAsString();
+            String sub = hash.substring(0, 2);
+            File out = new File(objectsRoot + sub + "/" + hash);
+            if (!out.exists() || !HashUtil.verifyHash(out.toPath(), hash, "SHA-1")) {
+                out.getParentFile().mkdirs();
+                String downloadUrl = "https://resources.download.minecraft.net/" + sub + "/" + hash;
+                log.info("Downloading asset: " + key + " -> " + downloadUrl);
+                byte[] data = httpGetBytes(downloadUrl);
+                if (data != null) {
+                    try {
+                        java.nio.file.Files.write(out.toPath(), data);
+                    } catch (Exception e) {
+                        log.info("Failed to write asset file: " + e.getMessage());
+                    }
+                } else {
+                    log.info("Failed to download asset: " + downloadUrl);
+                }
+            }
+        }
     }
 
     private static byte[] httpGetBytes(String url) {
