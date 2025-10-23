@@ -18,8 +18,8 @@ import java.net.http.HttpResponse;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
-public class VersionManifestDownloader {
-    private final static Logger log = LoggerFactory.getLogger(VersionManifestDownloader.class.getName());
+public class Download4VersionManifest {
+    private final static Logger log = LoggerFactory.getLogger(Download4VersionManifest.class.getName());
     private static HttpClient client = HttpClient.newHttpClient();
     protected static JsonObject gameVersionJsonObject = null;
     private static String gameInstallPath = null;
@@ -36,12 +36,12 @@ public class VersionManifestDownloader {
             log.info("No URL found for version " + mcVersion);
             return;
         }
-        VersionManifestDownloader.gameVersionJsonObject = JsonParser.parseString(httpGet(versionUrl)).getAsJsonObject();
-        VersionManifestDownloader.gameInstallPath = MinecraftPath.getDefaultMinecraftPath();
+        Download4VersionManifest.gameVersionJsonObject = JsonParser.parseString(httpGet(versionUrl)).getAsJsonObject();
+        Download4VersionManifest.gameInstallPath = MinecraftPath.getDefaultMinecraftPath();
     }
 
     public static void downloadVersionManifest(String mcVersion) {
-        if (VersionManifestDownloader.gameVersionJsonObject == null || VersionManifestDownloader.gameInstallPath == null) {
+        if (Download4VersionManifest.gameVersionJsonObject == null || Download4VersionManifest.gameInstallPath == null) {
             init(mcVersion);
         }
 
@@ -58,7 +58,7 @@ public class VersionManifestDownloader {
             mcVersionPath.mkdirs();
         }
 
-        String versionJsonPath = VersionManifestDownloader.gameInstallPath + "/versions/" + mcVersion + "/" + mcVersion + ".json";
+        String versionJsonPath = Download4VersionManifest.gameInstallPath + "/versions/" + mcVersion + "/" + mcVersion + ".json";
         File versionJsonFile = new File(versionJsonPath);
         if (!versionJsonFile.exists()) {
             try {
@@ -68,15 +68,15 @@ public class VersionManifestDownloader {
             }
         }
 
-        GsonUtil.jsonObjectWriter(VersionManifestDownloader.gameVersionJsonObject, versionJsonPath);
+        GsonUtil.jsonObjectWriter(Download4VersionManifest.gameVersionJsonObject, versionJsonPath);
 
     }
 
     public static void downloadClientJar(String mcVersion) {
-        if (VersionManifestDownloader.gameVersionJsonObject == null || gameInstallPath == null) {
+        if (Download4VersionManifest.gameVersionJsonObject == null || gameInstallPath == null) {
             init(mcVersion);
         }
-        JsonObject downloads = VersionManifestDownloader.gameVersionJsonObject.getAsJsonObject("downloads");
+        JsonObject downloads = Download4VersionManifest.gameVersionJsonObject.getAsJsonObject("downloads");
         if (downloads == null) {
             log.info("No downloads section found in version JSON.");
             return;
@@ -92,7 +92,7 @@ public class VersionManifestDownloader {
             return;
         }
 
-        String clientJarPath = VersionManifestDownloader.gameInstallPath + "/versions/" + mcVersion + "/" + mcVersion + ".jar";
+        String clientJarPath = Download4VersionManifest.gameInstallPath + "/versions/" + mcVersion + "/" + mcVersion + ".jar";
         File clientJarFile = new File(clientJarPath);
         if (!clientJarFile.exists()) {
             try {
@@ -123,15 +123,16 @@ public class VersionManifestDownloader {
                 log.info("Failed to write client jar file: " + e.getMessage());
             }
         }
+        log.info("Client jar downloaded successfully.");
 
     }
 
     public static void downloadLibraries(String mcVersion) {
-        if (VersionManifestDownloader.gameVersionJsonObject == null ||  VersionManifestDownloader.gameInstallPath == null) {
+        if (Download4VersionManifest.gameVersionJsonObject == null ||  Download4VersionManifest.gameInstallPath == null) {
             init(mcVersion);
         }
 
-        JsonArray librariesJsonArray = VersionManifestDownloader.gameVersionJsonObject.getAsJsonArray("libraries");
+        JsonArray librariesJsonArray = Download4VersionManifest.gameVersionJsonObject.getAsJsonArray("libraries");
         if (librariesJsonArray == null || librariesJsonArray.isEmpty()) {
             log.info("Game version JSON object or install path is not initialized.");
             return;
@@ -147,7 +148,7 @@ public class VersionManifestDownloader {
                     String path = artifact.get("path").getAsString();
                     String sha1 = artifact.get("sha1").getAsString();
 
-                    File libFile = new File(VersionManifestDownloader.gameInstallPath + "/libraries/" + path);
+                    File libFile = new File(Download4VersionManifest.gameInstallPath + "/libraries/" + path);
                     if (!libFile.exists()) {
                         libFile.getParentFile().mkdirs();
                         try {
@@ -178,10 +179,10 @@ public class VersionManifestDownloader {
     }
 
     public static void downloadAssets(String mcVersion) {
-        if (VersionManifestDownloader.gameVersionJsonObject == null || gameInstallPath == null) {
+        if (Download4VersionManifest.gameVersionJsonObject == null || gameInstallPath == null) {
             init(mcVersion);
         }
-        JsonObject assetIndex = VersionManifestDownloader.gameVersionJsonObject.getAsJsonObject("assetIndex");
+        JsonObject assetIndex = Download4VersionManifest.gameVersionJsonObject.getAsJsonObject("assetIndex");
         if (assetIndex == null) {
             log.info("No assetIndex found in version JSON.");
             return;

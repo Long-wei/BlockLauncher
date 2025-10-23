@@ -1,22 +1,21 @@
 package download;
 
-import org.bkl.download.VersionManifestDownloader;
+import org.bkl.download.Download4VersionManifest;
 import org.bkl.game.MinecraftPath;
 import org.bkl.util.HashUtil;
 import org.junit.jupiter.api.Test;
 
-import java.net.URI;
 import java.nio.file.Path;
 
-public class VersionManifestDownloaderTest {
+public class Download4VersionManifestTest {
     @Test
     public void downloadVersionManifest() {
-        VersionManifestDownloader.downloadVersionManifest("1.21.10");
+        Download4VersionManifest.downloadVersionManifest("1.21.10");
     }
 
     @Test
     public void downloadClientJar() {
-        VersionManifestDownloader.downloadClientJar("1.21.10");
+        Download4VersionManifest.downloadClientJar("1.21.10");
     }
 
     @Test
@@ -26,12 +25,12 @@ public class VersionManifestDownloaderTest {
 
     @Test
     public void downloadLibraries() {
-        VersionManifestDownloader.downloadLibraries("1.21.10");
+        Download4VersionManifest.downloadLibraries("1.21.10");
     }
 
     @Test
     public void downloadAssets() {
-        VersionManifestDownloader.downloadAssets("1.21.10");
+        Download4VersionManifest.downloadAssets("1.21.10");
     }
 
 }

@@ -17,7 +17,7 @@ public class MCVersionChecker {
     private static List<File> versionFolder = null;
     private static List<String> versionNameList = null;
 
-    public MCVersionChecker () {
+    public static void refresh () {
 
         MCVersionChecker.versionFolder = new ArrayList<File>();
         MCVersionChecker.versionNameList = new ArrayList<String>();
@@ -45,12 +45,20 @@ public class MCVersionChecker {
     }
 
     public static List<File> getVersionFolder() {
+        if (MCVersionChecker.versionFolder == null || MCVersionChecker.versionNameList == null) {
+            refresh();
+        }
         return MCVersionChecker.versionFolder;
     }
 
     public static List<String> getVersionNameList() {
+        if (MCVersionChecker.versionFolder == null || MCVersionChecker.versionNameList == null) {
+            refresh();
+        }
         return MCVersionChecker.versionNameList;
     }
+
+
 
 
 }

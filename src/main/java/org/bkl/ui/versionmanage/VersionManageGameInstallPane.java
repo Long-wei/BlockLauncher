@@ -8,22 +8,23 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
+import org.bkl.download.GameManage;
 import org.bkl.download.GameVersionManifest;
+import org.bkl.game.MCVersionChecker;
 import org.bkl.log.Logger;
 import org.bkl.log.LoggerFactory;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.nio.channels.Channel;
+import java.util.*;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.stream.Collectors;
 
 public class VersionManageGameInstallPane extends VBox {
     private static final Logger log = LoggerFactory.getLogger(VersionManageGameInstallPane.class.getName());
 
-    private enum Channel { RELEASE, SNAPSHOT, OLD }
+    private enum Channel { RELEASE, SNAPSHOT, OLD, INSTALLED }
 
     private final List<Button> topButtons = new ArrayList<>();
     private final ExecutorService executor = Executors.newSingleThreadExecutor();
@@ -110,9 +111,15 @@ public class VersionManageGameInstallPane extends VBox {
             private final HBox itemBox = new HBox();
             private final Label versionLabel = new Label();
             private final Region spacer = new Region();
-            private final Button actionBtn = new Button("下载");
+            private final Button actionBtn = new Button();
 
             {
+                if (currentChannel == VersionManageGameInstallPane.Channel.INSTALLED) {
+                    actionBtn.setText("删除");
+                } else {
+                    actionBtn.setText("下载");
+                }
+
                 versionLabel.setStyle("-fx-padding: 0 0 0 10;");
                 HBox.setHgrow(spacer, Priority.ALWAYS);
 
@@ -144,8 +151,46 @@ public class VersionManageGameInstallPane extends VBox {
                 super.updateItem(versionText, empty);
                 if (empty || versionText == null) {
                     setGraphic(null);
+                    actionBtn.setOnAction(null);
                 } else {
                     versionLabel.setText(versionText);
+                    if (currentChannel == VersionManageGameInstallPane.Channel.INSTALLED) {
+                        actionBtn.setText("删除");
+                        actionBtn.setOnAction(e -> {
+                            String ver = versionText;
+                            Platform.runLater(() -> loadingIndicator.setVisible(true));
+                            GameManage.deleteGame(ver);
+                            Platform.runLater(() -> {
+                                MCVersionChecker.refresh();
+                                getInstalledVersions();
+                                versionListView.refresh();
+                                loadingIndicator.setVisible(false);
+                            });
+                        });
+                    } else {
+                        actionBtn.setText("下载");
+                        actionBtn.setOnAction(e -> {
+                            Platform.runLater(() -> loadingIndicator.setVisible(true));
+
+                            Task<Void> task = new Task<>() {
+                                @Override
+                                protected Void call() throws Exception {
+                                    GameManage.downloaderGame(versionText);
+                                    return null;
+                                }
+
+                                @Override
+                                protected void succeeded() {
+                                    MCVersionChecker.refresh();
+                                    getRemoteVersions(currentChannel);
+                                    loadingIndicator.setVisible(false);
+                                }
+
+                            };
+                            executor.execute(task);
+                        });
+                    }
+
                     setGraphic(itemBox);
                 }
             }
@@ -164,7 +209,9 @@ public class VersionManageGameInstallPane extends VBox {
         btn.setPrefSize(100, 40);
         setButtonUnselected(btn);
         btn.setOnAction(e -> {
-            currentChannel = channel;
+            if (currentChannel != channel) {
+                currentChannel = channel;
+            }
             for (Button b : topButtons) setButtonUnselected(b);
             setButtonSelected(btn);
             getRemoteVersions(channel);
@@ -177,7 +224,12 @@ public class VersionManageGameInstallPane extends VBox {
         btn.setPrefSize(100, 40);
         setButtonUnselected(btn);
         btn.setOnAction(e -> {
-            for (Button b : topButtons) setButtonUnselected(b);
+            for (Button b : topButtons) {
+                setButtonUnselected(b);
+            }
+            if (currentChannel != Channel.INSTALLED) {
+                currentChannel = Channel.INSTALLED;
+            }
             setButtonSelected(btn);
             getInstalledVersions();
         });
@@ -198,7 +250,18 @@ public class VersionManageGameInstallPane extends VBox {
                     case OLD -> GameVersionManifest.getOldVersions();
                     default -> null;
                 };
-                return list;
+                if (list == null || list.isEmpty()) {
+                    return Collections.emptyList();
+                }
+
+                MCVersionChecker.refresh();
+                List<String> installed = MCVersionChecker.getVersionNameList();
+                Set<String> installedSet = (installed == null) ? Collections.emptySet() : new HashSet<>(installed);
+
+                // 过滤掉已安装的版本
+                return list.stream()
+                        .filter(v -> !installedSet.contains(v))
+                        .collect(Collectors.toList());
             }
 
             @Override
@@ -221,45 +284,14 @@ public class VersionManageGameInstallPane extends VBox {
     }
 
     private void getInstalledVersions() {
-        Platform.runLater(() -> loadingIndicator.setVisible(true));
-
-        Task<List<String>> task = new Task<>() {
-            @Override
-            protected List<String> call() {
-                List<String> list = new ArrayList<>();
-                File versionsDir = new File(System.getProperty("user.home"), ".minecraft/versions");
-                if (versionsDir.exists() && versionsDir.isDirectory()) {
-                    File[] children = versionsDir.listFiles(File::isDirectory);
-                    if (children != null) {
-                        for (File f : children) {
-                            list.add(f.getName());
-                        }
-                        Collections.sort(list);
-                    }
-                }
-                return list;
-            }
-
-            @Override
-            protected void succeeded() {
-                List<String> list = getValue();
-                if (list == null || list.isEmpty()) {
-                    log.info("no installed versions found");
-                }
-                updateVersionList(list);
-                loadingIndicator.setVisible(false);
-                versionListView.setVisible(true);
-            }
-
-            @Override
-            protected void failed() {
-                Throwable ex = getException();
-                log.info("failed to list installed versions -> " + ex);
-                loadingIndicator.setVisible(false);
-            }
-        };
-
-        executor.submit(task);
+        List<String> versionNameList = MCVersionChecker.getVersionNameList();
+        if (versionNameList == null || versionNameList.isEmpty()) {
+            log.info("no installed versions found");
+            updateVersionList(Collections.emptyList());
+            return;
+        }
+        updateVersionList(versionNameList);
+        versionListView.setVisible(true);
     }
 
     private void setButtonSelected(Button btn) {
@@ -283,6 +315,7 @@ public class VersionManageGameInstallPane extends VBox {
     private void updateVersionList(List<String> versions) {
         ObservableList<String> observableVersions = FXCollections.observableArrayList(versions);
         versionListView.setItems(observableVersions);
+        versionListView.refresh();
     }
 
     // 可在外部关闭 Pane 时调用，避免线程泄漏

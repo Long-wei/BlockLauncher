@@ -5,9 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1ef6fceb-646f-4ee4-b80a-46dbd324612a" name="Changes" comment="完善左侧头像区域">
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/bkl/download/GameManage.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/download/GameManageTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/bkl/download/VersionManifestDownloader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/bkl/download/VersionManifestDownloader.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/download/VersionManifestDownloaderTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/download/VersionManifestDownloaderTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/bkl/download/VersionManifestDownloader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/bkl/download/Download4VersionManifest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/bkl/game/MCVersionChecker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/bkl/game/MCVersionChecker.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/bkl/ui/FirstPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/bkl/ui/FirstPage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/bkl/ui/versionmanage/VersionManageGameInstallPane.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/bkl/ui/versionmanage/VersionManageGameInstallPane.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/download/VersionManifestDownloaderTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/download/Download4VersionManifestTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -88,6 +93,8 @@
     "JUnit.FabricTest.removeFabric.executor": "Run",
     "JUnit.FabricTest.versionJonsIncludeMainClass.executor": "Run",
     "JUnit.ForgeTest.isForgeInstall.executor": "Run",
+    "JUnit.GameManageTest.deleteGame.executor": "Run",
+    "JUnit.GameManageTest.downloaderGame.executor": "Run",
     "JUnit.GameVersionManifestTest.downloadVersionManifest.executor": "Run",
     "JUnit.GameVersionManifestTest.getManifestFetcher.executor": "Run",
     "JUnit.GameVersionManifestTest.getVersionInfo.executor": "Run",
@@ -144,7 +151,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="VersionManifestDownloaderTest.downloadAssets" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="Download4VersionManifestTest.downloadAssets" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="BlockLauncher" />
       <extension name="coverage">
         <pattern>
@@ -153,14 +160,14 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="download" />
-      <option name="MAIN_CLASS_NAME" value="download.VersionManifestDownloaderTest" />
+      <option name="MAIN_CLASS_NAME" value="download.Download4VersionManifestTest" />
       <option name="METHOD_NAME" value="downloadAssets" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="VersionManifestDownloaderTest.downloadClientJar" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="Download4VersionManifestTest.downloadLibraries" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="BlockLauncher" />
       <extension name="coverage">
         <pattern>
@@ -169,30 +176,14 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="download" />
-      <option name="MAIN_CLASS_NAME" value="download.VersionManifestDownloaderTest" />
-      <option name="METHOD_NAME" value="downloadClientJar" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="VersionManifestDownloaderTest.downloadLibraries" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="BlockLauncher" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="download.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="download" />
-      <option name="MAIN_CLASS_NAME" value="download.VersionManifestDownloaderTest" />
+      <option name="MAIN_CLASS_NAME" value="download.Download4VersionManifestTest" />
       <option name="METHOD_NAME" value="downloadLibraries" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="VersionManifestDownloaderTest.hashUt" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="GameManageTest.deleteGame" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="BlockLauncher" />
       <extension name="coverage">
         <pattern>
@@ -201,8 +192,24 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="download" />
-      <option name="MAIN_CLASS_NAME" value="download.VersionManifestDownloaderTest" />
-      <option name="METHOD_NAME" value="hashUt" />
+      <option name="MAIN_CLASS_NAME" value="download.GameManageTest" />
+      <option name="METHOD_NAME" value="deleteGame" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="GameManageTest.downloaderGame" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="BlockLauncher" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="download.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="download" />
+      <option name="MAIN_CLASS_NAME" value="download.GameManageTest" />
+      <option name="METHOD_NAME" value="downloaderGame" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -211,10 +218,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="Application.BlockLauncher" />
-        <item itemvalue="JUnit.VersionManifestDownloaderTest.downloadAssets" />
-        <item itemvalue="JUnit.VersionManifestDownloaderTest.downloadLibraries" />
-        <item itemvalue="JUnit.VersionManifestDownloaderTest.downloadClientJar" />
-        <item itemvalue="JUnit.VersionManifestDownloaderTest.hashUt" />
+        <item itemvalue="JUnit.GameManageTest.downloaderGame" />
+        <item itemvalue="JUnit.GameManageTest.deleteGame" />
+        <item itemvalue="JUnit.Download4VersionManifestTest.downloadAssets" />
+        <item itemvalue="JUnit.Download4VersionManifestTest.downloadLibraries" />
       </list>
     </recent_temporary>
   </component>
@@ -266,7 +273,9 @@
       <workItem from="1761042170358" duration="312000" />
       <workItem from="1761058521673" duration="4453000" />
       <workItem from="1761063031712" duration="151000" />
-      <workItem from="1761146140211" duration="4572000" />
+      <workItem from="1761146140211" duration="4818000" />
+      <workItem from="1761191863343" duration="955000" />
+      <workItem from="1761230484465" duration="3843000" />
     </task>
     <task id="LOCAL-00001" summary="增加系统检测及游戏版本显示ui">
       <option name="closed" value="true" />
