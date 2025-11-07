@@ -3,6 +3,7 @@ package org.bkl.modloader;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import org.bkl.log.Logger;
 import org.bkl.util.GsonUtil;
 
 import java.io.File;
@@ -19,6 +20,7 @@ import java.nio.file.StandardCopyOption;
 
 
 public class FabricInstall {
+    private static final Logger log = Logger.getLogger(FabricInstall.class);
     private static HttpClient client = HttpClient.newHttpClient();
     private static final String MAVEN_URL = "https://maven.fabricmc.net/";
 
@@ -202,6 +204,7 @@ public class FabricInstall {
             String intermediaUrl = intermediaryName.substring(0, intermediaryName.lastIndexOf(":")).replace(".", "/").replace(":", "/") + "/"
                     + intermediaryName.substring(intermediaryName.lastIndexOf(":") + 1) + "/"
                     + intermediaryName.substring(intermediaryName.indexOf(":") + 1).replace(":", "-") + ".jar";
+            String intermediaInstallPath = "libraries/" + intermediaUrl;
 
             HttpRequest requestIntermedia = HttpRequest.newBuilder()
                     .uri(URI.create(MAVEN_URL + intermediaUrl))
@@ -220,17 +223,16 @@ public class FabricInstall {
             }
 
             try {
-                Path path = Paths.get(mcPath, intermediaUrl);
+                Path path = Paths.get(mcPath,  intermediaInstallPath);
                 Files.createDirectories(path.getParent());
 
-                String name = String.format("intermediary-%s", mcVersion);
-                Path resolve = path.resolve(name);
                 try (InputStream is = intermediaryResp.body()) {
-                    Files.copy(is, resolve, StandardCopyOption.REPLACE_EXISTING);
+                    // 这是修改后的代码
+                    Files.copy(is, path, StandardCopyOption.REPLACE_EXISTING);
                 }
 
             } catch (Exception e) {
-
+                log.info("Failed to download Fabric library: " + e.getMessage());
             }
 
             JsonObject jsonObject = new JsonObject();

@@ -5,14 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1ef6fceb-646f-4ee4-b80a-46dbd324612a" name="Changes" comment="完善左侧头像区域">
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/bkl/download/GameManage.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/download/GameManageTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/bkl/download/VersionManifestDownloader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/bkl/download/Download4VersionManifest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/bkl/game/MCVersionChecker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/bkl/game/MCVersionChecker.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/bkl/modloader/FabricInstall.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/bkl/modloader/FabricInstall.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/bkl/ui/FirstPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/bkl/ui/FirstPage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/bkl/ui/versionmanage/VersionManageGameInstallPane.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/bkl/ui/versionmanage/VersionManageGameInstallPane.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/download/VersionManifestDownloaderTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/download/Download4VersionManifestTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/bkl/ui/LeftMainPane.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/bkl/ui/LeftMainPane.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -80,7 +76,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    "Application.BlockLauncher.executor": "Run",
+    "Application.BlockLauncher.executor": "Debug",
     "Application.Main.executor": "Run",
     "Application.SystemUtils.executor": "Run",
     "JUnit.FabricTest.getFabricLoader.executor": "Run",
@@ -275,7 +271,11 @@
       <workItem from="1761063031712" duration="151000" />
       <workItem from="1761146140211" duration="4818000" />
       <workItem from="1761191863343" duration="955000" />
-      <workItem from="1761230484465" duration="3843000" />
+      <workItem from="1761230484465" duration="4056000" />
+      <workItem from="1761237145110" duration="997000" />
+      <workItem from="1761384977050" duration="3000" />
+      <workItem from="1761385013687" duration="1000" />
+      <workItem from="1762499479760" duration="1848000" />
     </task>
     <task id="LOCAL-00001" summary="增加系统检测及游戏版本显示ui">
       <option name="closed" value="true" />

@@ -17,6 +17,7 @@ import javafx.stage.StageStyle;
 import org.bkl.game.GameLauncher;
 import org.bkl.game.MCVersionChecker;
 import org.bkl.modloader.ModLoaderManager;
+import org.bkl.ui.versionmanage.VersionManageLeftPane;
 import org.bkl.ui.versionmanage.VersionManagePage;
 import org.bkl.util.FontUtil;
 
@@ -263,6 +264,8 @@ public class FirstPage extends Application {
     }
 
     public static void show() {
+        // TODO 可能有得完善
+        LeftMainPane.alertVersion(GameLauncher.getVersion());
         primaryStage.setScene(FirstPage.scene);
     }
 

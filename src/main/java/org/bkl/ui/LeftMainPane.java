@@ -156,7 +156,6 @@ public class LeftMainPane {
              *  检查已经安装的模组加载器
              *  如果已经安装的模组加载器的数量大于一个或者没有就使用默认照片
              */
-            ModLoaderManager modLoaderManager = new ModLoaderManager();
             List<ModLoaderType> modLoaderTypes = ModLoaderManager.checkInstalledModLoaders(GameLauncher.getVersion());
             if (modLoaderTypes.size() != 1) {
                 GameLauncher.setModLoader(null);
