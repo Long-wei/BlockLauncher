@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.VotesMapper">
+    
+    <resultMap type="Votes" id="VotesResult">
+        <result property="id"    column="id"    />
+        <result property="feedbackId"    column="feedback_id"    />
+        <result property="userId"    column="user_id"    />
+        <result property="voteType"    column="vote_type"    />
+        <result property="createdAt"    column="created_at"    />
+    </resultMap>
+
+    <sql id="selectVotesVo">
+        select id, feedback_id, user_id, vote_type, created_at from votes
+    </sql>
+
+    <select id="selectVotesList" parameterType="Votes" resultMap="VotesResult">
+        <include refid="selectVotesVo"/>
+        <where>  
+            <if test="feedbackId != null "> and feedback_id = #{feedbackId}</if>
+            <if test="userId != null "> and user_id = #{userId}</if>
+            <if test="voteType != null  and voteType != ''"> and vote_type = #{voteType}</if>
+            <if test="createdAt != null "> and created_at = #{createdAt}</if>
+        </where>
+    </select>
+    
+    <select id="selectVotesById" parameterType="Long" resultMap="VotesResult">
+        <include refid="selectVotesVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertVotes" parameterType="Votes" useGeneratedKeys="true" keyProperty="id">
+        insert into votes
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="feedbackId != null">feedback_id,</if>
+            <if test="userId != null">user_id,</if>
+            <if test="voteType != null and voteType != ''">vote_type,</if>
+            <if test="createdAt != null">created_at,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="feedbackId != null">#{feedbackId},</if>
+            <if test="userId != null">#{userId},</if>
+            <if test="voteType != null and voteType != ''">#{voteType},</if>
+            <if test="createdAt != null">#{createdAt},</if>
+         </trim>
+    </insert>
+
+    <update id="updateVotes" parameterType="Votes">
+        update votes
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="feedbackId != null">feedback_id = #{feedbackId},</if>
+            <if test="userId != null">user_id = #{userId},</if>
+            <if test="voteType != null and voteType != ''">vote_type = #{voteType},</if>
+            <if test="createdAt != null">created_at = #{createdAt},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteVotesById" parameterType="Long">
+        delete from votes where id = #{id}
+    </delete>
+
+    <delete id="deleteVotesByIds" parameterType="String">
+        delete from votes where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

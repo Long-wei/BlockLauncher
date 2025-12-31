@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.UsersMapper">
+    
+    <resultMap type="Users" id="UsersResult">
+        <result property="id"    column="id"    />
+        <result property="username"    column="username"    />
+        <result property="email"    column="email"    />
+        <result property="passwordHash"    column="password_hash"    />
+        <result property="displayName"    column="display_name"    />
+        <result property="avatarUrl"    column="avatar_url"    />
+        <result property="bio"    column="bio"    />
+        <result property="role"    column="role"    />
+        <result property="reputation"    column="reputation"    />
+        <result property="status"    column="status"    />
+        <result property="lastLoginAt"    column="last_login_at"    />
+        <result property="emailVerified"    column="email_verified"    />
+        <result property="createdAt"    column="created_at"    />
+        <result property="updatedAt"    column="updated_at"    />
+    </resultMap>
+
+    <sql id="selectUsersVo">
+        select id, username, email, password_hash, display_name, avatar_url, bio, role, reputation, status, last_login_at, email_verified, created_at, updated_at from users
+    </sql>
+
+    <select id="selectUsersList" parameterType="Users" resultMap="UsersResult">
+        <include refid="selectUsersVo"/>
+        <where>  
+            <if test="username != null  and username != ''"> and username like concat('%', #{username}, '%')</if>
+            <if test="email != null  and email != ''"> and email = #{email}</if>
+            <if test="passwordHash != null  and passwordHash != ''"> and password_hash = #{passwordHash}</if>
+            <if test="displayName != null  and displayName != ''"> and display_name like concat('%', #{displayName}, '%')</if>
+            <if test="avatarUrl != null  and avatarUrl != ''"> and avatar_url = #{avatarUrl}</if>
+            <if test="bio != null  and bio != ''"> and bio = #{bio}</if>
+            <if test="role != null  and role != ''"> and role = #{role}</if>
+            <if test="reputation != null "> and reputation = #{reputation}</if>
+            <if test="status != null  and status != ''"> and status = #{status}</if>
+            <if test="lastLoginAt != null "> and last_login_at = #{lastLoginAt}</if>
+            <if test="emailVerified != null "> and email_verified = #{emailVerified}</if>
+            <if test="createdAt != null "> and created_at = #{createdAt}</if>
+            <if test="updatedAt != null "> and updated_at = #{updatedAt}</if>
+        </where>
+    </select>
+    
+    <select id="selectUsersById" parameterType="Long" resultMap="UsersResult">
+        <include refid="selectUsersVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertUsers" parameterType="Users" useGeneratedKeys="true" keyProperty="id">
+        insert into users
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="username != null and username != ''">username,</if>
+            <if test="email != null and email != ''">email,</if>
+            <if test="passwordHash != null and passwordHash != ''">password_hash,</if>
+            <if test="displayName != null">display_name,</if>
+            <if test="avatarUrl != null">avatar_url,</if>
+            <if test="bio != null">bio,</if>
+            <if test="role != null">role,</if>
+            <if test="reputation != null">reputation,</if>
+            <if test="status != null">status,</if>
+            <if test="lastLoginAt != null">last_login_at,</if>
+            <if test="emailVerified != null">email_verified,</if>
+            <if test="createdAt != null">created_at,</if>
+            <if test="updatedAt != null">updated_at,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="username != null and username != ''">#{username},</if>
+            <if test="email != null and email != ''">#{email},</if>
+            <if test="passwordHash != null and passwordHash != ''">#{passwordHash},</if>
+            <if test="displayName != null">#{displayName},</if>
+            <if test="avatarUrl != null">#{avatarUrl},</if>
+            <if test="bio != null">#{bio},</if>
+            <if test="role != null">#{role},</if>
+            <if test="reputation != null">#{reputation},</if>
+            <if test="status != null">#{status},</if>
+            <if test="lastLoginAt != null">#{lastLoginAt},</if>
+            <if test="emailVerified != null">#{emailVerified},</if>
+            <if test="createdAt != null">#{createdAt},</if>
+            <if test="updatedAt != null">#{updatedAt},</if>
+         </trim>
+    </insert>
+
+    <update id="updateUsers" parameterType="Users">
+        update users
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="username != null and username != ''">username = #{username},</if>
+            <if test="email != null and email != ''">email = #{email},</if>
+            <if test="passwordHash != null and passwordHash != ''">password_hash = #{passwordHash},</if>
+            <if test="displayName != null">display_name = #{displayName},</if>
+            <if test="avatarUrl != null">avatar_url = #{avatarUrl},</if>
+            <if test="bio != null">bio = #{bio},</if>
+            <if test="role != null">role = #{role},</if>
+            <if test="reputation != null">reputation = #{reputation},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="lastLoginAt != null">last_login_at = #{lastLoginAt},</if>
+            <if test="emailVerified != null">email_verified = #{emailVerified},</if>
+            <if test="createdAt != null">created_at = #{createdAt},</if>
+            <if test="updatedAt != null">updated_at = #{updatedAt},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteUsersById" parameterType="Long">
+        delete from users where id = #{id}
+    </delete>
+
+    <delete id="deleteUsersByIds" parameterType="String">
+        delete from users where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

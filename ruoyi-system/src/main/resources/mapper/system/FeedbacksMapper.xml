@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.FeedbacksMapper">
+    
+    <resultMap type="Feedbacks" id="FeedbacksResult">
+        <result property="id"    column="id"    />
+        <result property="userId"    column="user_id"    />
+        <result property="categoryId"    column="category_id"    />
+        <result property="title"    column="title"    />
+        <result property="slug"    column="slug"    />
+        <result property="content"    column="content"    />
+        <result property="summary"    column="summary"    />
+        <result property="status"    column="status"    />
+        <result property="priority"    column="priority"    />
+        <result property="visibility"    column="visibility"    />
+        <result property="voteCount"    column="vote_count"    />
+        <result property="commentCount"    column="comment_count"    />
+        <result property="viewCount"    column="view_count"    />
+        <result property="featured"    column="featured"    />
+        <result property="anonymous"    column="anonymous"    />
+        <result property="allowComments"    column="allow_comments"    />
+        <result property="tags"    column="tags"    />
+        <result property="attachmentsCount"    column="attachments_count"    />
+        <result property="estimatedEffort"    column="estimated_effort"    />
+        <result property="estimatedCompletionDate"    column="estimated_completion_date"    />
+        <result property="actualCompletionDate"    column="actual_completion_date"    />
+        <result property="createdAt"    column="created_at"    />
+        <result property="updatedAt"    column="updated_at"    />
+        <result property="closedAt"    column="closed_at"    />
+        <result property="closedBy"    column="closed_by"    />
+    </resultMap>
+
+    <sql id="selectFeedbacksVo">
+        select id, user_id, category_id, title, slug, content, summary, status, priority, visibility, vote_count, comment_count, view_count, featured, anonymous, allow_comments, tags, attachments_count, estimated_effort, estimated_completion_date, actual_completion_date, created_at, updated_at, closed_at, closed_by from feedbacks
+    </sql>
+
+    <select id="selectFeedbacksList" parameterType="Feedbacks" resultMap="FeedbacksResult">
+        <include refid="selectFeedbacksVo"/>
+        <where>  
+            <if test="userId != null "> and user_id = #{userId}</if>
+            <if test="categoryId != null "> and category_id = #{categoryId}</if>
+            <if test="title != null  and title != ''"> and title = #{title}</if>
+            <if test="slug != null  and slug != ''"> and slug = #{slug}</if>
+            <if test="content != null  and content != ''"> and content = #{content}</if>
+            <if test="summary != null  and summary != ''"> and summary = #{summary}</if>
+            <if test="status != null  and status != ''"> and status = #{status}</if>
+            <if test="priority != null  and priority != ''"> and priority = #{priority}</if>
+            <if test="visibility != null  and visibility != ''"> and visibility = #{visibility}</if>
+            <if test="voteCount != null "> and vote_count = #{voteCount}</if>
+            <if test="commentCount != null "> and comment_count = #{commentCount}</if>
+            <if test="viewCount != null "> and view_count = #{viewCount}</if>
+            <if test="featured != null "> and featured = #{featured}</if>
+            <if test="anonymous != null "> and anonymous = #{anonymous}</if>
+            <if test="allowComments != null "> and allow_comments = #{allowComments}</if>
+            <if test="tags != null  and tags != ''"> and tags = #{tags}</if>
+            <if test="attachmentsCount != null "> and attachments_count = #{attachmentsCount}</if>
+            <if test="estimatedEffort != null "> and estimated_effort = #{estimatedEffort}</if>
+            <if test="estimatedCompletionDate != null "> and estimated_completion_date = #{estimatedCompletionDate}</if>
+            <if test="actualCompletionDate != null "> and actual_completion_date = #{actualCompletionDate}</if>
+            <if test="createdAt != null "> and created_at = #{createdAt}</if>
+            <if test="updatedAt != null "> and updated_at = #{updatedAt}</if>
+            <if test="closedAt != null "> and closed_at = #{closedAt}</if>
+            <if test="closedBy != null "> and closed_by = #{closedBy}</if>
+        </where>
+    </select>
+    
+    <select id="selectFeedbacksById" parameterType="Long" resultMap="FeedbacksResult">
+        <include refid="selectFeedbacksVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertFeedbacks" parameterType="Feedbacks" useGeneratedKeys="true" keyProperty="id">
+        insert into feedbacks
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userId != null">user_id,</if>
+            <if test="categoryId != null">category_id,</if>
+            <if test="title != null and title != ''">title,</if>
+            <if test="slug != null and slug != ''">slug,</if>
+            <if test="content != null and content != ''">content,</if>
+            <if test="summary != null">summary,</if>
+            <if test="status != null">status,</if>
+            <if test="priority != null">priority,</if>
+            <if test="visibility != null">visibility,</if>
+            <if test="voteCount != null">vote_count,</if>
+            <if test="commentCount != null">comment_count,</if>
+            <if test="viewCount != null">view_count,</if>
+            <if test="featured != null">featured,</if>
+            <if test="anonymous != null">anonymous,</if>
+            <if test="allowComments != null">allow_comments,</if>
+            <if test="tags != null">tags,</if>
+            <if test="attachmentsCount != null">attachments_count,</if>
+            <if test="estimatedEffort != null">estimated_effort,</if>
+            <if test="estimatedCompletionDate != null">estimated_completion_date,</if>
+            <if test="actualCompletionDate != null">actual_completion_date,</if>
+            <if test="createdAt != null">created_at,</if>
+            <if test="updatedAt != null">updated_at,</if>
+            <if test="closedAt != null">closed_at,</if>
+            <if test="closedBy != null">closed_by,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userId != null">#{userId},</if>
+            <if test="categoryId != null">#{categoryId},</if>
+            <if test="title != null and title != ''">#{title},</if>
+            <if test="slug != null and slug != ''">#{slug},</if>
+            <if test="content != null and content != ''">#{content},</if>
+            <if test="summary != null">#{summary},</if>
+            <if test="status != null">#{status},</if>
+            <if test="priority != null">#{priority},</if>
+            <if test="visibility != null">#{visibility},</if>
+            <if test="voteCount != null">#{voteCount},</if>
+            <if test="commentCount != null">#{commentCount},</if>
+            <if test="viewCount != null">#{viewCount},</if>
+            <if test="featured != null">#{featured},</if>
+            <if test="anonymous != null">#{anonymous},</if>
+            <if test="allowComments != null">#{allowComments},</if>
+            <if test="tags != null">#{tags},</if>
+            <if test="attachmentsCount != null">#{attachmentsCount},</if>
+            <if test="estimatedEffort != null">#{estimatedEffort},</if>
+            <if test="estimatedCompletionDate != null">#{estimatedCompletionDate},</if>
+            <if test="actualCompletionDate != null">#{actualCompletionDate},</if>
+            <if test="createdAt != null">#{createdAt},</if>
+            <if test="updatedAt != null">#{updatedAt},</if>
+            <if test="closedAt != null">#{closedAt},</if>
+            <if test="closedBy != null">#{closedBy},</if>
+         </trim>
+    </insert>
+
+    <update id="updateFeedbacks" parameterType="Feedbacks">
+        update feedbacks
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="userId != null">user_id = #{userId},</if>
+            <if test="categoryId != null">category_id = #{categoryId},</if>
+            <if test="title != null and title != ''">title = #{title},</if>
+            <if test="slug != null and slug != ''">slug = #{slug},</if>
+            <if test="content != null and content != ''">content = #{content},</if>
+            <if test="summary != null">summary = #{summary},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="priority != null">priority = #{priority},</if>
+            <if test="visibility != null">visibility = #{visibility},</if>
+            <if test="voteCount != null">vote_count = #{voteCount},</if>
+            <if test="commentCount != null">comment_count = #{commentCount},</if>
+            <if test="viewCount != null">view_count = #{viewCount},</if>
+            <if test="featured != null">featured = #{featured},</if>
+            <if test="anonymous != null">anonymous = #{anonymous},</if>
+            <if test="allowComments != null">allow_comments = #{allowComments},</if>
+            <if test="tags != null">tags = #{tags},</if>
+            <if test="attachmentsCount != null">attachments_count = #{attachmentsCount},</if>
+            <if test="estimatedEffort != null">estimated_effort = #{estimatedEffort},</if>
+            <if test="estimatedCompletionDate != null">estimated_completion_date = #{estimatedCompletionDate},</if>
+            <if test="actualCompletionDate != null">actual_completion_date = #{actualCompletionDate},</if>
+            <if test="createdAt != null">created_at = #{createdAt},</if>
+            <if test="updatedAt != null">updated_at = #{updatedAt},</if>
+            <if test="closedAt != null">closed_at = #{closedAt},</if>
+            <if test="closedBy != null">closed_by = #{closedBy},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteFeedbacksById" parameterType="Long">
+        delete from feedbacks where id = #{id}
+    </delete>
+
+    <delete id="deleteFeedbacksByIds" parameterType="String">
+        delete from feedbacks where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.AttachmentsMapper">
+    
+    <resultMap type="Attachments" id="AttachmentsResult">
+        <result property="id"    column="id"    />
+        <result property="feedbackId"    column="feedback_id"    />
+        <result property="userId"    column="user_id"    />
+        <result property="fileName"    column="file_name"    />
+        <result property="filePath"    column="file_path"    />
+        <result property="fileSize"    column="file_size"    />
+        <result property="fileType"    column="file_type"    />
+        <result property="mimeType"    column="mime_type"    />
+        <result property="originalName"    column="original_name"    />
+        <result property="thumbnailPath"    column="thumbnail_path"    />
+        <result property="isImage"    column="is_image"    />
+        <result property="width"    column="width"    />
+        <result property="height"    column="height"    />
+        <result property="uploadIp"    column="upload_ip"    />
+        <result property="downloadCount"    column="download_count"    />
+        <result property="createdAt"    column="created_at"    />
+    </resultMap>
+
+    <sql id="selectAttachmentsVo">
+        select id, feedback_id, user_id, file_name, file_path, file_size, file_type, mime_type, original_name, thumbnail_path, is_image, width, height, upload_ip, download_count, created_at from attachments
+    </sql>
+
+    <select id="selectAttachmentsList" parameterType="Attachments" resultMap="AttachmentsResult">
+        <include refid="selectAttachmentsVo"/>
+        <where>  
+            <if test="feedbackId != null "> and feedback_id = #{feedbackId}</if>
+            <if test="userId != null "> and user_id = #{userId}</if>
+            <if test="fileName != null  and fileName != ''"> and file_name like concat('%', #{fileName}, '%')</if>
+            <if test="filePath != null  and filePath != ''"> and file_path = #{filePath}</if>
+            <if test="fileSize != null "> and file_size = #{fileSize}</if>
+            <if test="fileType != null  and fileType != ''"> and file_type = #{fileType}</if>
+            <if test="mimeType != null  and mimeType != ''"> and mime_type = #{mimeType}</if>
+            <if test="originalName != null  and originalName != ''"> and original_name like concat('%', #{originalName}, '%')</if>
+            <if test="thumbnailPath != null  and thumbnailPath != ''"> and thumbnail_path = #{thumbnailPath}</if>
+            <if test="isImage != null "> and is_image = #{isImage}</if>
+            <if test="width != null "> and width = #{width}</if>
+            <if test="height != null "> and height = #{height}</if>
+            <if test="uploadIp != null  and uploadIp != ''"> and upload_ip = #{uploadIp}</if>
+            <if test="downloadCount != null "> and download_count = #{downloadCount}</if>
+            <if test="createdAt != null "> and created_at = #{createdAt}</if>
+        </where>
+    </select>
+    
+    <select id="selectAttachmentsById" parameterType="Long" resultMap="AttachmentsResult">
+        <include refid="selectAttachmentsVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertAttachments" parameterType="Attachments" useGeneratedKeys="true" keyProperty="id">
+        insert into attachments
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="feedbackId != null">feedback_id,</if>
+            <if test="userId != null">user_id,</if>
+            <if test="fileName != null and fileName != ''">file_name,</if>
+            <if test="filePath != null and filePath != ''">file_path,</if>
+            <if test="fileSize != null">file_size,</if>
+            <if test="fileType != null">file_type,</if>
+            <if test="mimeType != null">mime_type,</if>
+            <if test="originalName != null">original_name,</if>
+            <if test="thumbnailPath != null">thumbnail_path,</if>
+            <if test="isImage != null">is_image,</if>
+            <if test="width != null">width,</if>
+            <if test="height != null">height,</if>
+            <if test="uploadIp != null">upload_ip,</if>
+            <if test="downloadCount != null">download_count,</if>
+            <if test="createdAt != null">created_at,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="feedbackId != null">#{feedbackId},</if>
+            <if test="userId != null">#{userId},</if>
+            <if test="fileName != null and fileName != ''">#{fileName},</if>
+            <if test="filePath != null and filePath != ''">#{filePath},</if>
+            <if test="fileSize != null">#{fileSize},</if>
+            <if test="fileType != null">#{fileType},</if>
+            <if test="mimeType != null">#{mimeType},</if>
+            <if test="originalName != null">#{originalName},</if>
+            <if test="thumbnailPath != null">#{thumbnailPath},</if>
+            <if test="isImage != null">#{isImage},</if>
+            <if test="width != null">#{width},</if>
+            <if test="height != null">#{height},</if>
+            <if test="uploadIp != null">#{uploadIp},</if>
+            <if test="downloadCount != null">#{downloadCount},</if>
+            <if test="createdAt != null">#{createdAt},</if>
+         </trim>
+    </insert>
+
+    <update id="updateAttachments" parameterType="Attachments">
+        update attachments
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="feedbackId != null">feedback_id = #{feedbackId},</if>
+            <if test="userId != null">user_id = #{userId},</if>
+            <if test="fileName != null and fileName != ''">file_name = #{fileName},</if>
+            <if test="filePath != null and filePath != ''">file_path = #{filePath},</if>
+            <if test="fileSize != null">file_size = #{fileSize},</if>
+            <if test="fileType != null">file_type = #{fileType},</if>
+            <if test="mimeType != null">mime_type = #{mimeType},</if>
+            <if test="originalName != null">original_name = #{originalName},</if>
+            <if test="thumbnailPath != null">thumbnail_path = #{thumbnailPath},</if>
+            <if test="isImage != null">is_image = #{isImage},</if>
+            <if test="width != null">width = #{width},</if>
+            <if test="height != null">height = #{height},</if>
+            <if test="uploadIp != null">upload_ip = #{uploadIp},</if>
+            <if test="downloadCount != null">download_count = #{downloadCount},</if>
+            <if test="createdAt != null">created_at = #{createdAt},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteAttachmentsById" parameterType="Long">
+        delete from attachments where id = #{id}
+    </delete>
+
+    <delete id="deleteAttachmentsByIds" parameterType="String">
+        delete from attachments where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>
