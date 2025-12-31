@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.StatusHistoryMapper">
+    
+    <resultMap type="StatusHistory" id="StatusHistoryResult">
+        <result property="id"    column="id"    />
+        <result property="feedbackId"    column="feedback_id"    />
+        <result property="oldStatus"    column="old_status"    />
+        <result property="newStatus"    column="new_status"    />
+        <result property="changedBy"    column="changed_by"    />
+        <result property="reason"    column="reason"    />
+        <result property="comment"    column="comment"    />
+        <result property="createdAt"    column="created_at"    />
+    </resultMap>
+
+    <sql id="selectStatusHistoryVo">
+        select id, feedback_id, old_status, new_status, changed_by, reason, comment, created_at from status_history
+    </sql>
+
+    <select id="selectStatusHistoryList" parameterType="StatusHistory" resultMap="StatusHistoryResult">
+        <include refid="selectStatusHistoryVo"/>
+        <where>  
+            <if test="feedbackId != null "> and feedback_id = #{feedbackId}</if>
+            <if test="oldStatus != null  and oldStatus != ''"> and old_status = #{oldStatus}</if>
+            <if test="newStatus != null  and newStatus != ''"> and new_status = #{newStatus}</if>
+            <if test="changedBy != null "> and changed_by = #{changedBy}</if>
+            <if test="reason != null  and reason != ''"> and reason = #{reason}</if>
+            <if test="comment != null  and comment != ''"> and comment = #{comment}</if>
+            <if test="createdAt != null "> and created_at = #{createdAt}</if>
+        </where>
+    </select>
+    
+    <select id="selectStatusHistoryById" parameterType="Long" resultMap="StatusHistoryResult">
+        <include refid="selectStatusHistoryVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertStatusHistory" parameterType="StatusHistory" useGeneratedKeys="true" keyProperty="id">
+        insert into status_history
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="feedbackId != null">feedback_id,</if>
+            <if test="oldStatus != null">old_status,</if>
+            <if test="newStatus != null">new_status,</if>
+            <if test="changedBy != null">changed_by,</if>
+            <if test="reason != null">reason,</if>
+            <if test="comment != null">comment,</if>
+            <if test="createdAt != null">created_at,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="feedbackId != null">#{feedbackId},</if>
+            <if test="oldStatus != null">#{oldStatus},</if>
+            <if test="newStatus != null">#{newStatus},</if>
+            <if test="changedBy != null">#{changedBy},</if>
+            <if test="reason != null">#{reason},</if>
+            <if test="comment != null">#{comment},</if>
+            <if test="createdAt != null">#{createdAt},</if>
+         </trim>
+    </insert>
+
+    <update id="updateStatusHistory" parameterType="StatusHistory">
+        update status_history
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="feedbackId != null">feedback_id = #{feedbackId},</if>
+            <if test="oldStatus != null">old_status = #{oldStatus},</if>
+            <if test="newStatus != null">new_status = #{newStatus},</if>
+            <if test="changedBy != null">changed_by = #{changedBy},</if>
+            <if test="reason != null">reason = #{reason},</if>
+            <if test="comment != null">comment = #{comment},</if>
+            <if test="createdAt != null">created_at = #{createdAt},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteStatusHistoryById" parameterType="Long">
+        delete from status_history where id = #{id}
+    </delete>
+
+    <delete id="deleteStatusHistoryByIds" parameterType="String">
+        delete from status_history where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

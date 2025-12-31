@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.ReportsMapper">
+    
+    <resultMap type="Reports" id="ReportsResult">
+        <result property="id"    column="id"    />
+        <result property="reporterId"    column="reporter_id"    />
+        <result property="targetType"    column="target_type"    />
+        <result property="targetId"    column="target_id"    />
+        <result property="reason"    column="reason"    />
+        <result property="description"    column="description"    />
+        <result property="status"    column="status"    />
+        <result property="resolvedBy"    column="resolved_by"    />
+        <result property="resolution"    column="resolution"    />
+        <result property="resolvedAt"    column="resolved_at"    />
+        <result property="createdAt"    column="created_at"    />
+        <result property="updatedAt"    column="updated_at"    />
+    </resultMap>
+
+    <sql id="selectReportsVo">
+        select id, reporter_id, target_type, target_id, reason, description, status, resolved_by, resolution, resolved_at, created_at, updated_at from reports
+    </sql>
+
+    <select id="selectReportsList" parameterType="Reports" resultMap="ReportsResult">
+        <include refid="selectReportsVo"/>
+        <where>  
+            <if test="reporterId != null "> and reporter_id = #{reporterId}</if>
+            <if test="targetType != null  and targetType != ''"> and target_type = #{targetType}</if>
+            <if test="targetId != null "> and target_id = #{targetId}</if>
+            <if test="reason != null  and reason != ''"> and reason = #{reason}</if>
+            <if test="description != null  and description != ''"> and description = #{description}</if>
+            <if test="status != null  and status != ''"> and status = #{status}</if>
+            <if test="resolvedBy != null "> and resolved_by = #{resolvedBy}</if>
+            <if test="resolution != null  and resolution != ''"> and resolution = #{resolution}</if>
+            <if test="resolvedAt != null "> and resolved_at = #{resolvedAt}</if>
+            <if test="createdAt != null "> and created_at = #{createdAt}</if>
+            <if test="updatedAt != null "> and updated_at = #{updatedAt}</if>
+        </where>
+    </select>
+    
+    <select id="selectReportsById" parameterType="Long" resultMap="ReportsResult">
+        <include refid="selectReportsVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertReports" parameterType="Reports" useGeneratedKeys="true" keyProperty="id">
+        insert into reports
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="reporterId != null">reporter_id,</if>
+            <if test="targetType != null and targetType != ''">target_type,</if>
+            <if test="targetId != null">target_id,</if>
+            <if test="reason != null and reason != ''">reason,</if>
+            <if test="description != null">description,</if>
+            <if test="status != null">status,</if>
+            <if test="resolvedBy != null">resolved_by,</if>
+            <if test="resolution != null">resolution,</if>
+            <if test="resolvedAt != null">resolved_at,</if>
+            <if test="createdAt != null">created_at,</if>
+            <if test="updatedAt != null">updated_at,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="reporterId != null">#{reporterId},</if>
+            <if test="targetType != null and targetType != ''">#{targetType},</if>
+            <if test="targetId != null">#{targetId},</if>
+            <if test="reason != null and reason != ''">#{reason},</if>
+            <if test="description != null">#{description},</if>
+            <if test="status != null">#{status},</if>
+            <if test="resolvedBy != null">#{resolvedBy},</if>
+            <if test="resolution != null">#{resolution},</if>
+            <if test="resolvedAt != null">#{resolvedAt},</if>
+            <if test="createdAt != null">#{createdAt},</if>
+            <if test="updatedAt != null">#{updatedAt},</if>
+         </trim>
+    </insert>
+
+    <update id="updateReports" parameterType="Reports">
+        update reports
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="reporterId != null">reporter_id = #{reporterId},</if>
+            <if test="targetType != null and targetType != ''">target_type = #{targetType},</if>
+            <if test="targetId != null">target_id = #{targetId},</if>
+            <if test="reason != null and reason != ''">reason = #{reason},</if>
+            <if test="description != null">description = #{description},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="resolvedBy != null">resolved_by = #{resolvedBy},</if>
+            <if test="resolution != null">resolution = #{resolution},</if>
+            <if test="resolvedAt != null">resolved_at = #{resolvedAt},</if>
+            <if test="createdAt != null">created_at = #{createdAt},</if>
+            <if test="updatedAt != null">updated_at = #{updatedAt},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteReportsById" parameterType="Long">
+        delete from reports where id = #{id}
+    </delete>
+
+    <delete id="deleteReportsByIds" parameterType="String">
+        delete from reports where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

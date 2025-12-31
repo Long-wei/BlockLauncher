@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.SubscriptionsMapper">
+    
+    <resultMap type="Subscriptions" id="SubscriptionsResult">
+        <result property="id"    column="id"    />
+        <result property="userId"    column="user_id"    />
+        <result property="feedbackId"    column="feedback_id"    />
+        <result property="categoryId"    column="category_id"    />
+        <result property="subscriptionType"    column="subscription_type"    />
+        <result property="notifyEmail"    column="notify_email"    />
+        <result property="notifyPush"    column="notify_push"    />
+        <result property="createdAt"    column="created_at"    />
+    </resultMap>
+
+    <sql id="selectSubscriptionsVo">
+        select id, user_id, feedback_id, category_id, subscription_type, notify_email, notify_push, created_at from subscriptions
+    </sql>
+
+    <select id="selectSubscriptionsList" parameterType="Subscriptions" resultMap="SubscriptionsResult">
+        <include refid="selectSubscriptionsVo"/>
+        <where>  
+            <if test="userId != null "> and user_id = #{userId}</if>
+            <if test="feedbackId != null "> and feedback_id = #{feedbackId}</if>
+            <if test="categoryId != null "> and category_id = #{categoryId}</if>
+            <if test="subscriptionType != null  and subscriptionType != ''"> and subscription_type = #{subscriptionType}</if>
+            <if test="notifyEmail != null "> and notify_email = #{notifyEmail}</if>
+            <if test="notifyPush != null "> and notify_push = #{notifyPush}</if>
+            <if test="createdAt != null "> and created_at = #{createdAt}</if>
+        </where>
+    </select>
+    
+    <select id="selectSubscriptionsById" parameterType="Long" resultMap="SubscriptionsResult">
+        <include refid="selectSubscriptionsVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertSubscriptions" parameterType="Subscriptions" useGeneratedKeys="true" keyProperty="id">
+        insert into subscriptions
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userId != null">user_id,</if>
+            <if test="feedbackId != null">feedback_id,</if>
+            <if test="categoryId != null">category_id,</if>
+            <if test="subscriptionType != null and subscriptionType != ''">subscription_type,</if>
+            <if test="notifyEmail != null">notify_email,</if>
+            <if test="notifyPush != null">notify_push,</if>
+            <if test="createdAt != null">created_at,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userId != null">#{userId},</if>
+            <if test="feedbackId != null">#{feedbackId},</if>
+            <if test="categoryId != null">#{categoryId},</if>
+            <if test="subscriptionType != null and subscriptionType != ''">#{subscriptionType},</if>
+            <if test="notifyEmail != null">#{notifyEmail},</if>
+            <if test="notifyPush != null">#{notifyPush},</if>
+            <if test="createdAt != null">#{createdAt},</if>
+         </trim>
+    </insert>
+
+    <update id="updateSubscriptions" parameterType="Subscriptions">
+        update subscriptions
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="userId != null">user_id = #{userId},</if>
+            <if test="feedbackId != null">feedback_id = #{feedbackId},</if>
+            <if test="categoryId != null">category_id = #{categoryId},</if>
+            <if test="subscriptionType != null and subscriptionType != ''">subscription_type = #{subscriptionType},</if>
+            <if test="notifyEmail != null">notify_email = #{notifyEmail},</if>
+            <if test="notifyPush != null">notify_push = #{notifyPush},</if>
+            <if test="createdAt != null">created_at = #{createdAt},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteSubscriptionsById" parameterType="Long">
+        delete from subscriptions where id = #{id}
+    </delete>
+
+    <delete id="deleteSubscriptionsByIds" parameterType="String">
+        delete from subscriptions where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

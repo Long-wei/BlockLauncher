@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.CategoriesMapper">
+    
+    <resultMap type="Categories" id="CategoriesResult">
+        <result property="id"    column="id"    />
+        <result property="name"    column="name"    />
+        <result property="slug"    column="slug"    />
+        <result property="description"    column="description"    />
+        <result property="parentId"    column="parent_id"    />
+        <result property="sortOrder"    column="sort_order"    />
+        <result property="isActive"    column="is_active"    />
+        <result property="icon"    column="icon"    />
+        <result property="color"    column="color"    />
+        <result property="createdAt"    column="created_at"    />
+        <result property="updatedAt"    column="updated_at"    />
+    </resultMap>
+
+    <sql id="selectCategoriesVo">
+        select id, name, slug, description, parent_id, sort_order, is_active, icon, color, created_at, updated_at from categories
+    </sql>
+
+    <select id="selectCategoriesList" parameterType="Categories" resultMap="CategoriesResult">
+        <include refid="selectCategoriesVo"/>
+        <where>  
+            <if test="name != null  and name != ''"> and name like concat('%', #{name}, '%')</if>
+            <if test="slug != null  and slug != ''"> and slug = #{slug}</if>
+            <if test="description != null  and description != ''"> and description = #{description}</if>
+            <if test="parentId != null "> and parent_id = #{parentId}</if>
+            <if test="sortOrder != null "> and sort_order = #{sortOrder}</if>
+            <if test="isActive != null "> and is_active = #{isActive}</if>
+            <if test="icon != null  and icon != ''"> and icon = #{icon}</if>
+            <if test="color != null  and color != ''"> and color = #{color}</if>
+            <if test="createdAt != null "> and created_at = #{createdAt}</if>
+            <if test="updatedAt != null "> and updated_at = #{updatedAt}</if>
+        </where>
+    </select>
+    
+    <select id="selectCategoriesById" parameterType="Long" resultMap="CategoriesResult">
+        <include refid="selectCategoriesVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertCategories" parameterType="Categories" useGeneratedKeys="true" keyProperty="id">
+        insert into categories
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="name != null and name != ''">name,</if>
+            <if test="slug != null and slug != ''">slug,</if>
+            <if test="description != null">description,</if>
+            <if test="parentId != null">parent_id,</if>
+            <if test="sortOrder != null">sort_order,</if>
+            <if test="isActive != null">is_active,</if>
+            <if test="icon != null">icon,</if>
+            <if test="color != null">color,</if>
+            <if test="createdAt != null">created_at,</if>
+            <if test="updatedAt != null">updated_at,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="name != null and name != ''">#{name},</if>
+            <if test="slug != null and slug != ''">#{slug},</if>
+            <if test="description != null">#{description},</if>
+            <if test="parentId != null">#{parentId},</if>
+            <if test="sortOrder != null">#{sortOrder},</if>
+            <if test="isActive != null">#{isActive},</if>
+            <if test="icon != null">#{icon},</if>
+            <if test="color != null">#{color},</if>
+            <if test="createdAt != null">#{createdAt},</if>
+            <if test="updatedAt != null">#{updatedAt},</if>
+         </trim>
+    </insert>
+
+    <update id="updateCategories" parameterType="Categories">
+        update categories
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="name != null and name != ''">name = #{name},</if>
+            <if test="slug != null and slug != ''">slug = #{slug},</if>
+            <if test="description != null">description = #{description},</if>
+            <if test="parentId != null">parent_id = #{parentId},</if>
+            <if test="sortOrder != null">sort_order = #{sortOrder},</if>
+            <if test="isActive != null">is_active = #{isActive},</if>
+            <if test="icon != null">icon = #{icon},</if>
+            <if test="color != null">color = #{color},</if>
+            <if test="createdAt != null">created_at = #{createdAt},</if>
+            <if test="updatedAt != null">updated_at = #{updatedAt},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteCategoriesById" parameterType="Long">
+        delete from categories where id = #{id}
+    </delete>
+
+    <delete id="deleteCategoriesByIds" parameterType="String">
+        delete from categories where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

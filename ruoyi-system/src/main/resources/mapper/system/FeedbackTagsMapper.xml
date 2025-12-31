@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.FeedbackTagsMapper">
+    
+    <resultMap type="FeedbackTags" id="FeedbackTagsResult">
+        <result property="feedbackId"    column="feedback_id"    />
+        <result property="tagId"    column="tag_id"    />
+        <result property="createdAt"    column="created_at"    />
+    </resultMap>
+
+    <sql id="selectFeedbackTagsVo">
+        select feedback_id, tag_id, created_at from feedback_tags
+    </sql>
+
+    <select id="selectFeedbackTagsList" parameterType="FeedbackTags" resultMap="FeedbackTagsResult">
+        <include refid="selectFeedbackTagsVo"/>
+        <where>  
+            <if test="createdAt != null "> and created_at = #{createdAt}</if>
+        </where>
+    </select>
+    
+    <select id="selectFeedbackTagsByFeedbackId" parameterType="Long" resultMap="FeedbackTagsResult">
+        <include refid="selectFeedbackTagsVo"/>
+        where feedback_id = #{feedbackId}
+    </select>
+
+    <insert id="insertFeedbackTags" parameterType="FeedbackTags">
+        insert into feedback_tags
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="feedbackId != null">feedback_id,</if>
+            <if test="tagId != null">tag_id,</if>
+            <if test="createdAt != null">created_at,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="feedbackId != null">#{feedbackId},</if>
+            <if test="tagId != null">#{tagId},</if>
+            <if test="createdAt != null">#{createdAt},</if>
+         </trim>
+    </insert>
+
+    <update id="updateFeedbackTags" parameterType="FeedbackTags">
+        update feedback_tags
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="tagId != null">tag_id = #{tagId},</if>
+            <if test="createdAt != null">created_at = #{createdAt},</if>
+        </trim>
+        where feedback_id = #{feedbackId}
+    </update>
+
+    <delete id="deleteFeedbackTagsByFeedbackId" parameterType="Long">
+        delete from feedback_tags where feedback_id = #{feedbackId}
+    </delete>
+
+    <delete id="deleteFeedbackTagsByFeedbackIds" parameterType="String">
+        delete from feedback_tags where feedback_id in 
+        <foreach item="feedbackId" collection="array" open="(" separator="," close=")">
+            #{feedbackId}
+        </foreach>
+    </delete>
+</mapper>

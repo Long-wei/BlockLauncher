@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.TagsMapper">
+    
+    <resultMap type="Tags" id="TagsResult">
+        <result property="id"    column="id"    />
+        <result property="name"    column="name"    />
+        <result property="slug"    column="slug"    />
+        <result property="description"    column="description"    />
+        <result property="color"    column="color"    />
+        <result property="usageCount"    column="usage_count"    />
+        <result property="createdAt"    column="created_at"    />
+    </resultMap>
+
+    <sql id="selectTagsVo">
+        select id, name, slug, description, color, usage_count, created_at from tags
+    </sql>
+
+    <select id="selectTagsList" parameterType="Tags" resultMap="TagsResult">
+        <include refid="selectTagsVo"/>
+        <where>  
+            <if test="name != null  and name != ''"> and name like concat('%', #{name}, '%')</if>
+            <if test="slug != null  and slug != ''"> and slug = #{slug}</if>
+            <if test="description != null  and description != ''"> and description = #{description}</if>
+            <if test="color != null  and color != ''"> and color = #{color}</if>
+            <if test="usageCount != null "> and usage_count = #{usageCount}</if>
+            <if test="createdAt != null "> and created_at = #{createdAt}</if>
+        </where>
+    </select>
+    
+    <select id="selectTagsById" parameterType="Long" resultMap="TagsResult">
+        <include refid="selectTagsVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertTags" parameterType="Tags" useGeneratedKeys="true" keyProperty="id">
+        insert into tags
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="name != null and name != ''">name,</if>
+            <if test="slug != null and slug != ''">slug,</if>
+            <if test="description != null">description,</if>
+            <if test="color != null">color,</if>
+            <if test="usageCount != null">usage_count,</if>
+            <if test="createdAt != null">created_at,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="name != null and name != ''">#{name},</if>
+            <if test="slug != null and slug != ''">#{slug},</if>
+            <if test="description != null">#{description},</if>
+            <if test="color != null">#{color},</if>
+            <if test="usageCount != null">#{usageCount},</if>
+            <if test="createdAt != null">#{createdAt},</if>
+         </trim>
+    </insert>
+
+    <update id="updateTags" parameterType="Tags">
+        update tags
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="name != null and name != ''">name = #{name},</if>
+            <if test="slug != null and slug != ''">slug = #{slug},</if>
+            <if test="description != null">description = #{description},</if>
+            <if test="color != null">color = #{color},</if>
+            <if test="usageCount != null">usage_count = #{usageCount},</if>
+            <if test="createdAt != null">created_at = #{createdAt},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteTagsById" parameterType="Long">
+        delete from tags where id = #{id}
+    </delete>
+
+    <delete id="deleteTagsByIds" parameterType="String">
+        delete from tags where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>
